@@ -2,31 +2,30 @@
 %% Trouver un x qui satisfait Ax < b
 %% Ou retourner une erreur
 
-%% x0 est un point d'initialisation qui
-%% appartient au domaine de f3 : x -> c'*x
-function x = infeasible(A, b, c, x0, nu0)
-pkg load optim;
-load f3.m;
-% Calculer la norme 2
-load norm2.m;
+%% (w0, z0) est un point d'initialisation qui
+%% appartient au domaine de f
+function x = infeasible(C, x, y, w0, z0)
+load gradient.m;
+load hessian.m;
+load f.m;
+load backtracking.m;
 load r.m;
 
 % g est le gradient de la fonction objectif
-% en les arguments c et x0
-g = numgradient("f3", {c, x0})';
+g = gradient("f", {w0, z0, C, x, y})';
 % h est la hessienne de la fonction objectif 
-% en les arguments c et x0
-h = numhessian("f3", {c, x0});
+h = hessian("f", {w0, z0, C, x, y});
 
 [s1 s2] = size(A);
 % système KKT du problème infeasible
 matrix1 = [h A'; A zeros(s2, s1)];
 matrix2 = - [g + A'*nu; A*x - b];
 
-% On initialise x et nu
-x = x0;
+% On initialise w, z et nu
+z = z0;
+w = w0;
 nu = nu0;
-tolerance = power([10], -10);
+tolerance = power([10], -16);
 % Paramètres du backtracking
 alpha = 0.01;
 beta = 0.5;
@@ -39,6 +38,7 @@ while (~(A*x .< b) && n > tolerance)
     p_step = vector(1, :);
     d_step = vector(2, :);
     % Backtracking
+    t = backtracking(); (..........)
     t = 1;
     g = numgradient("f3", {c, x + t.*p_step});
     while (norm2(r(x + t.*p_step, nu + t.*d_step, A, b, g)) > (1 - alpha*t)*n)

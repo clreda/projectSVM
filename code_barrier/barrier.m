@@ -1,7 +1,8 @@
-%% x0 est un point d'initialisation strictement faisable
-function x=barrier(A, b, c, x0)
+%% (w0, z0) est un point d'initialisation strictement faisable
+function x = barrier(C, x, y, w0, z0)
 % Initialiser le premier point
-x = x0;
+w = w0;
+z = z0;
 s = size(A)(1);
 
 tolerance = power([10], -10);
@@ -11,6 +12,6 @@ t = 1;
 m = size(b)(1);
 
 while (m/t > tolerance)
-    x = newton2(A, b, c, t, x);
+    x = newton(C, x, y, w, z, t);
     t = mu*t;
 end
