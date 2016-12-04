@@ -1,2 +1,6 @@
 *.m~
 *.tex~
+*.aux
+*.log
+*.aux~
+*.log~
