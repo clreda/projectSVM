@@ -1,7 +1,8 @@
 %% Log barrier function
 function a = barrier(x, y, C, ainit)
+load newton.m
 
-% Initializing 
+% Initializing Lagrange multiplier a
 a = ainit;
 m = size(a,1);
 K = x*x';

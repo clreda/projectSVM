@@ -3,7 +3,7 @@ function error = crossvalidation(C, x, y)
 load barrier.m
 
 % Leave-one-out method
-error = 0;
+error = [];
 
 % x is a number x dim matrix
 n = size(x)(1);
@@ -16,29 +16,12 @@ for j=1:n
     % training
     ainit = zeros(1, number);
     a = barrier(training, trainingl, C, ainit);
-    w = sum(a .* trainingl .* training);
-    confusion = zeros(2, 2);
-    onfrontier = 0;
-    for i=1:number
-        if (w*testing(i, :) >= 1)
-            if (testingl(i) == 1)
-                confusion(1, 1) += 1;
-            else
-                confusion(2, 1) += 1;
-            end
-        end
-        if (w*testing(i, :) <= -1)
-            if (testingl(i) == -1)
-                confusion(2, 2) += 1;
-            else
-                confusion(1, 2) += 1;
-            end
-        else
-            "This point is on the frontier"
-            onfrontier += 1;
-            x1(i, :)
-        end
+    w = sum(a' .* trainingl' .* training');
+    % Confusion matrix
+    if (w*testing != testingl)
+        error = [error 1];
+    else
+        error = [error 0];
     end
-    error += confusion(1, 2) + confusion(2, 2);
 end
-error = sqrt(1/n*(error'*error));
+error = sqrt(1/n*error);

@@ -1,6 +1,6 @@
 function [x y] = generatedata(number, dim, a1, a2, oneclass=ceil(number/2))
 % number is the total number of samples
-% dim is the dimensions of the points
+% dim is the dimension of the points
 % oneclass is the number of elements in class 1
 % a1, a2 are moments of gaussian functions
 twoclass = number-oneclass;
