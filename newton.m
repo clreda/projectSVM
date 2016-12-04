@@ -1,5 +1,7 @@
-function a = newton(K,y,C,ainit,t)
+function a = newton(K, y, C, ainit, t)
 
+cv = [];
+minimum = svm_obj(a, K, y, C, t);
 
 % parameter
 ALPHA = .1; BETA = .7;
@@ -8,7 +10,12 @@ NTTOL = 1e-10; % stop iteration if lambda^2/2 < NTTOL
 a = ainit;
 
 for k=1:MAXITERS % Inner loop
-        [val,g,H] = svm_obj(a,K,y,C,t);
+        [val,g,H] = svm_obj(a, K, y, C, t);
+
+        cv = [cv val];
+        if (minimum > val)
+             minimum = val;
+        end
         
         % Newton step and decrement
         v = -H\g; 
@@ -39,3 +46,7 @@ for k=1:MAXITERS % Inner loop
             break;
         end 
 end
+
+% Print convergence
+cv = cv .- minimum;
+semilogy(1:MAXITERS, cv)
