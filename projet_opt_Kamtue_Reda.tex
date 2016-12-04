@@ -2,13 +2,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[normalem]{ulem}
-\usepackage{textcomp}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{algorithm}
 \usepackage{algorithmic}
-\pagestyle{headings}
 \title{Rapport sur le projet d'Optimisation\\Support-Vector Machines}
 \author{Kawisorn Kamtue \& Clémence Réda}
 \date{\today}
@@ -69,15 +67,54 @@ On tient compte de cette erreur en introduisant les variables $(z_i)_{i \leq m}$
 
 
            \begin{centre}
-           $min_{w}$ $\frac{1}{2} \times \|w\| + C \times \sum_{i \leq m}z_i$\\
+           (P) $min_{w}$ $\frac{1}{2} \times \|w\| + C \times \sum_{i \leq m}z_i$\\
            avec $\forall i, z_i \geq 0$\\
-           $\forall i, y_i \times (\omega^{T}x_i) \geq 1 - z_i$\\
+           $\forall i, y_i \times (\omega^{T} x_i) \geq 1 - z_i$\\
            \end{centre}
 
 \bigskip
 
 Les fonctions que l'on a introduites sont toutes convexes. Si la dimension des points $x_i$ est petite, nous allons pouvoir utiliser la méthode de Newton pour résoudre ce problème.
 
-\section{La méthode de la barrière}
+\section{Calcul du dual}
+
+Calculons le lagrangien du problème (P). Soit $\lambda$ le multiplicateur de Lagrange :
+
+              \begin{center}
+              $\forall w, \lambda \in \mathbb{R}^{2m}, L(\omega, \lambda, z) = $\\
+              $= \frac{1}{2} \|w\|^2 + C \times \sum_{i \leq m} z_i - \sum_{i < m} \lambda_{m+i} \times z_i$\\
+              $+ \sum_{i < m} \lambda_i \times (1 - z_i - y_i \omega^{T} x_i)$\\
+              \end{center}
+
+Minimisons L par rapport à $\omega$ :\\
+
+              \begin{center}
+              $\nabla_{\omega} L(\omega, \lambda, z) = \sum_i w_i + 0 + \sum_{i < m} \lambda_i \times (0$\\
+              $- 0 - y_i \times x_i) = 0$\\
+              $\Leftrightarrow \sum_i w_i - \sum_{i < m} \lambda_i \times y_i \times x_i = 0$\\
+              $\Leftrightarrow \sum_i w_i = \sum_{i < m} \lambda_i \times y_i \times x_i$ (1)\\
+              \end{center}
+
+Minimisons L par rapport à $z$ :\\
+
+              \begin{center}
+              $\nabla_{z} L(\omega, \lambda, z) = 0 + C \times m - \sum_{i < m} \lambda_{m+i} $\\
+              $+ \sum_{i < m} \lambda_i \times (0 - 1 - 0) = 0$\\
+              $\Leftrightarrow C \times m - \sum_{i < m} \lambda_{m+i} - \sum_{i < m} \lambda_i = 0$\\
+              $\Leftrightarrow  C \times m = \sum_{i < 2m} \lambda_i$ (2)\\
+              \end{center}
+
+On note alors, en injectant les valeurs de $\omega$ et de $z$ ($z \leq 0$ et $C, \lambda_i \geq 0 \forall i$, donc on prend $z=0$) dans le lagrangien :\\
+
+              \begin{center}
+              $g(\lambda) = -\frac{1}{2} \times \sum_{ij} \lambda_i y_i \lambda_j y_j x_i^{T} x_j$
+              \end{center}
+
+Le problème dual est donc :\\
+
+             \begin{center}
+             $min_{\lambda \in \mathbb{R}^{m}} g(\lambda)$\\ 
+             avec $\forall i, 0 \leq \lambda_i \leq C$ (vient de (2))\\
+             \end{center}
 
 \end{document}
