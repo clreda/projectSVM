@@ -25,7 +25,7 @@ for k=1:MAXITERS % Inner loop
         % search for the minimum
         while 1
         [nextval,nextg,nexth] = svm_obj(a+s*v,K,y,c,t);
-        if nextval > val + ALPHA*s*lambda
+        if nextval < val + ALPHA*s*lambda
             break;
         end;
         s = BETA*s;
