@@ -1,6 +1,5 @@
-function a = newton(x,y,C,ainit)
+function a = newton(K,y,C,ainit,t)
 
-K = x*x';
 
 % parameter
 ALPHA = .1; BETA = .7;
