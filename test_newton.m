@@ -10,21 +10,20 @@ ainit = zeros(1, number)
 "Dual solution:"
 a = barrier(x, y, C, ainit)
 "Primal solution:"
-v = sum(a .* y);
-w = v'*x
+w = sum(a .* y .* x)
 
 "Computing out-of-sample performance"
 confusion = zeros(2, 2);
 onfrontier = 0;
 for i=1:n
-    if (w'*x(i, :) >= 1)
+    if (w*x(i, :) >= 1)
         if (y(i) == 1)
             confusion(1, 1) = confusion(1, 1) + 1;
         else
             confusion(2, 1) = confusion(2, 1) + 1;
         end
     end
-    if (w'*x(i, :) <= -1)
+    if (w*x(i, :) <= -1)
         if (y(i) == -1)
             confusion(2, 2) = confusion(2, 2) + 1;
         else

@@ -89,10 +89,10 @@ Calculons le lagrangien du problème (P). Soit $\lambda$ le multiplicateur de La
 Minimisons L par rapport à $\omega$ :\\
 
               \begin{center}
-              $\nabla_{\omega} L(\omega, \lambda, z)_i = w_i + 0 + \sum_{j < m} \lambda_j \times (0$\\
-              $- 0 - y_j \times x_i) = 0$\\
-              $\Leftrightarrow w_i - \sum_{j < m} \lambda_j \times y_j \times x_i = 0$\\
-              $\Leftrightarrow w_i = \sum_{j < m} \lambda_j \times y_j \times x_i$ (1)\\
+              $\nabla_{\omega} L(\omega, \lambda, z) = \omega + 0 + \sum_{i < m} \lambda_i \times (0$\\
+              $- 0 - y_i \times x_i) = 0$\\
+              $\Leftrightarrow \omega - \sum_{i < m} \lambda_i \times y_i \times x_i = 0$\\
+              $\Leftrightarrow \omega = \sum_{i < m} \lambda_i \times y_i \times x_i$ (1)\\
               \end{center}
 
 Minimisons L par rapport à $z$ :\\
@@ -120,9 +120,13 @@ Le problème dual est donc :\\
 On obtient la solution du primal à partir de celle du dual :
 
              \begin{center}
-             (1) $\forall i, w^{*}_i = \sum_j \lambda^{*}_j y_j x_i$
+             (1) $\omega^{*} = \sum_i \lambda^{*}_i y_i x_i$
              \end{center}
 
-\section{Utilisation du "kernel trick"}
+\section{Utilisation de l'astuce du noyau}
+
+Pour pouvoir trouver efficacement la solution au problème, il faut s'affranchir de la contrainte quadratique sur $\omega$.\\
+
+
 
 \end{document}
