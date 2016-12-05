@@ -1,4 +1,4 @@
-function [x y] = generatedata(number, dim, a1, a2, oneclass=ceil(number/2))
+function [x y] = generatedata(number, dim, a1=0.5, a2=1, oneclass=ceil(number/2))
 % number is the total number of samples
 % dim is the dimension of the points
 % oneclass is the number of elements in class 1

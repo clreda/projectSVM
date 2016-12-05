@@ -1,20 +1,24 @@
 function a = newton(K, y, C, ainit, t)
 load svm_obj.m
 
+% parameter
+ALPHA = 0.01;%.1; 
+BETA = 0.5;%.7;
+NTTOL = power(1, -10); % stop iteration if lambda^2/2 < NTTOL
+MAXITERS = 1000;% maximum number of iterations
+
+a = ainit;
+
 % Allows to plot the convergence
 cv = [];
 minimum = svm_obj(a, K, y, C, t);
 
-% parameter
-ALPHA = 0.01;%.1; 
-BETA = 0.5;%.7;
-NTTOL = 1e-10; % stop iteration if lambda^2/2 < NTTOL
-
-a = ainit;
-
 for k=1:MAXITERS % Inner loop
         [val, g, H] = svm_obj(a, K, y, C, t);
 
+        "being in kth step"
+        k
+        
         cv = [cv val];
         if (minimum > val)
              minimum = val;

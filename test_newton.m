@@ -1,10 +1,10 @@
-function confusion = test_newton(C, x, y, a1, a2)
+function confusion = test_newton(C, x, y, a1=0.5, a2=1)
 load generatedata.m
 load barrier.m
 
 "X and Y vectors for this test:"
-x
-y
+x'
+y'
 
 number = size(x)(1);
 
