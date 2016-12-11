@@ -1,4 +1,4 @@
-function [x y] = generatedata(n, d, m1=0.5, m2=1, class1=ceil(number/2))
+function [x y] = generatedata(n, d, m1=0.5, m2=1, class1=ceil(n/2))
 % GENERATEDATA Generates two classes of samples and labels in
 % number n and of dimension d with two Gaussian functions of different moments.
 % [x, y] = generatedata(n, d) Generates two classes (first class

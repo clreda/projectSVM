@@ -10,8 +10,15 @@ G = diag(y)*K*diag(y);
 n = size(a, 1);
 vec = ones(n, 1);
 
-f = t/2*a'*G*a - vec'*(a - log(1./(a.*(C .- a))));
+size(a)
+size(G)
 
-gradf = t*a'*G*vec - n - C*vec'*(a.*(C .- a));
+f = t/2*a*a'*G - vec'*(a - log(1./(a.*(C .- a))));
 
-hessf = t*vec'*G*vec - C*vec'*(C .- a + (C - 1).*a);
+gradf = t*a*vec*G - n - C*vec'*(a.*(C .- a));
+
+hessf = t*vec*vec*G - C*vec'*(C .- a + (C - 1).*a);
+
+size(f)
+size(gradf)
+size(hessf)

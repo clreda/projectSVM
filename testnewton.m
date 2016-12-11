@@ -10,15 +10,9 @@ function confusion = testnewton(C, x, y, m1=0.5, m2=1)
 load generatedata.m;
 load barrier.m;
 
-"X and Y vectors for this test:"
-x'
-y'
-
 [n, d] = size(x);
 
-"Initialization of Lagrange multiplier a = ainit"
-ainit = C/2*ones(1, n)
-"satisfies 0 < a < C"
+ainit = C/2*ones(1, n);
 "Dual solution:"
 a = barrier(x, y, C, ainit)
 "Primal solution:"

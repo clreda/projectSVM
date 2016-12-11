@@ -62,7 +62,7 @@ for k=1:MAXITERS
         
 end
 
-if (k = MAXITERS)
+if (k == MAXITERS)
     "La méthode de Newton n'a pas convergé."
 end
 
