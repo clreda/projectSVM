@@ -5,5 +5,5 @@ Projet SVM :
 - crossvalidation.m implémente la méthode de leave-one-out
 - generatedata.m génère des points de deux classes par deux fonctions gaussiennes de moments différents
 - newton.m implémente la méthode de Newton
-- svm_obj renvoie la valeur, le gradient et la hessienne de la fonction objectif
-- test_newton.m est un test automatique des fonctions précédentes
+- svmobj.m renvoie la valeur, le gradient et la hessienne de la fonction objectif avec la fonction log-barrière
+- testnewton.m est un test automatique des fonctions précédentes

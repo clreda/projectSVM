@@ -1,57 +1,71 @@
-function a = newton(K, y, C, ainit, t)
-load svm_obj.m
-
-% parameter
-ALPHA = 0.01;%.1; 
-BETA = 0.5;%.7;
-NTTOL = power(1, -10); % stop iteration if lambda^2/2 < NTTOL
-MAXITERS = 1000;% maximum number of iterations
+function a = newton(K, y, C, ainit, t, ALPHA=0.01, BETA=0.5, NTTOL=1e-10, MAXITERS=1000)
+% NEWTON Implements Newton's method for optimization.
+% a = newton(K, y, C, ainit, t) Returns Lagrange multiplier a for
+% samples of labels y, kernel matrix K, constant C, initialization
+% of Lagrange multiplier ainit (parameters for backtracking line
+% search : ALPHA=0.01, BETA=0.5, tolerance 1e-10 (stops iteration
+% if lambda^2/2 < 1e-10), maximum number of
+% iterations 1000).
+% a = newton(K, y, C, ainit, t, ALPHA, BETA) with parameters ALPHA
+% and BETA for backtracking line search.
+% a = newton(K, y, C, ainit, t, ALPHA, BETA, NTTOL) with parameters ALPHA
+% and BETA for backtracking line search, and NTTOL for tolerance.
+% a = newton(K, y, C, ainit, t, ALPHA, BETA, NTTOL, MAXITERS) with
+% parameters ALPHA and BETA for backtracking line search, NTTOL for tolerance and
+% maxiters for maximum number of iterations.
+load svmobj.m;
 
 a = ainit;
 
-% Allows to plot the convergence
+% To plot the convergence
 cv = [];
-minimum = svm_obj(a, K, y, C, t);
+[minimum, _, _] = svmobj(a, K, y, C, t);
 
-for k=1:MAXITERS % Inner loop
-        [val, g, H] = svm_obj(a, K, y, C, t);
+for k=1:MAXITERS
+        [val, g, H] = svmobj(a, K, y, C, t);
 
         "being in kth step"
         k
         
+        % To plot the convergence
         cv = [cv val];
         if (minimum > val)
              minimum = val;
         end
         
-        %% Newton step and decrement
+        % Newton step and decrement
         v = -H\g; 
-        lambda = g'*v; % lambda here is lambda ^ 2
+        % lambda here is actually lambda^2
+        lambda = g'*(-v);
         
-        %% Perform backtracking line search along search direction
+        % Backtracking line search
         s = 1;
-        % First get strictly feasible point...
+        % First get strictly feasible point
         while (min(a+s*v) < 0) || (max(a+s*v) > C)
             s = BETA*s;
         end 
-        % search for the minimum
         while 1
-            [nextval, nextg, nexth] = svm_obj(a+s*v, K, y, c, t);
+            [nextval, nextg, nexth] = svmobj(a+s*v, K, y, c, t);
             if nextval < (val + ALPHA*s*lambda)
                 break;
             end;
             s = BETA*s;
         end
         
-        %% Update a
+        % Update a
         a = a+s*v;
         
-        %% Stopping criteria
+        % Stopping criteria
         if (abs(lambda/2) < NTTOL)
             break;
         end 
+        
 end
 
-%% Print convergence
+if (k = MAXITERS)
+    "La méthode de Newton n'a pas convergé."
+end
+
+% Plots convergence
 cv = cv .- minimum;
-semilogy(1:MAXITERS, cv);
+semilogy(1:k, cv);

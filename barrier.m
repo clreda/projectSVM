@@ -1,17 +1,17 @@
-%% Log barrier function
-function a = barrier(x, y, C, ainit)
-load newton.m
+function a = barrier(x, y, C, ainit, tolerance=1e-10, mu=10)
+% BARRIER Implements the barrier function method.
+% a = BARRIER(x, y, C, ainit) x samples, y labels, C constant,
+% ainit initialization of Lagrange multiplier a of dim 1 x m.
+% a = BARRIER(x, y, C, ainit, tolerance) with tolerance.
+% a = BARRIER(x, y, C, ainit, tolerance, mu) with mu.
+load newton.m;
 
-% Initializing Lagrange multiplier a
 a = ainit;
-m = size(a,1);
-K = x*x';
+m = size(a, 1);
+% Kernel matrix
+K = x'*x;
 
-% Parameters
-tolerance = 1e-10;
-mu = 10;
 t = 1;
-
 while (m/t > tolerance)
     % Update a and t
     a = newton(K, y, C, ainit, t);

@@ -5,7 +5,7 @@ problem sizes (vary the number of samples and record to
 total CPU time required by each code to reduce the gap 
 by a factor 10 −3 ).
 
-— Code the logarithmic barrier codeto solve a small random
+— Code the logarithmic barrier code to solve a small random
 instance of the primal problem using the ACCPM algorithm. 
 Plot an upper bound on the distance to optimality in 
 semilog scale and try various constraint dropping

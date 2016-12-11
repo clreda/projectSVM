@@ -1,14 +1,12 @@
-%% Objective function is t*a'(K .* yy')a/2 - 1^Ta - log(a(C-a))
-%                           (subject to 0 < a < C) (cf. report)
+function [f, gradf, hessf] = svmobj(a, K, y, C, t)
+% SVMOBJ Returns value, gradient and hessian for objective function 
+% t/2*a'diag(y)*K*diag(y)*a - 1^Ta - log(1./(a.*(C.-a)))
+% [f, gradf, hessf] = svmobj(a, K, y, C, t) for labels y : n x 1, kernel
+% matrix K : n x n, Lagrange multiplier a : n x 1, constant
+% for classification error C : 1 x 1.
 
-function [f, gradf, hessf] = svm_obj(a, K, y, C, t)
-
-% K = [n x n] Kernel matrix
-% y = [n x 1] Output
-% a = [n x 1] Lagrange multiplier
-% C = [1 x 1] Classification error
-
-G = K .* (y*y'); % n x n matrix
+% n x n matrix
+G = diag(y)*K*diag(y);
 n = size(a);
 vec = ones(1, n);
 Cvec = C*vec';

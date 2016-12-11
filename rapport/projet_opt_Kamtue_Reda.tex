@@ -122,7 +122,7 @@ On obtient la solution optimale du primal $(\omega^*, z^*)$ à partir de celle d
 
 \section{Utilisation de l'astuce du noyau (\emph{kernel trick})}
 
-Pour pouvoir trouver efficacement la solution au problème avec la méthode de Newton, il faut s'affranchir de la contrainte quadratique sur la dimension des échantillons. On note X la matrice de \emph{design} (des échantillons), et la matrice du noyau $K = X^TX$, avec $K \geq 0$. On montre alors que le problème dual peut se réécrire de la façon suivante :\\
+Pour pouvoir trouver efficacement la solution au problème avec la méthode de Newton, il faut s'affranchir de la contrainte quadratique sur la dimension des échantillons. On note X la matrice des échantillons, et la matrice du noyau $K = X^TX$, avec $K \geq 0$. On montre alors que le problème dual peut se réécrire de la façon suivante :\\
 
                  \begin{center}
                  $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda$\\
@@ -130,5 +130,21 @@ Pour pouvoir trouver efficacement la solution au problème avec la méthode de N
                  \end{center}
 
 On remarque que la dimension $m$ des échantillons n'intervient plus, et que donc la complexité de la résolution du problème ne dépend que du nombre d'échantillons. 
+
+\section{Méthode de la barrière logarithmique}
+
+Enfin, on peut s'affranchir des contraintes d'inégalité sur le multiplicateur de Lagrange $\lambda$ en posant la fonction barière suivante :\\
+
+          \begin{center}
+          $\Phi(\lambda) = \sum_i (- log(C - \lambda_i) - log(\lambda_i)) = \sum_i log(\frac{1}{(C - \lambda_i)\lambda_i})$ 
+          \end{center}
+
+Le problème à optimiser devient alors :\\
+
+          \begin{center}
+          $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda + \Phi(\lambda)$\\ 
+          \end{center}
+
+\section{Résultats}
 
 \end{document}

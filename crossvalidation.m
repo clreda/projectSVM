@@ -1,27 +1,27 @@
-% Compute prediction error
 function error = crossvalidation(C, x, y)
-load barrier.m
+% CROSSVALIDATION Computes mean-square prediction error for samples x and
+% constant C with "leave-one-out" technique, using log-barrier function method.
+% error = crossvalidation(C, x, y) for samples x associated with labels y.
+load barrier.m;
 
-% Leave-one-out method
 error = [];
-
-% x is a number x dim matrix
-n = size(x)(1);
+[n, d] = size(x);
 for j=1:n
     training = x([1:(j-1) (j+1):n], :);
     trainingl = y([1:(j-1) (j+1):n], :);
     testing = x(j, :);
     testingl = y(j, :);
 
-    % training
-    ainit = zeros(1, number);
-    a = barrier(training, trainingl, C, ainit);
-    w = sum(a' .* trainingl' .* training');
+    % Training : a = 0 satisfies the condition 0 <= a <= C
+    a = barrier(training, trainingl, C, zeros(n, 1));
+    % Primal solution
+    w = sum((a .* trainingl)'*training);
     % Confusion matrix
-    if (w*testing != testingl)
-        error = [error 1];
-    else
+    if (w*testing(1, 1) = testingl)
         error = [error 0];
+    else
+        error = [error 1];
     end
+    
 end
 error = sqrt(1/n*error);
