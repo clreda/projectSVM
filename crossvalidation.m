@@ -12,12 +12,12 @@ for j=1:n
     testing = x(j, :);
     testingl = y(j, :);
 
-    % Training : a = 0 satisfies the condition 0 <= a <= C
-    a = barrier(training, trainingl, C, zeros(n, 1));
+    % Training : ai = C/2 satisfies the condition 0 <= a <= C
+    a = barrier(training, trainingl, C, C/2*ones(n, 1));
     % Primal solution
     w = sum((a .* trainingl)'*training);
     % Confusion matrix
-    if (w*testing(1, 1) = testingl)
+    if ((w*testing)(1, 1) = testingl)
         error = [error 0];
     else
         error = [error 1];
