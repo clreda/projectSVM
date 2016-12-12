@@ -12,6 +12,9 @@ vec = ones(n, 1);
 
 f = t/2*a'*G*a - vec'*(a + log(a.*(C .- a)));
 
-gradf = t*a'*G*vec - n - vec'*(1./a + (C - 1)./(C .- a));
+gradf = t/2*((G + G')*a)' - n - (1./a + (C - 1)./(C .- a));
 
-hessf = t*vec'*G*vec - vec'*((C-1)./((C .- a).*(C .- a)) .- 1./(a.*a));
+asqr = a'*a;
+acsqr = (c .- a)'*(c .- a);
+
+hessf = t/2*(G+G') - ((C-1)./acsqr .- 1./asqr);
