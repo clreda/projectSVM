@@ -9,7 +9,7 @@ load newton.m;
 a = ainit;
 m = size(a, 1);
 % Kernel matrix
-K = x*x';
+K = x'*x;
 
 t = 1;
 while (m/t > tolerance)
