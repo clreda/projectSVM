@@ -12,7 +12,7 @@ vec = ones(n, 1);
 
 f = t/2*a'*G*a - vec'*(a + log(a.*(C .- a)));
 
-gradf = t/2*((G + G')*a) - n.*ones(n, 1) - (1./a + (C - 1)./(C .- a));
+gradf = t/2*((G + G')*a) - vec - (1./a + (C - 1)./(C .- a));
 
 asqr = a'*a;
 acsqr = (C .- a)'*(C .- a);
