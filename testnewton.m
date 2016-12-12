@@ -10,9 +10,9 @@ function confusion = testnewton(C, x, y, m1=0.5, m2=1)
 load generatedata.m;
 load barrier.m;
 
-[n, d] = size(x);
+[d, n] = size(x);
 
-ainit = C/2*ones(1, n);
+ainit = C/2*ones(n, 1);
 "Dual solution:"
 a = barrier(x, y, C, ainit)
 "Primal solution:"

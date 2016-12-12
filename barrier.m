@@ -7,12 +7,12 @@ function a = barrier(x, y, C, ainit, tolerance=1e-10, mu=10)
 load newton.m;
 
 a = ainit;
-m = size(a, 1);
+n = size(a, 1);
 % Kernel matrix
 K = x'*x;
 
 t = 1;
-while (m/t > tolerance)
+while (n/t > tolerance)
     % Update a and t
     a = newton(K, y, C, ainit, t);
     t = mu*t;

@@ -5,7 +5,7 @@ function error = crossvalidation(C, x, y)
 load barrier.m;
 
 error = [];
-[n, d] = size(x);
+[d, n] = size(x);
 for j=1:n
     training = x([1:(j-1) (j+1):n], :);
     trainingl = y([1:(j-1) (j+1):n], :);
