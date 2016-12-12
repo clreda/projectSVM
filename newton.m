@@ -42,18 +42,18 @@ for k=1:MAXITERS
         s = 1;
         % First get strictly feasible point
         while (min(a+s*v) < 0) || (max(a+s*v) > C)
-            s = BETA*s;
+            s = BETA*s
         end 
         while 1
             [nextval, nextg, nexth] = svmobj(a+s*v, K, y, C, t);
             if nextval < (val + ALPHA*s*lambda)
                 break;
             end;
-            s = BETA*s;
+            s = BETA*s
         end
         
         % Update a
-        a = a+s*v;
+        a = a+s*v
         
         % Stopping criteria
         if (abs(lambda/2) < NTTOL)
