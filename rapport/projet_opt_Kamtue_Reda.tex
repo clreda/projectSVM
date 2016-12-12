@@ -19,8 +19,9 @@
 
 Les \emph{Support Vector Machine solvers} (SVM) sont une catégorie d'algorithmes d'apprentissage statistique supervisé. Ils permettent de résoudre le problème de classification binaire suivant :\\
 
-           \begin{center}
+           
            Etant donnés $(x_i)_{i \leq m}$ des points dans $\mathbb{R}^n$, et $(y_i)_{i \leq m}$ les étiquettes des points tels que l'étiquette de $x_i$ soit $y_i \in \{-1, 1\}$, on cherche la droite qui sépare "le mieux possible" les points dans différentes classes, autrement dit, la frontière de Voronoi entre les deux classes.
+           \begin{center}
            \begin{figure}[H]
            \centering
            \caption{Exemple de frontière pour deux classes : celles des points noirs et celle des points rouges}
@@ -28,10 +29,10 @@ Les \emph{Support Vector Machine solvers} (SVM) sont une catégorie d'algorithme
            \end{figure}
            \end{center} 
 
-La frontière que l'on recherche est une fonction linéaire, donc de la forme (avec deux paramètres de dimension 1 $\omega$ et $b$) :\\
+\noidnent La frontière que l'on recherche est une fonction linéaire, donc de la forme (avec deux paramètres de dimension 1 $\omega$ et $b$) :\\
 
           \begin{center}
-          $f : X -> \omega^{T}X + b$
+          $f : X \rightarrow \omega^{T}X + b$
           \end{center}
 
 telle que :\\
