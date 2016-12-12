@@ -23,9 +23,6 @@ cv = [];
 
 for k=1:MAXITERS
         [val, g, H] = svmobj(a, K, y, C, t);
-
-        "being in kth step"
-        k
         
         % To plot the convergence
         cv = [cv val];
@@ -65,6 +62,9 @@ end
 
 if (k == MAXITERS)
     "La méthode de Newton n'a pas convergé."
+else
+    "Nombre d'itérations :"
+    k
 end
 
 % Plots convergence

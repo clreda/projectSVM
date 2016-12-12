@@ -14,7 +14,9 @@ load barrier.m;
 
 ainit = C/2*ones(n, 1);
 "Dual solution:"
+tic
 a = barrier(x, y, C, ainit)
+toc
 "Primal solution:"
 w = sum((a .* y)'*x)
 
