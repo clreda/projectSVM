@@ -47,7 +47,7 @@ for k=1:MAXITERS
         end 
         while 1
             [nextval, nextg, nexth] = svmobj(a+s*v, K, y, C, t);
-            if nextval < (val + ALPHA*s*lambda)
+            if nextval <= (val + ALPHA*s*lambda)
                 break;
             end;
             s = BETA*s;
