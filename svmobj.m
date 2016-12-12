@@ -6,15 +6,16 @@ function [f, gradf, hessf] = svmobj(a, K, y, C, t)
 % for classification error C : 1 x 1.
 
 % n x n matrix
-G = diag(y)*K*diag(y);
+G = diag(y)*K*diag(y); % we can write G = (K.* y*y') for faster calculation
 n = size(a, 1);
 vec = ones(n, 1);
 
 f = t/2*a'*G*a - vec'*(a + log(a.*(C .- a)));
 
-gradf = t/2*((G + G')*a) - vec - (1./a + (C - 1)./(C .- a));
+gradf = t/2*((G + G')*a) - vec - (1./a - (C - 1)./(C .- a));
 
 asqr = a'*a;
 acsqr = (C .- a)'*(C .- a);
 
-hessf = t/2*(G+G') - ((C-1)./acsqr .- 1./asqr);
+hessf = t/2*(G+G') + (1./(a.^2) .+ 1./((C.-a).^2));
+%hessf = t/2*(G+G') - ((C-1)./acsqr .- 1./asqr);
