@@ -68,5 +68,6 @@ else
 end
 
 % Plots convergence
-cv = cv .- minimum;
-semilogy(1:k, cv);
+cv = cv .- minimum
+%semilogy(1:k, cv)
+plot(1:k, cv);
