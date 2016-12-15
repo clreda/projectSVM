@@ -12,10 +12,15 @@ n = size(a, 1);
 K = x'*x;
 
 t = 1;
+nbiter = 0;
 while (n/t > tolerance)
     % Update a and t
     [a, cv] = newton(K, y, C, ainit, t);
     t = mu*t;
+    nbiter += 1;
+    plot(1:size(cv, 2), cv);
+    hold on;
 end
 
-plot(1:size(cv, 2), cv)
+%plot(1:size(cv, 2), cv)
+"Number of iterations", nbiter
