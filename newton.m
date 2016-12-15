@@ -1,4 +1,4 @@
-function a = newton(K, y, C, ainit, t, ALPHA=0.01, BETA=0.5, NTTOL=1e-10, MAXITERS=1000)
+function [a, cv] = newton(K, y, C, ainit, t, ALPHA=0.01, BETA=0.5, NTTOL=1e-10, MAXITERS=1000)
 % NEWTON Implements Newton's method for optimization.
 % a = newton(K, y, C, ainit, t) Returns Lagrange multiplier a for
 % samples of labels y, kernel matrix K, constant C, initialization
@@ -61,13 +61,10 @@ for k=1:MAXITERS
 end
 
 if (k == MAXITERS)
-    "La méthode de Newton n'a pas convergé."
+    %"La méthode de Newton n'a pas convergé."
 else
-    "Nombre d'itérations :"
-    k
+    %"Nombre d'itérations :"
+    %k
 end
 
-% Plots convergence
-cv = cv .- minimum
-%semilogy(1:k, cv)
-plot(1:k, cv);
+cv = cv .- minimum;

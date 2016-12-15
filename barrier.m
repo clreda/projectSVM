@@ -14,6 +14,8 @@ K = x'*x;
 t = 1;
 while (n/t > tolerance)
     % Update a and t
-    a = newton(K, y, C, ainit, t);
+    [a, cv] = newton(K, y, C, ainit, t);
     t = mu*t;
 end
+
+plot(1:size(cv, 2), cv)

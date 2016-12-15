@@ -32,7 +32,7 @@ Les \emph{Support Vector Machine solvers} (SVM) sont une catégorie d'algorithme
 \noidnent La frontière que l'on recherche est une fonction linéaire, donc de la forme (avec deux paramètres de dimension 1 $\omega$ et $b$) :\\
 
           \begin{center}
-          $f : X \rightarrow \omega^{T}X + b$
+          $f : X \rightarrow \omega^{T}X + b = $\begin{bmatrix}$\omega$\\ $b$\end{bmatrix} \begin{bmatrix} $x$\\ 1\end{bmatrix}$$
           \end{center}
 
 telle que :\\
@@ -45,7 +45,7 @@ telle que :\\
 
 \newpage
 
-Pour simplifier le problème, on peut prendre $\omega' =$ \begin{bmatrix}$\omega$\\ 1\end{bmatrix} (que l'on note par la suite $\omega$) pour supposer $b = 0$ sans perte de généralité.\\
+Pour simplifier le problème, on peut prendre $\omega' =$ \begin{bmatrix}$\omega$\\ $b$\end{bmatrix} et $x' =$\begin{bmatrix}$x$\\ 1\end{bmatrix} (que l'on notera par souci de simplicité $\omega$ et $x$).\\
 
 Pour obtenir un résultat robuste, on souhaite que les deux droites $f(X) = 1$ et $f(X) = -1$ soient les plus distantes possibles. En effet, si ces deux droites sont trop proches, cela signifie que la probabilité d'erreur quant à la prédiction de la classe d'un point proche de ces droites sera importante.\\
 
