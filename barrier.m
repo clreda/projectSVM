@@ -22,5 +22,5 @@ while (n/t > tolerance)
     %hold on;
 end
 
-plot(1:size(cv, 2), cv)
+semilogy(1:size(cv, 2), cv)
 "Number of iterations", nbiter
