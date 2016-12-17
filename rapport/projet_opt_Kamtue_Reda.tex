@@ -93,14 +93,14 @@ Calculons le lagrangien du problème (P). Soit $\lambda$ le multiplicateur de La
               $+ (C$\textbf{1}$ - \lambda)^{T}z + $\textbf{1}$^{T}\lambda$\\
               \end{center}
 
-Minimisons L par rapport à $\omega$. Comme le langrangien est convexe en $\omega$, il faut annuler le gradient :\\
+Minimisons L par rapport à $\omega$. Comme le lagrangien est convexe en $\omega$, il faut annuler le gradient :\\
 
               \begin{center}
               $\nabla_{\omega} L(\omega, \lambda, z) = \frac{1}{2}(2\omega - 2\sum_i \lambda_iy_ix_i) + 0 = 0$\\
               $\Leftrightarrow \omega = \sum_i \lambda_iy_ix_i$ (1)\\
               \end{center}
 
-Minimisons L par rapport à $z$. Comme le langrangien est convexe en $z$, il faut annuler le gradient :\\
+Minimisons L par rapport à $z$. Comme le lagrangien est convexe en $z$, il faut annuler le gradient :\\
 
               \begin{center}
               $\nabla_{z} L(\omega, \lambda, z) = 0 + C$\textbf{1}\textbf{$1_{z>0}$}$^T - \lambda$\textbf{$1_{z>0}$}$^T = 0$\\
@@ -147,5 +147,134 @@ Le problème à optimiser devient alors :\\
           \end{center}
 
 \section{Résultats}
+
+\subsection{Comparaison entre les différentes générations de points}
+
+$d$ est la dimension des points et $n$ le nombre d'échantillons dans la génération.\\
+
+     \begin{table}[H]
+       \caption{Comparaison entre les générations de points}
+       \begin{tabular}{|l|c|c|c|c|c|r|}
+         \hline
+         \textsc{Génération} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N itérations} & \textsc{Temps Newton (s)} & \textsc{Taux d'échec}\\
+         \hline
+         1 & 1 & 2 & 10 & 11 & 81,017 & 0\\
+         \hline
+       \end{tabular}
+     \end{table}
+
+\subsection{Points dans les quadrans ($x, y > 0$) et ($x > 0, y < 0$)}
+
+On génère les points selon la procédure 1 dans \emph{generatedata.m}. Les points de la première classe sont dans le quadran ($x, y > 0$) et ceux de la seconde classe sont dans le quadran ($x > 0, y > 0$).\\
+
+         \begin{center}
+         $x=$\begin{bmatrix}
+           79,4566 & 6,3054 & 10,2126 & 58,7432 & 96,0460 & ...\\ 
+           56,1444 &  46,6231 &  20,4822 &  60,5679 &  12,0744 & ...\\ 
+           1,0000 & 1,0000 & 1,0000 & 1,0000 & 1,0000 & ...\\ 
+           \end{bmatrix}
+           
+           \begin{bmatrix}
+          ... & -89,3088 & -5,7061 & -15,7588 & -1,9675 & -59,3514\\
+          ... & -42,7449 & -17,0933 & -58,5002 & -21,2904 & -48,6966\\
+          ... & 1,0000 & 1,0000 & 1,0000 & 1,0000 & 1,0000\\
+           \end{bmatrix}\\
+           $y =$\begin{bmatrix}
+           1 & 1 & 1 & 1 & 1 & -1 & -1 & -1 & -1 & -1\\
+           \end{bmatrix}
+         \end{center}
+
+\subsubsection{Pour $C = 1$}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/cvnewton1.png}
+             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+           \end{center}
+         \end{figure}
+
+       \begin{center}
+       $\lambda =$\begin{bmatrix}   
+         8,6314$.10^{-7}$\\
+         1,2616$.10^{-6}$\\
+         1,0513$.10^{-6}$\\
+         9,8250$.10^{-7}$\\
+         6,7446$.10^{-7}$\\
+         1,3976$.10^{-6}$\\
+         9,4634$.10^{-7}$\\
+         8,2267$.10^{-7}$\\
+         9,0923$.10^{-7}$\\
+         1,0908$.10^{-6}$\end{bmatrix}
+       \end{center}
+
+       \begin{center}
+       $\omega =$\begin{bmatrix}   
+         4,1948$.10^{-4}$\\
+         3,9299$.10^{-4}$\\
+         -3,3357$.10^{-7}$\\\end{bmatrix}
+       \end{center}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/line2D1.png}
+             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/dualitygap1.png}
+             \caption{\emph{Duality gap} : tracé de $\|\omega^*\| - \|a^*\|$ en fonction du nombre d'itérations de la méthode de Newton}
+           \end{center}
+         \end{figure}
+
+\subsubsection{$C = 5$}
+
+Elapsed time is 0.614381 seconds.
+a =
+
+   8.6314e-07
+   1.2616e-06
+   1.0513e-06
+   9.8250e-07
+   6.7446e-07
+   1.3976e-06
+   9.4634e-07
+   8.2267e-07
+   9.0923e-07
+   1.0908e-06
+
+ans = Primal solution:
+w =
+
+   4.1948e-04
+   3.9299e-04
+  -3.3357e-07
+
+\subsubsection{$C = 10$}
+
+Elapsed time is 0.3478 seconds.
+a =
+
+   8.6314e-07
+   1.2616e-06
+   1.0513e-06
+   9.8250e-07
+   6.7446e-07
+   1.3976e-06
+   9.4634e-07
+   8.2267e-07
+   9.0923e-07
+   1.0908e-06
+
+ans = Primal solution:
+w =
+
+   4.1948e-04
+   3.9299e-04
+  -3.3357e-07
+
+
+\subsubsection{Validation croisée pour le choix de la meilleure valeur de $C$}
 
 \end{document}

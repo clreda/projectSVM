@@ -7,3 +7,4 @@ Projet SVM :
 - newton.m implémente la méthode de Newton
 - svmobj.m renvoie la valeur, le gradient et la hessienne de la fonction objectif avec la fonction log-barrière
 - testnewton.m est un test automatique des fonctions précédentes
+- %TODO
