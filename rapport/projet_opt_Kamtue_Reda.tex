@@ -156,17 +156,23 @@ $d$ est la dimension des points et $n$ le nombre d'échantillons dans la génér
        \caption{Comparaison entre les générations de points}
        \begin{tabular}{|l|c|c|c|c|c|r|}
          \hline
-         \textsc{Génération} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N itérations} & \textsc{Temps Newton (s)} & \textsc{Taux d'échec}\\
+         \textsc{Génération} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N itérations} & \textsc{Temps Newton (s)} & \textsc{Taux de succès (\%)}\\
          \hline
-         1 & 1 & 2 & 10 & 11 & 81,017 & 0\\
+         1 & 1 & 2 & 10 & 11 & 81,017 & 100\\
          \hline
-         1 & 5 & 2 & 10 & 11 & 0,614381 & 0\\
+         1 & 5 & 2 & 10 & 11 & 0,614381 & 100\\
          \hline
-         1 & 10 & 2 & 10 & 11 & 0,3478 & 0\\
+         1 & 10 & 2 & 10 & 11 & 0,3478 & 100\\
          \hline
-         2 & 10 & 2 & 40 & 12 & 0,379235 & 0\\
+         2 & 10 & 2 & 40 & 12 & 0,379235 & 100\\
          \hline
-         2 & 100 & 2 & 40 & 12 & 0,512416 & 0\\
+         2 & 100 & 2 & 40 & 12 & 0,512416 & 100\\
+         \hline
+         3 & 20 & 2 & 40 & 12 & 0,387925 & 78,7\\
+         \hline
+         4 & 10 & 2 & 40 & 12 & 0,32249 & 75,0\\
+         \hline
+         5 & 20 & 2 & 50 & 12 & 0,465928 & 57,3\\
          \hline
        \end{tabular}
      \end{table}
@@ -277,43 +283,76 @@ Les deux fonctions \emph{choiceC} et \emph{crossvalidation} permettent de sélec
        \end{tabular}
      \end{table}
 
-On remarque qu'augmenter C permet d'accélérer la procédure, mais au détriment de la précision machine.
+\subsection{Points centrés réduits générés avec des fonctions gaussiennes}
 
+On utilise la procédure 2 dans \emph{generatedata.m} avec $sep=100$. Voir le fichier \emph{test3} pour les valeurs de $x$ et $y$.
 
-\subsection{Test3}
+     \begin{table}[H]
+       \caption{Matrice de confusion}
+       \begin{tabular}{|l|c|r|}
+         \hline
+         \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
+         \hline
+         \textsc{Classe 1} & 98 & 12\\
+         \hline
+         \textsc{Classe 2} & 52 & 138\\
+         \hline
+       \end{tabular}
+     \end{table}
 
-Elapsed time is 0.387925 seconds.
-ans = Primal solution:
-ans = Computing out-of-sample performance
-confusion =
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.3]{images/line2D3.png}
+             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+           \end{center}
+         \end{figure}
 
-    98    12
-    52   138
+\subsection{Points centrés réduits générés avec des fonctions gaussiennes}
 
-onfrontier = 0
-outofsampleperf =  0.78667
+On utilise la procédure 2 dans \emph{generatedata.m} avec $sep=0$. Voir le fichier \emph{test4} pour les valeurs de $x$ et $y$.
 
-séparation de sep=10 centré réduit
+     \begin{table}[H]
+       \caption{Matrice de confusion}
+       \begin{tabular}{|l|c|r|}
+         \hline
+         \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
+         \hline
+         \textsc{Classe 1} & 75 & 0\\
+         \hline
+         \textsc{Classe 2} & 75 & 150\\
+         \hline
+       \end{tabular}
+     \end{table}
 
-\subsection{Test4}
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.3]{images/line2D4.png}
+             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+           \end{center}
+         \end{figure}
 
-Séparation avec sep=0 centré réduit
+\subsection{Points générés avec des fonctions gaussiennes}
 
-\subsection{Test5}
+On utilise la procédure 3 dans \emph{generatedata.m} avec les paramètres par défaut. Voir le fichier \emph{test5} pour les valeurs de $x$ et $y$.
 
-nbiter =  12
-Elapsed time is 0.485984 seconds.
-ans = Primal solution:
-ans = Computing out-of-sample performance
-confusion =
+     \begin{table}[H]
+       \caption{Matrice de confusion}
+       \begin{tabular}{|l|c|r|}
+         \hline
+         \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
+         \hline
+         \textsc{Classe 1} & 26 & 4\\
+         \hline
+         \textsc{Classe 2} & 124 & 146\\
+         \hline
+       \end{tabular}
+     \end{table}
 
-   25    3
-    0   22
-
-onfrontier = 0
-outofsampleperf =  0.94000
-
-génération avec gaussiennes avec paramètres par défaut
-
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.3]{images/line2D5.png}
+             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+           \end{center}
+         \end{figure}
 
 \end{document}

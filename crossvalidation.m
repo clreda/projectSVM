@@ -31,10 +31,10 @@ for j=1:n
     % Confusion matrix
     if ((w*testing > 0 && testingl == 1) | 
          (w*testing <= 0 && testingl == -1))
-        err = [err 0];
+        err = [err; 0];
     else
-        err = [err 1];
+        err = [err; 1];
     end
     
 end
-err = sqrt(1/n*err);
+err = 1/n*sqrt(sum(err));

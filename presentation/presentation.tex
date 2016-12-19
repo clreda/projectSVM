@@ -3,10 +3,9 @@
 \usepackage{xcolor}
 \usepackage[T1]{fontenc}
 \usepackage[normalem]{ulem}
-\usepackage{graphicx}
 \usetheme{Antibes}
 
-\title{Projet Réseaux}
+\title{Projet Optimisation\\Support Vector Machine}
 \author{K. Kamtue \& Cl. Réda}
 \institute{ENS Cachan}
 \date{\today}
@@ -34,7 +33,7 @@
          \incudegraphics[scale=0.3]{images/voronoi.png}
          \end{center}
 
-\item Recherche d'une frontière linéaire vérifiant :
+\item Recherche d'une frontière linéaire $f$ vérifiant (condition 1) :
 
          \begin{center}
          $\forall i, y_i = -1 \Rightarrow f(x_i) \leq -1$\\
@@ -45,45 +44,27 @@
 
 \end{frame}
 
+\section{Le problème d'optimisation}
+
 \begin{frame}
 \frametitle{Recherche du problème d'optimisation}
+
+\begin{block}{Naïvement}
 
       \begin{center}
         $max_{w}$ $\gamma = \frac{2}{\|w\|}$ avec (1)\\
         $\Leftrightarrow min_{w}$ $\|w\|$ avec (1)\\
-        $\Leftrightarrow min_{w}$ $\frac{1}{2} \times \|w\|^2$ avec (1) pour faciliter les calculs
+        $\Leftrightarrow min_{w}$ $\frac{1}{2} \times \|w\|^2$ avec (1)
       \end{center}
 
-\end{center}
+\end{block}
 
-\section{Extensions}
+\end{frame}
 
+\begin{frame}
+\frametitle{Amélioration}
 
-
-Pour simplifier le problème, on peut prendre $\omega' =$ \begin{bmatrix}$\omega$\\ $b$\end{bmatrix} et $x' =$\begin{bmatrix}$x$\\ 1\end{bmatrix} (que l'on notera par souci de simplicité $\omega$ et $x$).\\
-
-Pour obtenir un résultat robuste, on souhaite que les deux droites $f(X) = 1$ et $f(X) = -1$ soient les plus distantes possibles. En effet, si ces deux droites sont trop proches, cela signifie que la probabilité d'erreur quant à la prédiction de la classe d'un point proche de ces droites sera importante.\\
-
-La distance $\gamma$ entre ces deux droites se calcule de la façon suivante : soient $u, v$ deux points tels que $f(v) = 1$ et $f(u) = -1$. Alors :
-
-      \begin{center}
-      $\|f(v) - f(u)\| = \|\omega \times (v-u)\| = \|\omega\| \times \|(v-u)\| = \|\omega\| \times \|\gamma\| = \|1 - (-1)\| = 2$
-      \end{center}
-
-Finalement, le problème d'optimisation à résoudre pourrait être :\\
- 
-           \begin{centre}
-           $max_{w}$ $\gamma = \frac{2}{\|w\|}$ avec (1)\\
-           $\Leftrightarrow min_{w}$ $\|w\|$ avec (1)\\
-           $\Leftrightarrow min_{w}$ $\frac{1}{2} \times \|w\|^2$ avec (1) pour faciliter les calculs
-           \end{centre}
-
-\bigskip
-
-Un autre problème se pose si on s'arrête ici : par exemple, dans l'exemple de la frontière de Voronoi que l'on a vu ci-dessus, il n'existe pas de droite telle qu'il n'y ait que de points noirs d'un côté et que des points rouges de l'autre côté, ce qui contredit la condition (1). Le problème est alors infaisable. Pourtant, la droite dessinée en vert peut sembler acceptable comme frontière pour cet ensemble de points.\\
-
-On tient compte de cette erreur en introduisant les variables $(z_i)_{i \leq m}$. Pour que la condition (1) soit toujours vérifiée, il faut que quand $y_i \times f(x_i) \geq 1$, $z_i = 0$ et lorsque $y_i \times f(x_i) < 1$, $z_i = 1 - y_i \times f(x_i)$. Le but étant de minimiser le nombre de ces erreurs, ie. points mal classés, on utilise un paramètre $C$ constant qui permet d'insister plus ou mins sur la minimisation de ces erreurs :\\ 
-
+\begin{block}{En rendant le problème toujours faisable}
 
            \begin{centre}
            (P) $min_{w}$ $\frac{1}{2} \times \|w\| + C \times \sum_{i \leq m}z_i$\\
@@ -91,190 +72,105 @@ On tient compte de cette erreur en introduisant les variables $(z_i)_{i \leq m}$
            $\forall i, y_i \times (\omega^{T} x_i) \geq 1 - z_i$\\
            \end{centre}
 
-\bigskip
+\end{block}
 
-Les fonctions que l'on a introduites sont toutes convexes. Si la dimension des points $(x_i)_i$ est petite, nous allons pouvoir utiliser la méthode de Newton pour résoudre ce problème. On verra par la suite le \emph{kernel trick} qui permettra de ne pas tenir compte de la dimension, mais seulement du nombre d'échantillons $(x_i)_i$.
+\end{frame}
 
-\section{Calcul du dual}
+\section{Implémentation}
 
-Calculons le lagrangien du problème (P). Soit $\lambda$ le multiplicateur de Lagrange de dimension $1 \times m$:
+\begin{frame}
+\frametitle{Résolution du problème d'optimisation}
 
-              \begin{center}
-              $\forall w, \lambda \in \mathbb{R}^{2m}, L(\omega, \lambda, z) = $\\
-              $= \frac{1}{2} \|w\|^2 + C \times \sum_i z_i - \sum_i \lambda_i \times z_i$
-              $+ \sum_i \lambda_i \times (1 - y_i \omega^{T} x_i)$\\
-              $= \frac{1}{2} \|w\|^2 + C$\textbf{1}$^{T}z - C\lambda^{T}z + $\textbf{1}$^{T}\lambda - \sum_i \lambda_i \times y_i \omega^{T} x_i$\\
-              $= \frac{1}{2} (\|w - \sum_i \lambda_iy_ix_i\|^2_2 - \|\sum_i \lambda_iy_ix_i\|^2_2)$
-              $+ (C$\textbf{1}$ - \lambda)^{T}z + $\textbf{1}$^{T}\lambda$\\
-              \end{center}
+\begin{itemize}
+\item Utilisation de la méthode de Newton :
 
-Minimisons L par rapport à $\omega$. Comme le lagrangien est convexe en $\omega$, il faut annuler le gradient :\\
+\begin{block}{Rappel}
+          \begin{center}
+          $\omega_{n+1} \leftarrow \omega_{n} + size \times \nabla^2 obj(\omega_n)^{-1}\nabla obj(\omega_n)$
+          \end{center}
 
-              \begin{center}
-              $\nabla_{\omega} L(\omega, \lambda, z) = \frac{1}{2}(2\omega - 2\sum_i \lambda_iy_ix_i) + 0 = 0$\\
-              $\Leftrightarrow \omega = \sum_i \lambda_iy_ix_i$ (1)\\
-              \end{center}
+  (ici, en cherchant $size$ par \emph{backtracking line search})
+\end{block}
 
-Minimisons L par rapport à $z$. Comme le lagrangien est convexe en $z$, il faut annuler le gradient :\\
+\item Rendre le problème indépendant de la \emph{dimension}, ce qui permet d'appliquer cette méthode pour des problèmes à dimension de taille modérée (mais le problème sera dépendant du nombre d'échantillons !) en résolvant le \emph{problème dual}
 
-              \begin{center}
-              $\nabla_{z} L(\omega, \lambda, z) = 0 + C$\textbf{1}\textbf{$1_{z>0}$}$^T - \lambda$\textbf{$1_{z>0}$}$^T = 0$\\
-              $\Leftrightarrow mC - \sum_i \lambda_i = 0$ si $z_i > 0$\\
-              $\Leftrightarrow mC = \sum_i \lambda_i$ si $z_i > 0$ (2)\\
-              \end{center}
+\item Utiliser la méthode de la barrière logarithmique pour s'affranchir des contraintes d'inégalité
 
-Le minimum en L par rapport à $z$ a une valeur finie ssi $C$\textbf{1}$ - \lambda = 0$. On obtient le problème dual en injectant les valeurs de $\omega$ et de $z$ dans le lagrangien :\\
+\end{itemize}
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Le problème dual}
+
+Après calcul du lagrangien et minimisation par rapport à $\omega$ et $z$ :
+
+\begin{block}{Problème dual}
              \begin{center}
-             $max_{\lambda \in \mathbb{R}^{+m}} -\frac{1}{2}\|\sum_i\lambda_iy_ix_i\|^2_2 + $\textbf{1}$^T\lambda$ par (1)\\ 
-             avec $\forall i, 0 \leq \lambda_i \leq C$ si $z_i > 0$ (vient de (2))\\
+             $max_{\lambda \in \mathbb{R}^{+m}} -\frac{1}{2}\|\sum_i\lambda_iy_ix_i\|^2_2 + $\textbf{1}$^T\lambda$\\ 
+             avec $\forall i, 0 \leq \lambda_i \leq C$ si $z_i > 0$\\
              \end{center}
+\end{block}
 
-On obtient la solution optimale du primal $(\omega^*, z^*)$ à partir de celle du dual $\lambda^*$ :
-
+\begin{block}{Obtenir la solution du primal à partir de celle du dual}
              \begin{center}
-             (1) $\omega^{*} = \sum_i \lambda^{*}_i y_i x_i$
+               $\omega^{*} = \sum_i \lambda^{*}_i y_i x_i$
              \end{center}
+\end{block}
 
-\section{Utilisation de l'astuce du noyau (\emph{kernel trick})}
+\end{frame}
 
-Pour pouvoir trouver efficacement la solution au problème avec la méthode de Newton, il faut s'affranchir de la contrainte quadratique sur la dimension des échantillons. On note X la matrice des échantillons, et la matrice du noyau $K = X^TX$, avec $K \geq 0$. On montre alors que le problème dual peut se réécrire de la façon suivante :\\
+\begin{frame}
+\frametitle{Rendre le problème indépendant de la dimension}
 
+Utilisation de l'\emph{astuce du noyau} :
+
+\begin{block}{Problème dual}
+Soit $K = X^TX$. Alors :
                  \begin{center}
                  $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda$\\
                  avec $\forall i, 0 \leq \lambda_i \leq C$ 
                  \end{center}
+\end{block}
 
-On remarque que la dimension $m$ des échantillons n'intervient plus, et que donc la complexité de la résolution du problème ne dépend que du nombre d'échantillons. 
+\end{frame}
 
-\section{Méthode de la barrière logarithmique}
+\begin{frame}
+\frametitle{Supprimer les contraintes d'inégalité}
 
-Enfin, on peut s'affranchir des contraintes d'inégalité sur le multiplicateur de Lagrange $\lambda$ en posant la fonction barière suivante :\\
+Utilisation de la \emph{méthode de la barrière logarithmique} :
 
+\begin{block}{Fonction barrière}
           \begin{center}
           $\Phi(\lambda) = \sum_i (- log(C - \lambda_i) - log(\lambda_i)) = \sum_i log(\frac{1}{(C - \lambda_i)\lambda_i}) = - \sum_i log((C - \lambda_i)\lambda_i)$ 
           \end{center}
+\end{block}
 
-Le problème à optimiser devient alors :\\
-
+\begin{block}{Problème d'optimisation final}
           \begin{center}
           $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda + \Phi(\lambda)$\\ 
           \end{center}
+\end{block}
+
+\end{frame}
 
 \section{Résultats}
 
-\subsection{Comparaison entre les différentes générations de points}
+%TODO Mettre des figures
 
-$d$ est la dimension des points et $n$ le nombre d'échantillons dans la génération.\\
+\section{Extensions}
 
-     \begin{table}[H]
-       \caption{Comparaison entre les générations de points}
-       \begin{tabular}{|l|c|c|c|c|c|r|}
-         \hline
-         \textsc{Génération} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N itérations} & \textsc{Temps Newton (s)} & \textsc{Taux d'échec}\\
-         \hline
-         1 & 1 & 2 & 10 & 11 & 81,017 & 0\\
-         \hline
-         1 & 5 & 2 & 10 & 11 & 0,614381 & 0\\
-         \hline
-         1 & 10 & 2 & 10 & 11 & 0,3478 & 0\\
-         \hline
-         2 & 10 & 2 & 40 & 12 & 0,379235 & 0\\
-         \hline
-         2 & 100 & 2 & 40 & 12 & 0,512416 & 0\\
-         \hline
-       \end{tabular}
-     \end{table}
+\begin{frame}
+\frametitle{Extensions}
 
-\subsection{Points dans les quadrans ($x, y > 0$) et ($x > 0, y < 0$)}
+\begin{itemize}
+\item Validation croisée pour le choix de la meilleure valeur de C
 
-On génère les points selon la procédure 1 dans \emph{generatedata.m}. Les points de la première classe sont dans le quadran ($x, y > 0$) et ceux de la seconde classe sont dans le quadran ($x > 0, y > 0$).
+\item %TODO
+\end{itemize}
 
-         \begin{center}
-         $x=$\begin{bmatrix}
-           79,4566 & 6,3054 & 10,2126 & 58,7432 & 96,0460 & ...\\ 
-           56,1444 &  46,6231 &  20,4822 &  60,5679 &  12,0744 & ...\\ 
-           1,0000 & 1,0000 & 1,0000 & 1,0000 & 1,0000 & ...\\ 
-           \end{bmatrix}
-           
-           \begin{bmatrix}
-          ... & -89,3088 & -5,7061 & -15,7588 & -1,9675 & -59,3514\\
-          ... & -42,7449 & -17,0933 & -58,5002 & -21,2904 & -48,6966\\
-          ... & 1,0000 & 1,0000 & 1,0000 & 1,0000 & 1,0000\\
-           \end{bmatrix}\\
-           $y =$\begin{bmatrix}
-           1 & 1 & 1 & 1 & 1 & -1 & -1 & -1 & -1 & -1\\
-           \end{bmatrix}
-         \end{center}
+\end{frame}
 
-\subsubsection{Pour $C = 1$}
-
-         \begin{figure}
-           \begin{center}
-             \subfigure\includegraphics[scale=0.5]{images/cvnewton1.png}
-             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
-           \end{center}
-         \end{figure}
-
-       \begin{center}
-       $\lambda =$\begin{bmatrix}   
-         8,6314$.10^{-7}$\\
-         1,2616$.10^{-6}$\\
-         1,0513$.10^{-6}$\\
-         9,8250$.10^{-7}$\\
-         6,7446$.10^{-7}$\\
-         1,3976$.10^{-6}$\\
-         9,4634$.10^{-7}$\\
-         8,2267$.10^{-7}$\\
-         9,0923$.10^{-7}$\\
-         1,0908$.10^{-6}$\end{bmatrix}
-       \end{center}
-
-       \begin{center}
-       $\omega =$\begin{bmatrix}   
-         4,1948$.10^{-4}$\\
-         3,9299$.10^{-4}$\\
-         -3,3357$.10^{-7}$\\\end{bmatrix}
-       \end{center}
-
-         \begin{figure}
-           \begin{center}
-             \subfigure\includegraphics[scale=0.5]{images/line2D1.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
-           \end{center}
-         \end{figure}
-
-         \begin{figure}
-           \begin{center}
-             \subfigure\includegraphics[scale=0.5]{images/dualitygap1.png}
-             \caption{\emph{Duality gap} : tracé de $\|\omega^*\| - \|a^*\|$ en fonction du nombre d'itérations de la méthode de Newton}
-           \end{center}
-         \end{figure}
-
-On retrouve les mêmes courbes, et les mêmes valeurs de $\lambda$ et de $\omega$, pour les valeurs suivantes de C, ce qui paraît cohérent.
-
-\subsection{Points générés à partir de deux fonctions gaussiennes}
-
-\subsubsection{Pour $C = 10$}
-
-On génère les points selon la procédure 2 dans \emph{generatedata.m}. On tire les coordonnées en utilisant la fonction \emph{randn}, qui retourne des éléments centrés réduits générés par une Gaussienne, auxquels on retire ou ajoute 10. Les $x$ et $y$ sont stockés dans le fichier \emph{test2} dans le dossier \emph{test}.
-
-         \begin{figure}
-           \begin{center}
-             \subfigure\includegraphics[scale=0.3]{images/cvnewton2.png}
-             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
-           \end{center}
-         \end{figure}
-
-         \begin{figure}
-           \begin{center}
-             \subfigure\includegraphics[scale=0.3]{images/line2D2.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
-           \end{center}
-         \end{figure}
-
-\subsubsection{Validation croisée pour le choix de la meilleure valeur de $C$}
-
-Les deux fonctions \emph{choiceC} et \emph{crossvalidation} permettent de sélectionner la meilleure valeur de C pour un échantillon donné, par la méthode de \emph{leave-one-out}, où, pour un échantillon de taille $n$, à chaque itération on choisit un élément $e$ comme ensemble de test, et l'entraînement du SVM se fait sur les $n-1$ éléments restants. La valeur de C qui permet d'obtenir une erreur globale (sur l'ensemble d'itérations) minimale est considérée la meilleure.\\
+%TODO Décrire les extensions
 
 \end{document}

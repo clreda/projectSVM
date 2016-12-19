@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Description du projet}{2}{0}{1}
+\beamer@sectionintoc {2}{Le probl\IeC {\`e}me d'optimisation}{4}{0}{2}
+\beamer@sectionintoc {3}{Impl\IeC {\'e}mentation}{6}{0}{3}
+\beamer@sectionintoc {4}{R\IeC {\'e}sultats}{10}{0}{4}
+\beamer@sectionintoc {5}{Extensions}{10}{0}{5}
