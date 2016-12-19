@@ -29,11 +29,12 @@ for j=1:n
     % Primal solution
     w = wl(:, end);
     % Confusion matrix
-    if (w*testing == testingl)
+    if ((w*testing > 0 && testingl == 1) | 
+         (w*testing <= 0 && testingl == -1))
         err = [err 0];
     else
         err = [err 1];
     end
     
 end
-%err = sqrt(1/n*err);
+err = sqrt(1/n*err);
