@@ -8,28 +8,26 @@ err = [];
 [d, n] = size(x);
 for j=1:n
     if j == 1
-         training = x(2:n, :);
-         trainingl = y(2:n, :);
-         testing = x(1, :);
-         testingl = y(1, :);
+         training = x(:, 2:n);
+         trainingl = y(:, 2:n);
     end
     if j == n
-         training = x(1:(n-1), :);
-         trainingl = y(1:(n-1), :);
-         testing = x(n, :);
-         testingl = y(n, :); 
+         training = x(:, 1:(n-1));
+         trainingl = y(:, 1:(n-1)); 
     end
     if (j > 1 && j < n)
-         training = x([1:(j-1) (j+1):n], :);
-         trainingl = y([1:(j-1) (j+1):n], :);
-         testing = x(j, :);
-         testingl = y(j, :);
+         training = x(:, [1:(j-1) (j+1):n]);
+         trainingl = y(:, [1:(j-1) (j+1):n]);
     end
+    testing = x(:, j);
+    testingl = y(:, j);
 
     % Training : ai = C/2 satisfies the condition 0 <= a <= C
-    a = barrier(training, trainingl, C, C/2*ones(n, 1));
+    [al, wl] = barrier(training, trainingl, C, C/2*ones(n-1, 1));
+    % Dual solution
+    a = al(:, end);
     % Primal solution
-    w = sum((a .* trainingl)'*training');
+    w = wl(:, end);
     % Confusion matrix
     if (w*testing == testingl)
         err = [err 0];
@@ -38,4 +36,4 @@ for j=1:n
     end
     
 end
-err = sqrt(1/n*err);
+%err = sqrt(1/n*err);

@@ -1,4 +1,4 @@
-function [x y] = generatedata(n, d, class1=ceil(n/2), m=0)
+function [x y] = generatedata(n, d, class1=ceil(n/2), m=0, sep=10, moment1=0.14, moment2=1)
 % GENERATEDATA Generates two classes of samples and labels in
 % number n and of dimension d with two Gaussian functions of
 % different moments.
@@ -15,12 +15,26 @@ if m
     x1 = 100*rand(d, class1);
     % Generating 2nd class elements 
     x2 = -100*rand(d, class2);
-else
+end
+if not(m)
     % Gaussian
     % Generating 1st class elements
-    x1 = randn(d, class1) - 10;
+    x1 = randn(d, class1) - sep;
     % Generating 2nd class elements 
-    x2 = rand(d, class2) + 10;
+    x2 = rand(d, class2) + sep;
+end
+if m==2
+    x1 = [];
+    x2 = [];
+    for i=1:d
+        g1 = gaussian(class1, moment1)';
+        g2 = gaussian(class2, moment2)';
+        % Dividing by std to improve plotting
+        x1 = [x1; g1/std(g1)];
+        moment1 += 0.01;
+        x2 = [x2; g2/std(g2)];
+        moment2 += 0.01;
+    end
 end
 
 % (d+1) x n matrix 

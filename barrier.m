@@ -28,5 +28,5 @@ while (n/t > tolerance)
     %hold on;
 end
 
-semilogy(1:size(cv, 2), cv);
+%semilogy(1:size(cv, 2), cv);
 "Number of iterations", nbiter

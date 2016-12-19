@@ -1,49 +1,64 @@
-\documentclass{article}
+\documentclass{beamer}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
 \usepackage[normalem]{ulem}
-\usepackage{amssymb}
-\usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\title{Rapport sur le projet d'Optimisation\\Support-Vector Machines}
-\author{Kawisorn Kamtue \& Clémence Réda}
+\usetheme{Antibes}
+
+\title{Projet Réseaux}
+\author{K. Kamtue \& Cl. Réda}
+\institute{ENS Cachan}
 \date{\today}
 
-\maketitle
-
 \begin{document}
+\maketitle
+\tableofcontents
+\setlength{\parindent}{1cm}
 
-\section{Support Vector Machine}
+\addtobeamertemplate{footline}{\insertframenumber / \inserttotalframenumber}
 
-Les \emph{Support Vector Machine solvers} (SVM) sont une catégorie d'algorithmes d'apprentissage statistique supervisé. Ils permettent de résoudre le problème de classification binaire suivant :\\
+\section{Description du projet}
 
-           
-           Etant donnés $(x_i)_{i \leq m}$ des points dans $\mathbb{R}^n$, et $(y_i)_{i \leq m}$ les étiquettes des points tels que l'étiquette de $x_i$ soit $y_i \in \{-1, 1\}$, on cherche la droite qui sépare "le mieux possible" les points dans différentes classes, autrement dit, la frontière de Voronoi entre les deux classes.
-           \begin{center}
-           \begin{figure}[H]
-           \centering
-           \caption{Exemple de frontière pour deux classes : celles des points noirs et celle des points rouges}
-           \includegraphics[scale=0.3]{images/voronoi.png}
-           \end{figure}
-           \end{center} 
+\begin{frame}
+\frametitle{Implémentation d'un SVM}
 
-\noidnent La frontière que l'on recherche est une fonction linéaire, donc de la forme (avec deux paramètres de dimension 1 $\omega$ et $b$) :\\
+\begin{center}
+\textbf{Objectif :} Faire de l'apprentissage supervisé
+\end{center}
 
-          \begin{center}
-          $f : X \rightarrow \omega^{T}X + b = $\begin{bmatrix}$\omega$\\ $b$\end{bmatrix} \begin{bmatrix} $x$\\ 1\end{bmatrix}$$
-          \end{center}
+\begin{itemize}
+\item Appliqué à la classification binaire
 
-telle que :\\
- 
+         \begin{center}
+         \incudegraphics[scale=0.3]{images/voronoi.png}
+         \end{center}
+
+\item Recherche d'une frontière linéaire vérifiant :
+
          \begin{center}
          $\forall i, y_i = -1 \Rightarrow f(x_i) \leq -1$\\
          $\forall i, y_i = 1 \Rightarrow f(x_i) \geq 1$\\
-         $\Leftrightarrow \forall i, y_i \times f(x_i) \geq 1$ (1)
+         $\Leftrightarrow \forall i, y_i \times f(x_i) \geq 1$
          \end{center}
+\end{itemize}
 
-\newpage
+\end{frame}
+
+\begin{frame}
+\frametitle{Recherche du problème d'optimisation}
+
+      \begin{center}
+        $max_{w}$ $\gamma = \frac{2}{\|w\|}$ avec (1)\\
+        $\Leftrightarrow min_{w}$ $\|w\|$ avec (1)\\
+        $\Leftrightarrow min_{w}$ $\frac{1}{2} \times \|w\|^2$ avec (1) pour faciliter les calculs
+      \end{center}
+
+\end{center}
+
+\section{Extensions}
+
+
 
 Pour simplifier le problème, on peut prendre $\omega' =$ \begin{bmatrix}$\omega$\\ $b$\end{bmatrix} et $x' =$\begin{bmatrix}$x$\\ 1\end{bmatrix} (que l'on notera par souci de simplicité $\omega$ et $x$).\\
 
@@ -238,7 +253,7 @@ On génère les points selon la procédure 1 dans \emph{generatedata.m}. Les poi
 
 On retrouve les mêmes courbes, et les mêmes valeurs de $\lambda$ et de $\omega$, pour les valeurs suivantes de C, ce qui paraît cohérent.
 
-\subsection{Points centrés réduits générés à partir de deux fonctions gaussiennes}
+\subsection{Points générés à partir de deux fonctions gaussiennes}
 
 \subsubsection{Pour $C = 10$}
 
@@ -260,60 +275,6 @@ On génère les points selon la procédure 2 dans \emph{generatedata.m}. On tire
 
 \subsubsection{Validation croisée pour le choix de la meilleure valeur de $C$}
 
-Les deux fonctions \emph{choiceC} et \emph{crossvalidation} permettent de sélectionner la meilleure valeur de C pour un échantillon donné, par la méthode de \emph{leave-one-out}, où, pour un échantillon de taille $n$, à chaque itération on choisit un élément $e$ comme ensemble de test, et l'entraînement du SVM se fait sur les $n-1$ éléments restants. La valeur de C qui permet d'obtenir une erreur globale (sur l'ensemble d'itérations) minimale est considérée la meilleure. On teste ces fonctions sur l'échantillon ci-dessus, en recherchant la meilleure valeur de C entre C minimum et C maximum :\\
-
-     \begin{table}[H]
-       \caption{Recherche de la meilleure valeur de C}
-       \begin{tabular}{|l|c|r|}
-         \hline
-         \textsc{C maximum} & \textsc{C minimum} & \textsc{Meilleure valeur}\\
-         \hline
-         13 & 15 & 13\\
-         \hline
-         10 & 15 & 10\\
-         \hline
-         5 & 10 & 5\\
-         \hline
-       \end{tabular}
-     \end{table}
-
-On remarque qu'augmenter C permet d'accélérer la procédure, mais au détriment de la précision machine.
-
-
-\subsection{Test3}
-
-Elapsed time is 0.387925 seconds.
-ans = Primal solution:
-ans = Computing out-of-sample performance
-confusion =
-
-    98    12
-    52   138
-
-onfrontier = 0
-outofsampleperf =  0.78667
-
-séparation de sep=10 centré réduit
-
-\subsection{Test4}
-
-Séparation avec sep=0 centré réduit
-
-\subsection{Test5}
-
-nbiter =  12
-Elapsed time is 0.485984 seconds.
-ans = Primal solution:
-ans = Computing out-of-sample performance
-confusion =
-
-   25    3
-    0   22
-
-onfrontier = 0
-outofsampleperf =  0.94000
-
-génération avec gaussiennes avec paramètres par défaut
-
+Les deux fonctions \emph{choiceC} et \emph{crossvalidation} permettent de sélectionner la meilleure valeur de C pour un échantillon donné, par la méthode de \emph{leave-one-out}, où, pour un échantillon de taille $n$, à chaque itération on choisit un élément $e$ comme ensemble de test, et l'entraînement du SVM se fait sur les $n-1$ éléments restants. La valeur de C qui permet d'obtenir une erreur globale (sur l'ensemble d'itérations) minimale est considérée la meilleure.\\
 
 \end{document}

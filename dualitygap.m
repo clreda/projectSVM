@@ -12,4 +12,4 @@ for i=1:size(listw, 2)
      l2 = [l2 norm(lista(:, i), 2)];
 end
 
-plot(1:nbiter, l1 - l2, 'b--');
+plot(1:nbiter, abs(l1 - l2), 'b--');

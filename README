@@ -1,10 +1,16 @@
+Kamtue & Réda.
+
 Projet SVM :
 
 - barrier.m implémente la méthode de la barrière
 - choiceC.m permet de déterminer une bonne valeur du paramètre C par validation croisée
 - crossvalidation.m implémente la méthode de leave-one-out
+- drawline.m permet de tracer, pour des échantillons de points en 2D, 
+la frontière de classification entre les points
+- dualitygap.m trace ||w|| - ||a|| en fonction du nombre d'itérations
+de l'algorithme de Newton
 - generatedata.m génère des points de deux classes par deux fonctions gaussiennes de moments différents
+- main.m entraîne et teste le SVM sur un échantillon donné : calcul de la
+performance et de la matrice de confusion 2x2
 - newton.m implémente la méthode de Newton
 - svmobj.m renvoie la valeur, le gradient et la hessienne de la fonction objectif avec la fonction log-barrière
-- testnewton.m est un test automatique des fonctions précédentes
-- %TODO
