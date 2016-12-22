@@ -7,15 +7,11 @@ function C = choiceC(x, y, c_max=10, c_min=1)
 
 load crossvalidation.m;
 
-C = c_min;
-ee = []
 mini = crossvalidation(c_min, x, y);
 for c_test=(c_min+1):c_max
     err = crossvalidation(c_test, x, y);
-    ee = [ee err];
     if (mini > err)
         C = c_test;
         mini = err;
     end
 end
-ee
