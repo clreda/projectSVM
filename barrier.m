@@ -22,6 +22,8 @@ while (n/t > tolerance)
     [a, cv] = newton(K, y, C, ainit, t);
     alist = [alist a];
     wlist = [wlist ((a .* y')' * x')'];
+    size(wlist)
+    break
     t = mu*t;
     nbiter += 1;
     %plot(1:size(cv, 2), cv);

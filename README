@@ -14,3 +14,5 @@ de l'algorithme de Newton
 performance et de la matrice de confusion 2x2
 - newton.m implémente la méthode de Newton
 - svmobj.m renvoie la valeur, le gradient et la hessienne de la fonction objectif avec la fonction log-barrière
+
+% Détailler la procédure pour appeler fonctions

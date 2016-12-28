@@ -22,4 +22,3 @@ asqr = a.*a;
 acsqr = (C .- a).*(C .- a);
 
 hessf = t/2*(G+G') + diag(1./asqr .+ 1./acsqr);
-%hessf = t/2*(G+G') - ((C-1)./acsqr .- 1./asqr);

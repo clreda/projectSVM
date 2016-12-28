@@ -18,8 +18,7 @@ tic
 % a is of size n x 1
 [alist, wlist] = barrier(x, y, C, ainit);
 toc
-%wlist = reshape(wlist, 3, size(wlist, 2)*size(wlist, 1)/3);
-% this line is wrong because w can be more/less than 3 dimensions
+wlist = reshape(wlist, d+1, size(wlist, 2)*size(wlist, 1)/(d+1));
 a = alist(:, end);
 "Primal solution:"
 % w of size 1 x (d+1)

@@ -1,4 +1,4 @@
-function [a, cv] = newton(K, y, C, ainit, t, ALPHA=0.01, BETA=0.5, NTTOL=1e-10, MAXITERS=1000)
+function [a, cv] = newton(K, y, C, ainit, t)
 % NEWTON Implements Newton's method for optimization.
 % a = newton(K, y, C, ainit, t) Returns Lagrange multiplier a for
 % samples of labels y, kernel matrix K, constant C, initialization
@@ -15,11 +15,19 @@ function [a, cv] = newton(K, y, C, ainit, t, ALPHA=0.01, BETA=0.5, NTTOL=1e-10, 
 % maxiters for maximum number of iterations.
 load svmobj.m;
 
+% Parameters for backtracking line direction search
+ALPHA=0.01;
+BETA=0.5;
+% Tolerance threshold
+NTTOL=1e-10;
+% Maximum number of iterations
+MAXITERS=1000;
+
 a = ainit;
 
 % To plot the convergence
 cv = [];
-[minimum, _, _] = svmobj(a, K, y, C, t);
+minimum = svmobj(a, K, y, C, t);
 
 for k=1:MAXITERS
         [val, g, H] = svmobj(a, K, y, C, t);
@@ -61,10 +69,7 @@ for k=1:MAXITERS
 end
 
 if (k == MAXITERS)
-    %"La méthode de Newton n'a pas convergé."
-else
-    %"Nombre d'itérations :"
-    %k
+    "La méthode de Newton n'a pas convergé.";
 end
 
 cv = cv .- minimum;
