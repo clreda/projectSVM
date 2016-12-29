@@ -1,17 +1,21 @@
-function [alist, wlist] = barrier(x, y, C, ainit, tolerance=1e-10, mu=10)
+function [alist, wlist] = barrier(x, y, C, ainit)
 % BARRIER Implements the barrier function method.
 % a = BARRIER(x, y, C, ainit) x samples, y labels, C constant,
 % ainit initialization of Lagrange multiplier a of dim 1 x m.
-% a = BARRIER(x, y, C, ainit, tolerance) with tolerance.
-% a = BARRIER(x, y, C, ainit, tolerance, mu) with mu.
 load newton.m;
 load dualitygap.m;
+
+% Default values for parameters
+tolerance=1e-10;
+mu=10;
 
 a = ainit;
 n = size(a, 1);
 % Kernel matrix
 K = x'*x;
 
+% Storing lists of values of a and w 
+% to plot the duality gap
 alist = [];
 wlist = [];
 
@@ -22,13 +26,11 @@ while (n/t > tolerance)
     [a, cv] = newton(K, y, C, ainit, t);
     alist = [alist a];
     wlist = [wlist ((a .* y')' * x')'];
-    size(wlist)
-    break
     t = mu*t;
     nbiter += 1;
-    %plot(1:size(cv, 2), cv);
-    %hold on;
 end
 
+%To plot Newton's method convergence
 %semilogy(1:size(cv, 2), cv);
-"Number of iterations", nbiter
+%"Number of iterations"
+nbiter

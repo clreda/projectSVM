@@ -1,14 +1,19 @@
-function [a, w, alist, wlist] = main(C, x, y, sizetest=300, m=0, sep=10, class1test=ceil(sizetest/2))
-% MAIN Generates data and trains/tests SVM
-% confusion = testnewton(C, x, y) Returns confusion matrix
-% tested on sample of size 300.
-% confusion = testnewton(C, x, y, sizetest) Returns confusion matrix
-% tested on sample of size sizetest.
-load generatedata.m;
+function [a, w, alist, wlist] = main(C, x, y)
+% MAIN Trains/tests SVM on data
+% confusion = main(C, x, y) Returns dual and primal solutions
+% for data x, y
 load barrier.m;
+
+% Training 2/3 of the whole data
+t = randperm(n, ceil(2/3*size(x, 2)));
+train = x(:, t);
+% Testing 1/3 of the whole data
+test = x(:, setxor(1:n, t));
 
 n = size(x, 2);
 d = size(x, 1)-1;
+
+%%%TODO
 
 % a = [C/2; C/2; C/2; ...; C/2] strictly satisfies
 % condition 0 < a < C
@@ -18,7 +23,6 @@ tic
 % a is of size n x 1
 [alist, wlist] = barrier(x, y, C, ainit);
 toc
-wlist = reshape(wlist, d+1, size(wlist, 2)*size(wlist, 1)/(d+1));
 a = alist(:, end);
 "Primal solution:"
 % w of size 1 x (d+1)

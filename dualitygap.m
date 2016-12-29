@@ -7,9 +7,9 @@ n = size(lista, 2);
 
 l1 = [];
 l2 = [];
-for i=1:size(listw, 2)
-     l1 = [l1 norm(listw(:, i), 2)];
-     l2 = [l2 norm(lista(:, i), 2)];
+for i=1:n
+     l1 = [l1 norm(listw(:, i))];
+     l2 = [l2 norm(lista(:, i))];
 end
 
 plot(1:n, abs(l1 - l2), 'b--');

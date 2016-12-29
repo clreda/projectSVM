@@ -1,8 +1,9 @@
 function drawplane(w,x,y)
 % DRAWPLANE Draws a plane when d = 3
-% _ = drawplane(w,x,y)
-% Only works if w(3) is non zero
-%% Plotting data points
+% drawplane(w,x,y)
+% /!\ Only works if w(3) is non zero
+
+% Plotting data points
 class1 = (y' == 1);
 class2 = (y' == -1);
 xclass1 = x(:,class1);
@@ -16,7 +17,7 @@ xlabel('x');
 ylabel('y');
 zlabel('z');
 
-%% Plotting hyperplane
+% Plotting hyperplane
 xxmin = min(x(1,:));
 xymin = min(x(2,:));
 

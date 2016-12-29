@@ -14,19 +14,19 @@ for j=1:n
     test = x(:, j);
     testl = y(:, j);
 
-    % Training : ai = C/2 satisfies the condition 0 <= a <= C
-    [al, wl] = barrier(train, trainl, C, C/2*ones(n-1, 1));
-    % Dual solution
-    a = al(:, end);
+    % Training : ai = C/2 always satisfies the condition 0 <= a <= C
+    [_, wl] = barrier(train, trainl, C, C/2*ones(n-1, 1));
     % Primal solution
     w = wl(:, end);
-    % Confusion matrix
-    if (or(and(w*test > 0, testl == 1), 
-         and(w*test <= 0, testl == -1)))
+    
+    % Error computation
+    isinclass1 = (w'*test > 0)
+    isinrightclass1 = isinclass1*testl == 1
+    isinrightclass2 = (isinclass1 + 1)*testl == -1
+    if or(isinrightclass1, isinrightclass2)
         err = [err; 0];
     else
         err = [err; 1];
     end
-    
 end
-err = sum(err);
+err = 1/n*sqrt(sum(err));
