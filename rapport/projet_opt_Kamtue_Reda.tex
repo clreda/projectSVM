@@ -160,6 +160,8 @@ Cette fontion vaut $+\infty$ si $a<0$ ou $a>C$.Le problème à optimiser devient
 
 \subsection{Comparaison entre les différentes générations de points}
 
+\subsubsection{Tableau récapitulatif}
+
 $d$ est la dimension des points et $n$ le nombre d'échantillons dans la génération. On utilise $\frac{2}{3}$ des points (choisis au hasard uniformément) de l'ensemble de départ pour l'ensemble d'entraînement, et les points restants pour l'ensemble de validation. \\
 
      \begin{table}[H]
@@ -180,13 +182,13 @@ $d$ est la dimension des points et $n$ le nombre d'échantillons dans la génér
          \hline
          1 & 5 & 40 & 1000 & ? & > 10 & ? & ?\\
          \hline
-         2 & 5 & 200 & 150 & 12 & 0,689 & X & 0\\
+         2 & 5 & 200 & 150 & 12 & 0,689 & ? & 0\\
          \hline
-         3 & 5 & 200 & 150 & 12 & 0,660 & X & 0\\
+         3 & 5 & 200 & 150 & 12 & 0,660 & ? & 0\\
          \hline
-         4 & 5 & 200 & 150 & 12 & 0,655 & X & 0\\
+         4 & 5 & 200 & 150 & 12 & 0,655 & ? & 0\\
          \hline
-         5 & 5 & 200 & 150 & 12 & 0,709 & X & 4\\
+         5 & 5 & 200 & 150 & 12 & 0,709 & ? & 4\\
          \hline
        \end{tabular}
      \end{table}
@@ -198,6 +200,10 @@ Quelques remarques :
 \item La valeur "?" signifie que l'algorithme a tourné trop longtemps pour la valeur soit mesurée.
 \item La notation "(*)" signifie que les tests marqués ont utilisé le même ensemble de données.
 \end{itemize}
+
+\subsubsection{Validation croisée pour le choix de la meilleure valeur de $C$}
+
+Les deux fonctions \emph{choiceC} et \emph{crossvalidation} permettent de sélectionner la meilleure valeur de C pour un échantillon donné, par la méthode de \emph{leave-one-out}, où, pour un échantillon de taille $n$, à chaque itération on choisit un élément $e$ comme ensemble de test, et l'entraînement du SVM se fait sur les $n-1$ éléments restants. La valeur de C qui permet d'obtenir une erreur globale (sur l'ensemble d'itérations) minimale est considérée la meilleure.
 
 \subsection{Points dans les quadrants ($x, y > 0$) et ($x > 0, y < 0$)}
 
@@ -248,7 +254,7 @@ On génère les points selon la procédure $m = 2$ dans \emph{generatedata.m}. L
 
 \subsection{Points centrés réduits générés à partir de deux fonctions gaussiennes}
 
-On génère les points selon la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=10$. On tire les coordonnées en utilisant la fonction \emph{randn}, qui retourne des éléments centrés réduits générés par une Gaussienne, auxquels on retire ou ajoute 10. Voir le fichier \emph{test2.mat} dans le dossier \emph{test}. La meilleure valeur de $C$ (choisie par validation croisée dans l'intervalle [1,10]) est &.
+On génère les points selon la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=10$. On tire les coordonnées en utilisant la fonction \emph{randn}, qui retourne des éléments centrés réduits générés par une Gaussienne, auxquels on retire ou ajoute 10. Voir le fichier \emph{test2.mat} dans le dossier \emph{test}. 
 
 \subsubsection{Pour $C=5, n=150, d=200$}
 
@@ -293,28 +299,9 @@ On génère les points selon la procédure $m = 0$ dans \emph{generatedata.m} av
            \end{center}
          \end{figure}
 
-\subsubsection{Validation croisée pour le choix de la meilleure valeur de $C$}
-
-Les deux fonctions \emph{choiceC} et \emph{crossvalidation} permettent de sélectionner la meilleure valeur de C pour un échantillon donné, par la méthode de \emph{leave-one-out}, où, pour un échantillon de taille $n$, à chaque itération on choisit un élément $e$ comme ensemble de test, et l'entraînement du SVM se fait sur les $n-1$ éléments restants. La valeur de C qui permet d'obtenir une erreur globale (sur l'ensemble d'itérations) minimale est considérée la meilleure. On teste ces fonctions sur l'échantillon ci-dessus, en recherchant la meilleure valeur de C entre C minimum et C maximum :\\
-
-     \begin{table}[H]
-       \caption{Recherche par dichotomie de la meilleure valeur de C pour le deuxième ensemble de valeurs}
-       \begin{tabular}{|l|c|r|}
-         \hline
-         \textsc{C maximum} & \textsc{C minimum} & \textsc{Meilleure valeur dans cet intervalle}\\
-         \hline
-         5 & 1 & \\
-         \hline
-          &  & \\
-         \hline
-          &  & \\
-         \hline
-       \end{tabular}
-     \end{table}
-
 \subsection{Points centrés réduits générés avec des fonctions gaussiennes}
 
-On utilise la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=100$. Voir le fichier \emph{test3.mat} dans le dossier \emph{test}. La meilleure valeur de $C$ (choisie par validation croisée dans l'intervalle [1,10]) est &.
+On utilise la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=100$. Voir le fichier \emph{test3.mat} dans le dossier \emph{test}. 
 
 \subsubsection{Pour $C=5, n=150, d=200$}
 
@@ -362,7 +349,7 @@ On utilise la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=100$. Voir
 
 \subsection{Points centrés réduits générés avec des fonctions gaussiennes}
 
-On utilise la procédure $m=0$ dans \emph{generatedata.m} avec $sep=0$. Voir le fichier \emph{test4.mat} dans le dossier \emph{test}. La meilleure valeur de $C$ (choisie par validation croisée) est &.
+On utilise la procédure $m=0$ dans \emph{generatedata.m} avec $sep=0$. Voir le fichier \emph{test4.mat} dans le dossier \emph{test}. 
 
 \subsubsection{Pour $C=5, n=150, d=200$}
 
@@ -409,7 +396,7 @@ On utilise la procédure $m=0$ dans \emph{generatedata.m} avec $sep=0$. Voir le 
 
 \subsection{Points générés avec des fonctions gaussiennes}
 
-On utilise la procédure $m=1$ dans \emph{generatedata.m} avec les paramètres par défaut. Voir le fichier \emph{test5.mat} dans le dossier \emph{test}. La meilleure valeur de $C$ (choisie par validation croisée) est &.
+On utilise la procédure $m=1$ dans \emph{generatedata.m} avec les paramètres par défaut. Voir le fichier \emph{test5.mat} dans le dossier \emph{test}.
 
 \subsubsection{Pour $C=5, n=150, d=200$}
 

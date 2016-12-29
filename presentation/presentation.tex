@@ -7,20 +7,28 @@
 
 \title{Projet Optimisation\\Support Vector Machine}
 \author{K. Kamtue \& Cl. Réda}
-\institute{ENS Cachan}
+\institute{\textsc{ENS Cachan}}
 \date{\today}
+
+\setbeamerfont{page number in head/foot}{size=\large}
+\setbeamertemplate{footline}[frame number]
 
 \begin{document}
 \maketitle
 \tableofcontents
 \setlength{\parindent}{1cm}
 
-\addtobeamertemplate{footline}{\insertframenumber / \inserttotalframenumber}
-
 \section{Description du projet}
 
+\subsection{Sujet}
+
 \begin{frame}
-\frametitle{Implémentation d'un SVM}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}
+\frametitle{Sujet}
+\framesubtitle{\emph{Support Machine Vector}}
 
 \begin{center}
 \textbf{Objectif :} Faire de l'apprentissage supervisé
@@ -29,38 +37,42 @@
 \begin{itemize}
 \item Appliqué à la classification binaire
 
-         \begin{center}
-         \incudegraphics[scale=0.3]{images/voronoi.png}
-         \end{center}
+         \begin{figure}
+         \centering
+         \caption{Exemple avec deux classes (rouge et noire)}
+         \includegraphics[scale=0.3]{images/voronoi.png}
+         \end{figure}
 
 \item Recherche d'une frontière linéaire $f : x \rightarrow \omega^Tx$ vérifiant (condition 1) :
 
          \begin{center}
          $\forall i, y_i = -1 \Rightarrow f(x_i) \leq -1$\\
          $\forall i, y_i = 1 \Rightarrow f(x_i) \geq 1$\\
-         $\Leftrightarrow \forall i, y_i \times f(x_i) \geq 1$
+         $\Leftrightarrow \forall i, y_i f(x_i) \geq 1$
          \end{center}
 \end{itemize}
 
 \end{frame}
 
-\section{Le problème d'optimisation}
+\subsection{Le problème d'optimisation}
 
 \begin{frame}
-\frametitle{Recherche du problème d'optimisation}
+\frametitle{Le problème d'optimisation}
+\framesubtitle{Recherche du problème d'optimisation}
 
 \begin{block}{Naïvement}
+$\gamma$ est la distance entre les droites $f(x) = 1$ et $f(x) = -1$.
 
       \begin{center}
-        $max_{w}$ $\gamma = \frac{2}{\|w\|}$
-        avec $\forall i, y_i \times f(x_i) \geq 1$\\
+        $max_{w}$ $\gamma = \frac{2}{\|w\|}$\\
+        avec $\forall i, y_i f(x_i) \geq 1$\\
 
        \bigskip
         $\Leftrightarrow min_{w}$ $\|w\|$ \\
-        avec $\forall i, y_i \times f(x_i) \geq 1$\\
+        avec $\forall i, y_i f(x_i) \geq 1$\\
        \bigskip
-        $\Leftrightarrow min_{w}$ $\frac{1}{2} \times \|w\|^2$\\
-        avec $\forall i, y_i \times f(x_i) \geq 1$\\
+        $\Leftrightarrow min_{w}$ $\frac{1}{2} \|w\|^2$\\
+        avec $\forall i, y_i f(x_i) \geq 1$\\
       \end{center}
 
 \end{block}
@@ -68,50 +80,57 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Amélioration}
+\frametitle{Le problème d'optimisation}
+\framesubtitle{Amélioration}
 
 \begin{block}{En rendant le problème toujours faisable}
 
 Pénaliser les erreurs de classification avec les $(z_i)_i$ et $C$ :
 
-           \begin{centre}
-           (P) $min_{w}$ $\frac{1}{2} \times \|w\| + C \times \sum_{i \leq m}z_i$\\
+           \begin{center}
+           $min_{w}$ $\frac{1}{2} \|w\| + C \sum_{i \leq m}z_i$\\
            avec $\forall i, z_i \geq 0$\\
-           $\forall i, y_i \times (\omega^{T} x_i) \geq 1 - z_i$\\
-           \end{centre}
+           $\forall i, y_i (\omega^{T} x_i) \geq 1 - z_i$\\
+           \end{center}
 
 \end{block}
 
 \end{frame}
 
-\section{Implémentation}
+\subsection{Implémentation}
 
 \begin{frame}
-\frametitle{Résolution du problème d'optimisation}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}
+\frametitle{Implémentation}
+\framesubtitle{Résolution du problème d'optimisation}
 
 \begin{itemize}
 \item Utilisation de la méthode de Newton :
 
-\begin{block}{Rappel}
+\begin{block}{Rappel : Mise à jour du vecteur $x$ avec la méthode de Newton}
           \begin{center}
-          $\omega_{n+1} \leftarrow \omega_{n} + size \times \nabla^2 obj(\omega_n)^{-1}\nabla obj(\omega_n)$
+          $x_{n+1} \leftarrow x_{n} + size \times \nabla^2 obj(x_n)^{-1}\nabla obj(x_n)$
           \end{center}
 
   (ici, en cherchant $size$ par \emph{backtracking line search})
 \end{block}
 
-\item Rendre le problème indépendant de la \emph{dimension}, ce qui permet d'appliquer cette méthode pour des problèmes à dimension de taille modérée (mais le problème sera dépendant du nombre d'échantillons !) en résolvant le \emph{problème dual}
+\item Rendre le problème indépendant de la \emph{dimension} (\textbf{dépendant du nombre d'échantillons} !) en résolvant le \emph{problème dual};
 
-\item Utiliser la méthode de la barrière logarithmique pour s'affranchir des contraintes d'inégalité
+\item Utiliser la méthode de la barrière logarithmique.
 
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Le problème dual}
+\frametitle{Implémentation}
+\framesubtitle{Le problème dual}
 
-Après calcul du lagrangien et minimisation par rapport à $\omega$ et $z$ :
+Après calcul du lagrangien, minimisation en $\omega$ et $z$ ($\lambda$ multiplicateur de Lagrange) :
 
 \begin{block}{Problème dual}
              \begin{center}
@@ -129,12 +148,13 @@ Après calcul du lagrangien et minimisation par rapport à $\omega$ et $z$ :
 \end{frame}
 
 \begin{frame}
-\frametitle{Rendre le problème indépendant de la dimension}
+\frametitle{Implémentation}
+\framesubtitle{Rendre le problème indépendant de la dimension}
 
 Utilisation de l'\emph{astuce du noyau} :
 
 \begin{block}{Problème dual}
-Soit $K = X^TX$. Alors :
+Soit $K = X^TX$ (noyau). Alors :
                  \begin{center}
                  $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda$\\
                  avec $\forall i, 0 \leq \lambda_i \leq C$ 
@@ -144,13 +164,16 @@ Soit $K = X^TX$. Alors :
 \end{frame}
 
 \begin{frame}
-\frametitle{Supprimer les contraintes d'inégalité}
+\frametitle{Implémentation}
+\framesubtitle{Supprimer les contraintes d'inégalité}
 
 Utilisation de la \emph{méthode de la barrière logarithmique} :
 
-\begin{block}{Fonction barrière}
+\begin{block}{Fonction barrière pour éliminer les contraintes d'inégalité}
           \begin{center}
-          $\Phi(\lambda) = \sum_i (- log(C - \lambda_i) - log(\lambda_i)) = \sum_i log(\frac{1}{(C - \lambda_i)\lambda_i}) = - \sum_i log((C - \lambda_i)\lambda_i)$ 
+          $\Phi(\lambda) = \sum_i (- log(C - \lambda_i) - log(\lambda_i))$\\
+          $= \sum_i log(\frac{1}{(C - \lambda_i)\lambda_i})$\\
+          $= - \sum_i log((C - \lambda_i)\lambda_i)$ 
           \end{center}
 \end{block}
 
@@ -164,21 +187,116 @@ Utilisation de la \emph{méthode de la barrière logarithmique} :
 
 \section{Résultats}
 
-%TODO Mettre des figures
-
-\section{Extensions}
+\subsection{Détails de l'implémentation}
 
 \begin{frame}
-\frametitle{Extensions}
+\tableofcontents[currentsubsection]
+\end{frame}
 
-\begin{itemize}
-\item Validation croisée pour le choix de la meilleure valeur de C
+\begin{frame}
+\frametitle{Détails de l'implémentation}
+\framesubtitle{Tracé de la convergence de la méthode de Newton}
 
-\item %TODO
-\end{itemize}
+         \begin{figure}
+         \centering
+         \includegraphics[scale=0.4]{images/cvnewton4.png}
+         \end{figure}
 
 \end{frame}
 
-%TODO Décrire les extensions
+\begin{frame}
+\frametitle{Détails de l'implémentation}
+\framesubtitle{Dépendance en la taille de l'échantillon}
+
+         \begin{figure}
+         \centering
+         \caption{Tableau récapitulatif}
+         \includegraphics[scale=0.4]{images/tabl1.png}
+         \end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Détails de l'implémentation}
+\framesubtitle{Accélération de la convergence quand $C$ augmente}
+
+         \begin{figure}
+         \centering
+         \caption{Tableau récapitulatif}
+         \includegraphics[scale=0.6]{images/tabl2.png}
+         \end{figure}
+
+\end{frame}
+
+\subsection{Tracé de la frontière de classification}
+
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}
+\frametitle{Tracé de la frontière de classification}
+\framesubtitle{Pour $C = 5, n = 150, d = 200$}
+
+Points centrés réduits avec des fonctions gaussiennes (2D) :
+
+         \begin{figure}
+         \centering
+         \includegraphics[scale=0.4]{images/line4.png}
+         \end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Tracé de la frontière de classification}
+\framesubtitle{Pour $C = 5, n = 150, d = 200$}
+
+Points centrés réduits avec des fonctions gaussiennes (3D) :
+
+         \begin{figure}
+         \centering
+         \includegraphics[scale=0.4]{images/plane4.png}
+         \end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Tracé de la frontière de classification}
+\framesubtitle{Pour $C = 5, n = 150, d = 200$}
+
+Génération avec des fonctions gaussiennes (2D) :
+
+         \begin{figure}
+         \centering
+         \includegraphics[scale=0.4]{images/line5.png}
+         \end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Tracé de la frontière de classification}
+\framesubtitle{Pour $C = 5, n = 150, d = 200$}
+
+Génération avec des fonctions gaussiennes (3D) :
+
+         \begin{figure}
+         \centering
+         \includegraphics[scale=0.4]{images/plane5.png}
+         \end{figure}
+
+\end{frame}
+
+% \section{Extensions}
+
+% \begin{frame}
+% \frametitle{Extensions}
+
+% \begin{itemize}
+% \item Validation croisée pour le choix de la meilleure valeur de C
+
+% \item %TODO
+% \end{itemize}
+
+% \end{frame}
 
 \end{document}
