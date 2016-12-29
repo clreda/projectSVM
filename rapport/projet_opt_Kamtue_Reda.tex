@@ -130,6 +130,11 @@ Pour pouvoir trouver efficacement la solution au problème avec la méthode de N
                  avec $\forall i, 0 \leq \lambda_i \leq C$ 
                  \end{center}
 
+ce qui équivalent à  
+            \begin{center}
+                 $min$ $\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda-$\textbf{1}$^T\lambda$\\
+                 avec $\forall i, 0 \leq \lambda_i \leq C$ 
+                 \end{center}
 On remarque que la dimension $m$ des échantillons n'intervient plus, et que donc la complexité de la résolution du problème ne dépend que du nombre d'échantillons. 
 
 \section{Méthode de la barrière logarithmique}
@@ -140,12 +145,15 @@ Enfin, on peut s'affranchir des contraintes d'inégalité sur le multiplicateur 
           $\Phi(\lambda) = \sum_i (- log(C - \lambda_i) - log(\lambda_i)) = \sum_i log(\frac{1}{(C - \lambda_i)\lambda_i}) = - \sum_i log((C - \lambda_i)\lambda_i)$ 
           \end{center}
 
-Le problème à optimiser devient alors :\\
+Cette fontion vaut $+\infty$ si $a<0$ ou $a>C$.Le problème à optimiser devient alors :\\
 
+%          \begin{center}
+%          $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda + \Phi(\lambda)$\\ 
+%          \end{center}
           \begin{center}
-          $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda + \Phi(\lambda)$\\ 
-          \end{center}
-
+                 $min$ $\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda-$\textbf{1}$^T\lambda +\Phi(\lambda)$\\
+                 avec $\forall i, 0 \leq \lambda_i \leq C$ 
+                 \end{center}
 \section{Résultats}
 
 \subsection{Comparaison entre les différentes générations de points}
@@ -181,7 +189,7 @@ Quelques remarques :
 \item La notation "(*)" signifie que les tests marqués ont utilisé le même ensemble de données.
 \end{itemize}
 
-\subsection{Points dans les quadrans ($x, y > 0$) et ($x > 0, y < 0$)}
+\subsection{Points dans les quadrants ($x, y > 0$) et ($x > 0, y < 0$)}
 
 On génère les points selon la procédure $m = 2$ dans \emph{generatedata.m}. Les points de la première classe sont dans le quadran ($x, y > 0$) et ceux de la seconde classe sont dans le quadran ($x > 0, y > 0$). Voir le fichier \emph{test1.mat} dans le dossier \emph{test}. La meilleure valeur, au niveau du nombre d'erreurs, de $C$, choisie par validation croisée dans l'intervalle [1, 10], est & (les autres valeurs de C de 2 à 10 donnent le même nombre d'erreurs pour cet ensemble de données).
 
