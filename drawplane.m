@@ -13,9 +13,10 @@ plot3(xclass1(1,:),xclass1(2,:),xclass1(3,:),'+','Color','b','MarkerSize',6); ho
 plot3(xclass2(1,:),xclass2(2,:),xclass2(3,:),'+','Color','r','MarkerSize',6); hold on;
 
 grid on;
-xlabel('x');
-ylabel('y');
-zlabel('z');
+xlabel('x_1');
+ylabel('x_2');
+zlabel('x_3');
+title('{\bf Classification frontier line (first three dimensions)}');
 
 % Plotting hyperplane
 xxmin = min(x(1,:));
@@ -32,3 +33,5 @@ xymax = max(x(2,:));
 z = (-w(1)*xx - w(2)*yy - w(4))/w(3);
 
 surf(xx,yy,z);
+
+hold off

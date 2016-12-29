@@ -13,3 +13,8 @@ for i=1:n
 end
 
 plot(1:n, abs(l1 - l2), 'b--');
+hold on;
+xlabel('|w^n - a^n|');
+ylabel('Number of Newton iterations');
+title('{\bf Duality gap}');
+hold off

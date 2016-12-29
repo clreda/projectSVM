@@ -20,9 +20,9 @@ for j=1:n
     w = wl(:, end);
     
     % Error computation
-    isinclass1 = (w'*test > 0)
-    isinrightclass1 = isinclass1*testl == 1
-    isinrightclass2 = (isinclass1 + 1)*testl == -1
+    isinclass1 = (w'*test > 0);
+    isinrightclass1 = isinclass1*testl == 1;
+    isinrightclass2 = (isinclass1 + 1)*testl == -1;
     if or(isinrightclass1, isinrightclass2)
         err = [err; 0];
     else

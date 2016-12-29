@@ -27,7 +27,7 @@ while (n/t > tolerance)
     alist = [alist a];
     wlist = [wlist ((a .* y')' * x')'];
     t = mu*t;
-    nbiter += 1;
+    nbiter = nbiter + 1;
 end
 
 %To plot Newton's method convergence
