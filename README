@@ -1,18 +1,36 @@
-Kamtue & Réda.
+--- Projet d'optimisation convexe et combinatoire : SVM -- Kamtue & Réda. ---
 
-Projet SVM :
+* Les ensembles de données utilisés dans le rapport sont disponibles dans le dossier "test".
 
-- barrier.m implémente la méthode de la barrière
+* On peut avoir accès au descriptif de chaque fonction avec la commande help.
+
+* Procédures :
+
+- Pour obtenir a (la solution optimale du dual), w (la solution optimale du primal), et la liste des a et w en fonction du nombre d'itérations de la méthode de Newton avec x (les points), y (les étiquettes) :
+           [a, w, alist, wlist, confusion] = main(C, x, y)
+
+- Pour dessiner le plan/droite séparateur/trice :
+           drawline(w, x, y)
+           drawplane(w, x, y)
+
+- Pour tracer le duality gap :
+           dualitygap(wlist, alist)
+
+- Choix de C par validation croisée :
+           C = choiceC(x, y)
+
+- Générer des données :
+           [x, y] = generatedata(taille, dimension)
+
+* Description des fichiers :
+
+- barrier.m implémente la méthode de la barrière logarithmique
 - choiceC.m permet de déterminer une bonne valeur du paramètre C par validation croisée
 - crossvalidation.m implémente la méthode de leave-one-out
-- drawline.m permet de tracer, pour des échantillons de points en 2D, 
-la frontière de classification entre les points
-- dualitygap.m trace ||w|| - ||a|| en fonction du nombre d'itérations
-de l'algorithme de Newton
-- generatedata.m génère des points de deux classes par deux fonctions gaussiennes de moments différents
-- main.m entraîne et teste le SVM sur un échantillon donné : calcul de la
-performance et de la matrice de confusion 2x2
+- drawline.m permet de tracer la frontière de classification entre les points (avec les deux premières  coordonnées)
+- drawplane.m permet de tracer la frontière de classification entre les points (avec les trois premières  coordonnées)
+- dualitygap.m trace ||w^n-a^n|| en fonction du nombre d'itérations n de l'algorithme de Newton
+- generatedata.m génère des points de deux classes 
+- main.m entraîne et teste le SVM sur un échantillon donné : calcul de la matrice de confusion 2x2
 - newton.m implémente la méthode de Newton
 - svmobj.m renvoie la valeur, le gradient et la hessienne de la fonction objectif avec la fonction log-barrière
-
-% Détailler la procédure pour appeler fonctions

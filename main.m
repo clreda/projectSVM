@@ -1,4 +1,4 @@
-function [a, w, alist, wlist] = main(C, x, y)
+function [a, w, alist, wlist, confusion] = main(C, x, y)
 % MAIN Trains/tests SVM on data
 % [a, w, alist, wlist] = main(C, x, y) Returns dual and primal solutions
 % for data x, y
@@ -44,9 +44,9 @@ confusion(1, 2) = abs(sum(ptsin1(ptsin1 < 0)));
 confusion(2, 1) = sum(ptsin2(ptsin2 > 0));
 onfrontier = sum(frontier);
 
-confusion
-onfrontier
-outofsampleperf = (confusion(1, 1) + confusion(2, 2))/(n - sizet)
+confusion;
+onfrontier;
+outofsampleperf = (confusion(1, 1) + confusion(2, 2))/(n - sizet);
 % Draws frontier for the first two dimensions
-drawline(w, x, y);
+%drawline(w, x, y);
            

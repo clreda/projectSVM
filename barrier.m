@@ -33,4 +33,4 @@ end
 %To plot Newton's method convergence
 %semilogy(1:size(cv, 2), cv);
 %"Number of iterations"
-nbiter
+nbiter;
