@@ -158,17 +158,25 @@ $d$ est la dimension des points et $n$ le nombre d'échantillons dans la génér
          \hline
          \textsc{Test} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N it.} & \textsc{Temps (s)} & \textsc{Meilleur C} & \textsc{Echec (\%)}\\
          \hline
-         1 & 1 & 40 & 10 & 11 & 25.4149 &  & 0 (*)\\
+         1 & 1 & 40 & 10 & 11 & 25,414 & 1 & 0 (*)\\
          \hline
-         1 & 5 & 40 & 10 & 11 & 0.177382 &  & 0 (*)\\
+         1 & 5 & 40 & 10 & 11 & 0,177 & 1 & 0 (*)\\
          \hline
-         1 & 10 & 40 & 10 & 11 & 0.168049 &  & 0 (*)\\
+         1 & 10 & 40 & 10 & 11 & 0,168 & 1 & 0 (*)\\
          \hline
-         1 & 5 & 40000 & 10 & 11 & 0.314603 &  & 0\\
+         1 & 5 & 40000 & 10 & 11 & 0,315 & X & 0\\
          \hline
-         1 & 5 & 40 & 100 & 12 & 0.715352 &  & 0\\
+         1 & 5 & 40 & 100 & 12 & 0,715 & X & 0\\
          \hline
-         1 & 5 & 40 & 1000 & ? & > 10 &  & ?\\
+         1 & 5 & 40 & 1000 & ? & > 10 & ? & ?\\
+         \hline
+         2 & 5 & 200 & 150 & 12 & 0,689 & X & 0\\
+         \hline
+         3 & 5 & 200 & 150 & 12 & 0,660 & X & 0\\
+         \hline
+         4 & 5 & 200 & 150 & 12 & 0,655 & X & 0\\
+         \hline
+         5 & 5 & 200 & 150 & 12 & 0,709 & X & 4\\
          \hline
        \end{tabular}
      \end{table}
@@ -183,7 +191,7 @@ Quelques remarques :
 
 \subsection{Points dans les quadrans ($x, y > 0$) et ($x > 0, y < 0$)}
 
-On génère les points selon la procédure $m = 2$ dans \emph{generatedata.m}. Les points de la première classe sont dans le quadran ($x, y > 0$) et ceux de la seconde classe sont dans le quadran ($x > 0, y > 0$). Voir le fichier \emph{test1.mat} dans le dossier \emph{test}. La meilleure valeur, au niveau du nombre d'erreurs, de $C$, choisie par validation croisée dans l'intervalle [1, 10], est & (les autres valeurs de C de 2 à 10 donnent le même nombre d'erreurs pour cet ensemble de données).
+On génère les points selon la procédure $m = 2$ dans \emph{generatedata.m}. Les points de la première classe sont dans le quadran ($x, y > 0$) et ceux de la seconde classe sont dans le quadran ($x > 0, y > 0$). Voir le fichier \emph{test1.mat} dans le dossier \emph{test}. La meilleure valeur, au niveau du nombre d'erreurs, de $C$, choisie par validation croisée dans l'intervalle [1, 10], est 1 (les autres valeurs de C de 2 à 10 donnent le même nombre d'erreurs pour cet ensemble de données).
 
 \subsubsection{Pour $C=1, n=10, d=40$}
 

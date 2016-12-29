@@ -33,7 +33,7 @@
          \incudegraphics[scale=0.3]{images/voronoi.png}
          \end{center}
 
-\item Recherche d'une frontière linéaire $f$ vérifiant (condition 1) :
+\item Recherche d'une frontière linéaire $f : x \rightarrow \omega^Tx$ vérifiant (condition 1) :
 
          \begin{center}
          $\forall i, y_i = -1 \Rightarrow f(x_i) \leq -1$\\
@@ -52,9 +52,15 @@
 \begin{block}{Naïvement}
 
       \begin{center}
-        $max_{w}$ $\gamma = \frac{2}{\|w\|}$ avec (1)\\
-        $\Leftrightarrow min_{w}$ $\|w\|$ avec (1)\\
-        $\Leftrightarrow min_{w}$ $\frac{1}{2} \times \|w\|^2$ avec (1)
+        $max_{w}$ $\gamma = \frac{2}{\|w\|}$
+        avec $\forall i, y_i \times f(x_i) \geq 1$\\
+
+       \bigskip
+        $\Leftrightarrow min_{w}$ $\|w\|$ \\
+        avec $\forall i, y_i \times f(x_i) \geq 1$\\
+       \bigskip
+        $\Leftrightarrow min_{w}$ $\frac{1}{2} \times \|w\|^2$\\
+        avec $\forall i, y_i \times f(x_i) \geq 1$\\
       \end{center}
 
 \end{block}
@@ -65,6 +71,8 @@
 \frametitle{Amélioration}
 
 \begin{block}{En rendant le problème toujours faisable}
+
+Pénaliser les erreurs de classification avec les $(z_i)_i$ et $C$ :
 
            \begin{centre}
            (P) $min_{w}$ $\frac{1}{2} \times \|w\| + C \times \sum_{i \leq m}z_i$\\
