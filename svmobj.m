@@ -8,7 +8,7 @@ function [f, gradf, hessf] = svmobj(a, K, y, C, t)
 % for classification error C : 1 x 1.
 
 % n x n matrix
-%G = diag(y)*K*diag(y)
+% G = diag(y)*K*diag(y)
 G = K .* (y * y'); 
 n = size(a, 1);
 vec = ones(n, 1);
@@ -17,7 +17,7 @@ f = t/2*a'*G*a - vec'*(a + log(a.*(C .- a)));
 
 gradf = t/2*((G + G')*a) - vec - (1./a - (C - 1)./(C .- a));
 
-% element-wise multiplication
+% Element-wise multiplication
 asqr = a.*a;
 acsqr = (C .- a).*(C .- a);
 

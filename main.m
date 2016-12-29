@@ -1,6 +1,6 @@
-function [a, w, alist, wlist, confusion] = main(C, x, y)
+function [a, w, alist, wlist, confusion, failurerate] = main(C, x, y)
 % MAIN Trains/tests SVM on data
-% [a, w, alist, wlist] = main(C, x, y) Returns dual and primal solutions
+% [a, w, alist, wlist, confusion, failurerate] = main(C, x, y) Returns dual and primal solutions
 % for data x, y
 load barrier.m;
 
@@ -19,20 +19,21 @@ testl = y(:, setxor(1:n, t));
 % a = [C/2; C/2; C/2; ...; C/2] strictly satisfies
 % condition 0 < a < C
 ainit = C/2*ones(sizet, 1);
-"Dual solution"
+"Dual solution";
 tic
 % a is of size size(t, 2) x 1
-[alist, wlist] = barrier(train, trainl, C, ainit);
+[alist, wlist, cv] = barrier(train, trainl, C, ainit);
 toc
+% Plots Newton's method convergence
+semilogy(1:(size(cv, 2)), cv);
 a = alist(:, end);
-"Primal solution"
+"Primal solution";
 % w of size 1 x (d+1)
 w = wlist(:, end);
 
 % Testing on testing set
-"Computing out-of-sample performance"
+"Computing out-of-sample performance";
 confusion = zeros(2, 2);
-%onfrontier = 0;
 ll = (w'*test);
 % Class 1 is y = 1 (ll > 0), class2 is y = -1 (ll < 0)
 ptsin1 = testl(ll > 0)';
@@ -44,9 +45,5 @@ confusion(1, 2) = abs(sum(ptsin1(ptsin1 < 0)));
 confusion(2, 1) = sum(ptsin2(ptsin2 > 0));
 onfrontier = sum(frontier);
 
-confusion;
-onfrontier;
-outofsampleperf = (confusion(1, 1) + confusion(2, 2))/(n - sizet);
-% Draws frontier for the first two dimensions
-%drawline(w, x, y);
+failurerate = (confusion(1, 2) + confusion(1, 2))/(n - sizet);
            

@@ -7,7 +7,7 @@
 * Procédures :
 
 - Pour obtenir a (la solution optimale du dual), w (la solution optimale du primal), et la liste des a et w en fonction du nombre d'itérations de la méthode de Newton avec x (les points), y (les étiquettes) :
-           [a, w, alist, wlist, confusion] = main(C, x, y)
+           [a, w, alist, wlist, confusion, failurerate] = main(C, x, y)
 
 - Pour dessiner le plan/droite séparateur/trice :
            drawline(w, x, y)

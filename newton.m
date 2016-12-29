@@ -6,13 +6,6 @@ function [a, cv] = newton(K, y, C, ainit, t)
 % search : ALPHA=0.01, BETA=0.5, tolerance 1e-10 (stops iteration
 % if lambda^2/2 < 1e-10), maximum number of
 % iterations 1000).
-% a = newton(K, y, C, ainit, t, ALPHA, BETA) with parameters ALPHA
-% and BETA for backtracking line search.
-% a = newton(K, y, C, ainit, t, ALPHA, BETA, NTTOL) with parameters ALPHA
-% and BETA for backtracking line search, and NTTOL for tolerance.
-% a = newton(K, y, C, ainit, t, ALPHA, BETA, NTTOL, MAXITERS) with
-% parameters ALPHA and BETA for backtracking line search, NTTOL for tolerance and
-% maxiters for maximum number of iterations.
 load svmobj.m;
 
 % Parameters for backtracking line direction search
@@ -61,7 +54,7 @@ for k=1:MAXITERS
         % Update a
         a = a+s*v;
         
-        % Stopping criteria
+        % Stopping criterium
         if (abs(lambda/2) < NTTOL)
             break;
         end 

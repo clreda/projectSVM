@@ -9,7 +9,8 @@ load crossvalidation.m;
 c_max=10;
 c_min=1;
 
-mini = crossvalidation(c_min, x, y);
+C = c_min;
+mini = crossvalidation(C, x, y);
 for c_test=(c_min+1):c_max
     err = crossvalidation(c_test, x, y);
     if (mini > err)
