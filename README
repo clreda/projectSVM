@@ -35,10 +35,13 @@
 
 * Description des fichiers :
 
+- accpm.m implémente l'algorithme ACCPM
 - barrier.m implémente la méthode de la barrière logarithmique
 - choiceC.m permet de déterminer une bonne valeur du paramètre C par validation croisée
+- coorddescent.m implémente la Coordinate Descent Method.
 - crossvalidation.m implémente la méthode de leave-one-out
 - drawline.m permet de tracer la frontière de classification entre les points (avec les deux premières  coordonnées)
+- drawnewton.m permet de tracer la convergence de la méthode de Newton
 - drawplane.m permet de tracer la frontière de classification entre les points (avec les trois premières  coordonnées)
 - dualitygap.m trace ||w^n-a^n|| en fonction du nombre d'itérations n de l'algorithme de Newton
 - generatedata.m génère des points de deux classes 
