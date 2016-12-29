@@ -6,7 +6,7 @@ function C = choiceC(x, y)
 load crossvalidation.m;
 
 % Bounds for c
-c_max=10;
+c_max=5;
 c_min=1;
 
 C = c_min;

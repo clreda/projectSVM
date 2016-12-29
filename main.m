@@ -3,6 +3,7 @@ function [a, w, alist, wlist, confusion, failurerate] = main(C, x, y)
 % [a, w, alist, wlist, confusion, failurerate] = main(C, x, y) Returns dual and primal solutions
 % for data x, y
 load barrier.m;
+load drawnewton.m;
 
 n = size(x, 2);
 
@@ -25,7 +26,7 @@ tic
 [alist, wlist, cv] = barrier(train, trainl, C, ainit);
 toc
 % Plots Newton's method convergence
-semilogy(1:(size(cv, 2)), cv);
+drawnewton(size(cv, 2), cv);
 a = alist(:, end);
 "Primal solution";
 % w of size 1 x (d+1)

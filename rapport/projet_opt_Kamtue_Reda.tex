@@ -150,38 +150,55 @@ Le problème à optimiser devient alors :\\
 
 \subsection{Comparaison entre les différentes générations de points}
 
-$d$ est la dimension des points et $n$ le nombre d'échantillons dans la génération.\\
+$d$ est la dimension des points et $n$ le nombre d'échantillons dans la génération. On utilise $\frac{2}{3}$ des points (choisis au hasard uniformément) de l'ensemble de départ pour l'ensemble d'entraînement, et les points restants pour l'ensemble de validation. \\
 
      \begin{table}[H]
        \caption{Comparaison entre les générations de points}
-       \begin{tabular}{|l|c|c|c|c|c|r|}
+       \begin{tabular}{|l|c|c|c|c|c|c|r|}
          \hline
-         \textsc{Génération} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N itérations} & \textsc{Temps Newton (s)} & \textsc{Taux de succès (\%)}\\
+         \textsc{Test} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N it.} & \textsc{Temps (s)} & \textsc{Meilleur C} & \textsc{Echec (\%)}\\
          \hline
-         1 & 1 & 2 & 10 & 11 & 81,017 & 100\\
+         1 & 1 & 40 & 10 & 11 & 25.4149 &  & 0 (*)\\
          \hline
-         1 & 5 & 2 & 10 & 11 & 0,614381 & 100\\
+         1 & 5 & 40 & 10 & 11 & 0.177382 &  & 0 (*)\\
          \hline
-         1 & 10 & 2 & 10 & 11 & 0,3478 & 100\\
+         1 & 10 & 40 & 10 & 11 & 0.168049 &  & 0 (*)\\
          \hline
-         2 & 10 & 2 & 40 & 12 & 0,379235 & 100\\
+         1 & 5 & 40000 & 10 & 11 & 0.314603 &  & 0\\
          \hline
-         2 & 100 & 2 & 40 & 12 & 0,512416 & 100\\
+         1 & 5 & 40 & 100 & 12 & 0.715352 &  & 0\\
          \hline
-         3 & 20 & 2 & 40 & 12 & 0,387925 & 78,7\\
-         \hline
-         4 & 10 & 2 & 40 & 12 & 0,32249 & 75,0\\
-         \hline
-         5 & 20 & 2 & 50 & 12 & 0,465928 & 57,3\\
+         1 & 5 & 40 & 1000 & ? & > 10 &  & ?\\
          \hline
        \end{tabular}
      \end{table}
 
+Quelques remarques :
+\begin{itemize}
+\item De manière générale, utiliser une valeur de C plus grande accélère considérablement la recherche de la solution duale : pas au niveau du nombre d'itérations de la méthode de Newton, mais au niveau du coût de l'appel à la méthode de Newton (voir les trois premiers tests). 
+\item La complexité temporelle de la résolution du problème dual est bien indépendante de la dimension et dépendante de la taille de l'échantillon (voir les tests 4, 5 et 6).
+\item La valeur "?" signifie que l'algorithme a tourné trop longtemps pour la valeur soit mesurée.
+\item La notation "(*)" signifie que les tests marqués ont utilisé le même ensemble de données.
+\end{itemize}
+
 \subsection{Points dans les quadrans ($x, y > 0$) et ($x > 0, y < 0$)}
 
-On génère les points selon la procédure $m \neq 0, 1$ dans \emph{generatedata.m} (taille $n = 10$, dimension $d = 40$). Les points de la première classe sont dans le quadran ($x, y > 0$) et ceux de la seconde classe sont dans le quadran ($x > 0, y > 0$). Voir le fichier \emph{test1.mat} dans le dossier \emph{test}. 
+On génère les points selon la procédure $m = 2$ dans \emph{generatedata.m}. Les points de la première classe sont dans le quadran ($x, y > 0$) et ceux de la seconde classe sont dans le quadran ($x > 0, y > 0$). Voir le fichier \emph{test1.mat} dans le dossier \emph{test}. La meilleure valeur, au niveau du nombre d'erreurs, de $C$, choisie par validation croisée dans l'intervalle [1, 10], est & (les autres valeurs de C de 2 à 10 donnent le même nombre d'erreurs pour cet ensemble de données).
 
-\subsubsection{Pour $C = 1$}
+\subsubsection{Pour $C=1, n=10, d=40$}
+
+     \begin{table}[H]
+       \caption{Matrice de confusion}
+       \begin{tabular}{|l|c|r|}
+         \hline
+         \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
+         \hline
+         \textsc{Classe 1} & 2 & 0\\
+         \hline
+         \textsc{Classe 2} & 0 & 1\\
+         \hline
+       \end{tabular}
+     \end{table}
 
          \begin{figure}
            \begin{center}
@@ -190,60 +207,71 @@ On génère les points selon la procédure $m \neq 0, 1$ dans \emph{generatedata
            \end{center}
          \end{figure}
 
-       \begin{center}
-       $\lambda =$\begin{bmatrix}   
-         8,6314$.10^{-7}$\\
-         1,2616$.10^{-6}$\\
-         1,0513$.10^{-6}$\\
-         9,8250$.10^{-7}$\\
-         6,7446$.10^{-7}$\\
-         1,3976$.10^{-6}$\\
-         9,4634$.10^{-7}$\\
-         8,2267$.10^{-7}$\\
-         9,0923$.10^{-7}$\\
-         1,0908$.10^{-6}$\end{bmatrix}
-       \end{center}
-
-       \begin{center}
-       $\omega =$\begin{bmatrix}   
-         4,1948$.10^{-4}$\\
-         3,9299$.10^{-4}$\\
-         -3,3357$.10^{-7}$\\\end{bmatrix}
-       \end{center}
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/line1.png}
+             \caption{Tracé de la frontière de classification (en vert) entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+           \end{center}
+         \end{figure}
 
          \begin{figure}
            \begin{center}
-             \subfigure\includegraphics[scale=0.5]{images/line2D1.png}
+             \subfigure\includegraphics[scale=0.5]{images/plane1.png}
              \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
-             \subfigure\includegraphics[scale=0.5]{images/dualitygap1.png}
-             \caption{\emph{Duality gap} : tracé de $\|\omega^*\| - \|a^*\|$ en fonction du nombre d'itérations de la méthode de Newton}
+             \subfigure\includegraphics[scale=0.5]{images/duality1.png}
+             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
            \end{center}
          \end{figure}
 
-On retrouve les mêmes courbes, et les mêmes valeurs de $\lambda$ et de $\omega$, pour les valeurs suivantes de C, ce qui paraît cohérent.
-
 \subsection{Points centrés réduits générés à partir de deux fonctions gaussiennes}
 
-\subsubsection{Pour $C = 10$}
+On génère les points selon la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=10$. On tire les coordonnées en utilisant la fonction \emph{randn}, qui retourne des éléments centrés réduits générés par une Gaussienne, auxquels on retire ou ajoute 10. Voir le fichier \emph{test2.mat} dans le dossier \emph{test}. La meilleure valeur de $C$ (choisie par validation croisée dans l'intervalle [1,10]) est &.
 
-On génère les points selon la procédure 2 dans \emph{generatedata.m}. On tire les coordonnées en utilisant la fonction \emph{randn}, qui retourne des éléments centrés réduits générés par une Gaussienne, auxquels on retire ou ajoute 10. Les $x$ et $y$ sont stockés dans le fichier \emph{test2} dans le dossier \emph{test}.
+\subsubsection{Pour $C=5, n=150, d=200$}
+
+     \begin{table}[H]
+       \caption{Matrice de confusion}
+       \begin{tabular}{|l|c|r|}
+         \hline
+         \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
+         \hline
+         \textsc{Classe 1} & 23 & 0\\
+         \hline
+         \textsc{Classe 2} & 0 & 27\\
+         \hline
+       \end{tabular}
+     \end{table}
 
          \begin{figure}
            \begin{center}
-             \subfigure\includegraphics[scale=0.3]{images/cvnewton2.png}
+             \subfigure\includegraphics[scale=0.5]{images/cvnewton2.png}
              \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
-             \subfigure\includegraphics[scale=0.3]{images/line2D2.png}
+             \subfigure\includegraphics[scale=0.5]{images/line2.png}
+             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/plane2.png}
              \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/duality2.png}
+             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
            \end{center}
          \end{figure}
 
@@ -252,23 +280,25 @@ On génère les points selon la procédure 2 dans \emph{generatedata.m}. On tire
 Les deux fonctions \emph{choiceC} et \emph{crossvalidation} permettent de sélectionner la meilleure valeur de C pour un échantillon donné, par la méthode de \emph{leave-one-out}, où, pour un échantillon de taille $n$, à chaque itération on choisit un élément $e$ comme ensemble de test, et l'entraînement du SVM se fait sur les $n-1$ éléments restants. La valeur de C qui permet d'obtenir une erreur globale (sur l'ensemble d'itérations) minimale est considérée la meilleure. On teste ces fonctions sur l'échantillon ci-dessus, en recherchant la meilleure valeur de C entre C minimum et C maximum :\\
 
      \begin{table}[H]
-       \caption{Recherche de la meilleure valeur de C}
+       \caption{Recherche par dichotomie de la meilleure valeur de C pour le deuxième ensemble de valeurs}
        \begin{tabular}{|l|c|r|}
          \hline
-         \textsc{C maximum} & \textsc{C minimum} & \textsc{Meilleure valeur}\\
+         \textsc{C maximum} & \textsc{C minimum} & \textsc{Meilleure valeur dans cet intervalle}\\
          \hline
-         13 & 15 & 13\\
+         5 & 1 & \\
          \hline
-         10 & 15 & 10\\
+          &  & \\
          \hline
-         5 & 10 & 5\\
+          &  & \\
          \hline
        \end{tabular}
      \end{table}
 
 \subsection{Points centrés réduits générés avec des fonctions gaussiennes}
 
-On utilise la procédure 2 dans \emph{generatedata.m} avec $sep=100$. Voir le fichier \emph{test3} pour les valeurs de $x$ et $y$.
+On utilise la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=100$. Voir le fichier \emph{test3.mat} dans le dossier \emph{test}. La meilleure valeur de $C$ (choisie par validation croisée dans l'intervalle [1,10]) est &.
+
+\subsubsection{Pour $C=5, n=150, d=200$}
 
      \begin{table}[H]
        \caption{Matrice de confusion}
@@ -276,23 +306,47 @@ On utilise la procédure 2 dans \emph{generatedata.m} avec $sep=100$. Voir le fi
          \hline
          \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
          \hline
-         \textsc{Classe 1} & 98 & 12\\
+         \textsc{Classe 1} & 28 & 0\\
          \hline
-         \textsc{Classe 2} & 52 & 138\\
+         \textsc{Classe 2} & 0 & 22\\
          \hline
        \end{tabular}
      \end{table}
 
          \begin{figure}
            \begin{center}
-             \subfigure\includegraphics[scale=0.3]{images/line2D3.png}
+             \subfigure\includegraphics[scale=0.5]{images/cvnewton3.png}
+             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/line3.png}
+             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/plane3.png}
              \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
            \end{center}
          \end{figure}
 
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/duality3.png}
+             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
+           \end{center}
+         \end{figure}
+
+
 \subsection{Points centrés réduits générés avec des fonctions gaussiennes}
 
-On utilise la procédure 2 dans \emph{generatedata.m} avec $sep=0$. Voir le fichier \emph{test4} pour les valeurs de $x$ et $y$.
+On utilise la procédure $m=0$ dans \emph{generatedata.m} avec $sep=0$. Voir le fichier \emph{test4.mat} dans le dossier \emph{test}. La meilleure valeur de $C$ (choisie par validation croisée) est &.
+
+\subsubsection{Pour $C=5, n=150, d=200$}
 
      \begin{table}[H]
        \caption{Matrice de confusion}
@@ -300,23 +354,46 @@ On utilise la procédure 2 dans \emph{generatedata.m} avec $sep=0$. Voir le fich
          \hline
          \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
          \hline
-         \textsc{Classe 1} & 75 & 0\\
+         \textsc{Classe 1} & 28 & 0\\
          \hline
-         \textsc{Classe 2} & 75 & 150\\
+         \textsc{Classe 2} & 0 & 22\\
          \hline
        \end{tabular}
      \end{table}
 
          \begin{figure}
            \begin{center}
-             \subfigure\includegraphics[scale=0.3]{images/line2D4.png}
+             \subfigure\includegraphics[scale=0.5]{images/cvnewton4.png}
+             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/line4.png}
+             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/plane4.png}
              \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/duality4.png}
+             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
            \end{center}
          \end{figure}
 
 \subsection{Points générés avec des fonctions gaussiennes}
 
-On utilise la procédure 3 dans \emph{generatedata.m} avec les paramètres par défaut. Voir le fichier \emph{test5} pour les valeurs de $x$ et $y$.
+On utilise la procédure $m=1$ dans \emph{generatedata.m} avec les paramètres par défaut. Voir le fichier \emph{test5.mat} dans le dossier \emph{test}. La meilleure valeur de $C$ (choisie par validation croisée) est &.
+
+\subsubsection{Pour $C=5, n=150, d=200$}
 
      \begin{table}[H]
        \caption{Matrice de confusion}
@@ -324,18 +401,40 @@ On utilise la procédure 3 dans \emph{generatedata.m} avec les paramètres par d
          \hline
          \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
          \hline
-         \textsc{Classe 1} & 26 & 4\\
+         \textsc{Classe 1} & 9 & 1\\
          \hline
-         \textsc{Classe 2} & 124 & 146\\
+         \textsc{Classe 2} & 17 & 23\\
          \hline
        \end{tabular}
      \end{table}
 
          \begin{figure}
            \begin{center}
-             \subfigure\includegraphics[scale=0.3]{images/line2D5.png}
+             \subfigure\includegraphics[scale=0.5]{images/cvnewton5.png}
+             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/line5.png}
+             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/plane5.png}
              \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
            \end{center}
          \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \subfigure\includegraphics[scale=0.5]{images/duality5.png}
+             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
+           \end{center}
+         \end{figure}
+
 
 \end{document}

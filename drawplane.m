@@ -11,6 +11,8 @@ xclass2 = x(:,class2);
 
 plot3(xclass1(1,:),xclass1(2,:),xclass1(3,:),'+','Color','b','MarkerSize',6); hold on;
 plot3(xclass2(1,:),xclass2(2,:),xclass2(3,:),'+','Color','r','MarkerSize',6); hold on;
+legend('Class 1', 'Class 2');
+hold on;
 
 grid on;
 xlabel('x_1');

@@ -8,11 +8,13 @@ function [x y] = generatedata(n, d)
 % Number of elements in first class
 class1 = ceil(n/2);
 % Choose generation method
-m = 2;
-%m = 1;
+%m = 2;
+m = 1;
 %m = 0;
 % Parameter for m=0
 sep = 10;
+%sep=100;
+%sep=0;
 % Moments of Gaussian functions
 moment1 = 0.14;
 moment2 = 1;

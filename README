@@ -2,6 +2,17 @@
 
 * Les ensembles de données utilisés dans le rapport sont disponibles dans le dossier "test".
 
+- x: points
+- y: étiquettes associées
+- fail: taux d'échec sur l'ensemble de test
+- conf: matrice de confusion pour l'ensemble de test
+- w: solution optimale du primal
+- wl: liste des w^n en fonction du nombre d'itérations de la méthode de Newton n
+- a: solution optimale du dual
+- al: liste des a^n en fonction du nombre d'itérations de la méthode de Newton n
+- nbiter: nombre d'itérations de la méthode de Newton
+- time: temps écoulé (en secondes) pour chercher la solution du dual
+
 * On peut avoir accès au descriptif de chaque fonction avec la commande help.
 
 * Procédures :
@@ -10,7 +21,7 @@
            [a, w, alist, wlist, confusion, failurerate] = main(C, x, y)
 
 - Pour dessiner le plan/droite séparateur/trice :
-           drawline(w, x, y)
+           drawline(w, x, y) (dessine aussi les droites f(x) = 10 et f(x) = -10)
            drawplane(w, x, y)
 
 - Pour tracer le duality gap :
