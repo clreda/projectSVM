@@ -31,13 +31,13 @@ if (m == 1)
     x1 = [];
     x2 = [];
     for i=1:d
-        g1 = gaussian(class1, moment1)';
-        g2 = gaussian(class2, moment2)';
+        g1 = gausswin(class1, moment1)';
+        g2 = gausswin(class2, moment2)';
         % Dividing by std to improve plotting
         x1 = [x1; g1/std(g1)];
-        moment1 += 0.01;
+        moment1 = moment1 + 0.01;
         x2 = [x2; g2/std(g2)];
-        moment2 += 0.01;
+        moment2 = moment2 + 0.01;
     end
 else
     % Uniform in (0, 1)
