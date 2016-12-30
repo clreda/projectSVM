@@ -1,6 +1,5 @@
-function [a, cv] = newton(K, y, C, ainit, t)
-% NEWTON Implements Newton's method for optimization.
-% a = newton(K, y, C, ainit, t) Returns Lagrange multiplier a for
+function x = findacenter(A, b)
+% FINDACENTER Implements Newton's method for optimization -log(b_i - a_i x).
 % samples of labels y, kernel matrix K, constant C, initialization
 % of Lagrange multiplier ainit (parameters for backtracking line
 % search : ALPHA=0.01, BETA=0.5, tolerance 1e-10 (stops iteration
@@ -16,20 +15,18 @@ NTTOL=1e-10;
 % Maximum number of iterations
 MAXITERS=1000;
 
-a = ainit;
-
 % To plot the convergence
-cv = [];
-minimum = svmobj(a, K, y, C, t);
+%cv = [];
+%minimum = svmobj(a, K, y, C, t);
 
 for k=1:MAXITERS
-        [val, g, H] = svmobj(a, K, y, C, t);
+        [val, g, H] = computeobj(A,b,x);
         
         % To plot the convergence
-        cv = [cv val];
-        if (minimum > val)
-             minimum = val;
-        end
+        %cv = [cv val];
+        %if (minimum > val)
+        %     minimum = val;
+        %end
         
         % Newton step and decrement
         v = -H\g; 
@@ -44,7 +41,7 @@ for k=1:MAXITERS
             s = BETA*s;
         end 
         while 1
-            [nextval, nextg, nexth] = svmobj(a+s*v, K, y, C, t);
+            [nextval, nextg, nexth] = computeobj(a+s*v, K, y, C, t);
             if nextval <= (val + ALPHA*s*lambda)
                 break;
             end;
@@ -61,8 +58,3 @@ for k=1:MAXITERS
         
 end
 
-if (k == MAXITERS)
-    "La méthode de Newton n'a pas convergé.";
-end
-
-cv = cv .- minimum;
