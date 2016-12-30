@@ -1,5 +1,6 @@
-function a = accpm(x, y, C, ainit)
+function x = accpm(A, b,xinit)
 % ACCPM Finds dual solution by analytic center cutting-plane method
+% Inequality: Ax <= b
 % a = accpm(x, y, C, ainit)
 
 % No dropping constraints (thus only useful for small instances)
@@ -7,20 +8,20 @@ function a = accpm(x, y, C, ainit)
 load findacenter.m;
 load computeobj.m;
 
-m %number of inequalities
+%number of inequalities
 
 NTTOL=1e-10;
-a = ainit;
-[u, g, H] = computeobj(x, y, C, a);
+[u, g, H] = computeobj(A,b,xinit);
 l = u - m*sqrt(g'*(H\g));
 
 while (1)
-    a = findacenter(x, y, C);
-    [v, g, H] = computeobj(x, y, C, a);
+    x = findacenter(A, b); % find an analytic center using newton method
+    [v, g, H] = computeobj(A,b,x);% calculate value, subgradient and hessian
     u = min(u, v);
     l = max(l, v - m*sqrt(g'*(H\g)))
-    % add inequality to polyhedron
-    m = m + 1;
+    % add an inequality gTz <= gTx* to polyhedron
+    A = [A ; g'];
+    b = [b ; g'*x];
     % Stopping criterium
     if (u-l < NTTOL)
         break;
