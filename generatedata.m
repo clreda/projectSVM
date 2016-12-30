@@ -9,12 +9,12 @@ function [x y] = generatedata(n, d)
 class1 = ceil(n/2);
 % Choose generation method
 %m = 2;
-m = 1;
-%m = 0;
+%m = 1;
+m = 0;
 % Parameter for m=0
-sep = 10;
+%sep = 10;
 %sep=100;
-%sep=0;
+sep=0;
 % Moments of Gaussian functions
 moment1 = 0.14;
 moment2 = 1;
@@ -25,7 +25,7 @@ if (m == 0)
     % Generating 1st class elements
     x1 = randn(d, class1) - sep;
     % Generating 2nd class elements 
-    x2 = rand(d, class2) + sep;
+    x2 = randn(d, class2) + sep;
 end
 if (m == 1)
     x1 = [];

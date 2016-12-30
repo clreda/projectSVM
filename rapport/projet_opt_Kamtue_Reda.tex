@@ -24,7 +24,7 @@ Les \emph{Support Vector Machine solvers} (SVM) sont une catégorie d'algorithme
            \begin{center}
            \begin{figure}[H]
            \centering
-           \caption{Exemple de frontière pour deux classes : celles des points noirs et celle des points rouges}
+           \caption{Exemple de frontière pour deux classes : celles des points bleus et celle des points rouges}
            \includegraphics[scale=0.3]{images/voronoi.png}
            \end{figure}
            \end{center} 
@@ -65,7 +65,7 @@ Finalement, le problème d'optimisation à résoudre pourrait être :\\
 
 \bigskip
 
-Un autre problème se pose si on s'arrête ici : par exemple, dans l'exemple de la frontière de Voronoi que l'on a vu ci-dessus, il n'existe pas de droite telle qu'il n'y ait que de points noirs d'un côté et que des points rouges de l'autre côté, ce qui contredit la condition (1). Le problème est alors infaisable. Pourtant, la droite dessinée en vert peut sembler acceptable comme frontière pour cet ensemble de points.\\
+Un autre problème se pose si on s'arrête ici : par exemple, dans l'exemple de la frontière de Voronoi que l'on a vu ci-dessus, si on a un point bleu au milieu des points rouges, alors il n'existe pas de droite telle qu'il n'y ait que de points bleus d'un côté et que des points rouges de l'autre côté, ce qui contredit la condition (1). Le problème est alors infaisable. Pourtant, la droite dessinée en vert peut sembler acceptable comme frontière pour l'ensemble de points auquel on a ajouté un point bleu au milieu du nuage de points rouge.\\
 
 On tient compte de cette erreur en introduisant les variables $(z_i)_{i \leq m}$. Pour que la condition (1) soit toujours vérifiée, il faut que quand $y_i \times f(x_i) \geq 1$, $z_i = 0$ et lorsque $y_i \times f(x_i) < 1$, $z_i = 1 - y_i \times f(x_i)$. Le but étant de minimiser le nombre de ces erreurs, ie. points mal classés, on utilise un paramètre $C$ constant qui permet d'insister plus ou mins sur la minimisation de ces erreurs :\\ 
 
@@ -105,14 +105,16 @@ Minimisons L par rapport à $z$. Comme le lagrangien est convexe en $z$, il faut
               \begin{center}
               $\nabla_{z} L(\omega, \lambda, z) = 0 + C$\textbf{1}\textbf{$1_{z>0}$}$^T - \lambda$\textbf{$1_{z>0}$}$^T = 0$\\
               $\Leftrightarrow mC - \sum_i \lambda_i = 0$ si $z_i > 0$\\
-              $\Leftrightarrow mC = \sum_i \lambda_i$ si $z_i > 0$ (2)\\
+              $\Leftrightarrow mC = \sum_i \lambda_i$ si $z_i > 0$\\
               \end{center}
 
 Le minimum en L par rapport à $z$ a une valeur finie ssi $C$\textbf{1}$ - \lambda = 0$. On obtient le problème dual en injectant les valeurs de $\omega$ et de $z$ dans le lagrangien :\\
 
              \begin{center}
              $max_{\lambda \in \mathbb{R}^{+m}} -\frac{1}{2}\|\sum_i\lambda_iy_ix_i\|^2_2 + $\textbf{1}$^T\lambda$ par (1)\\ 
-             avec $\forall i, 0 \leq \lambda_i \leq C$ si $z_i > 0$ (vient de (2))\\
+             avec $\forall i, 0 \leq \lambda_i \leq C$ si $z_i > 0$\\
+            (vient des conditions de KKT -\emph{complementary slackness},\\
+            vérifiées car le problème est convexe)\\
              \end{center}
 
 On obtient la solution optimale du primal $(\omega^*, z^*)$ à partir de celle du dual $\lambda^*$ :
@@ -147,11 +149,8 @@ Enfin, on peut s'affranchir des contraintes d'inégalité sur le multiplicateur 
           $\Phi(\lambda) = \sum_i (- log(C - \lambda_i) - log(\lambda_i)) = \sum_i log(\frac{1}{(C - \lambda_i)\lambda_i}) = - \sum_i log((C - \lambda_i)\lambda_i)$ 
           \end{center}
 
-Cette fontion vaut $+\infty$ si $a<0$ ou $a>C$.Le problème à optimiser devient alors :\\
+Cette fontion vaut $+\infty$ si $a<0$ ou $a>C$.Le problème à optimiser devient alors (en changeant le signe pour obtenir une fonction à minimiser) :\\
 
-%          \begin{center}
-%          $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda + \Phi(\lambda)$\\ 
-%          \end{center}
           \begin{center}
                  $min$ $\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda-$\textbf{1}$^T\lambda +\Phi(\lambda)$\\
                  avec $\forall i, 0 \leq \lambda_i \leq C$ 
@@ -168,7 +167,7 @@ $d$ est la dimension des points et $n$ le nombre d'échantillons dans la génér
        \caption{Comparaison entre les générations de points}
        \begin{tabular}{|l|c|c|c|c|c|c|r|}
          \hline
-         \textsc{Test} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N it.} & \textsc{Temps (s)} & \textsc{Meilleur C} & \textsc{Echec (\%)}\\
+         \textsc{Données} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{N it.} & \textsc{Temps (s)} & \textsc{Meilleur C} & \textsc{Echec (\%)}\\
          \hline
          1 & 1 & 40 & 10 & 11 & 25,414 & 1 & 0 (*)\\
          \hline
@@ -212,7 +211,7 @@ On génère les points selon la procédure $m = 2$ dans \emph{generatedata.m}. L
 \subsubsection{Pour $C=1, n=10, d=40$}
 
      \begin{table}[H]
-       \caption{Matrice de confusion}
+       \caption{Matrice de confusion pour l'ensemble de données 1}
        \begin{tabular}{|l|c|r|}
          \hline
          \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
@@ -227,28 +226,28 @@ On génère les points selon la procédure $m = 2$ dans \emph{generatedata.m}. L
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton1.png}
-             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+             \caption{Ensemble de données 1 (échelle semi-log)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/line1.png}
-             \caption{Tracé de la frontière de classification (en vert) entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+             \caption{Ensemble de données 1 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/plane1.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+             \caption{Ensemble de données 1}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/duality1.png}
-             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
+             \caption{\emph{Duality gap} : ensemble de données 1}
            \end{center}
          \end{figure}
 
@@ -259,7 +258,7 @@ On génère les points selon la procédure $m = 0$ dans \emph{generatedata.m} av
 \subsubsection{Pour $C=5, n=150, d=200$}
 
      \begin{table}[H]
-       \caption{Matrice de confusion}
+       \caption{Matrice de confusion pour l'ensemble de données 2}
        \begin{tabular}{|l|c|r|}
          \hline
          \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
@@ -274,28 +273,28 @@ On génère les points selon la procédure $m = 0$ dans \emph{generatedata.m} av
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton2.png}
-             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+             \caption{Ensemble de données 2 (échelle semi-log)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/line2.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+             \caption{Ensemble de données 2 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/plane2.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+             \caption{Ensemble de données 2}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/duality2.png}
-             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
+             \caption{\emph{Duality gap} : ensemble de données 2}
            \end{center}
          \end{figure}
 
@@ -306,7 +305,7 @@ On utilise la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=100$. Voir
 \subsubsection{Pour $C=5, n=150, d=200$}
 
      \begin{table}[H]
-       \caption{Matrice de confusion}
+       \caption{Matrice de confusion pour l'ensemble de données 3}
        \begin{tabular}{|l|c|r|}
          \hline
          \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
@@ -321,28 +320,28 @@ On utilise la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=100$. Voir
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton3.png}
-             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+             \caption{Ensemble de données 3 (échelle semi-log)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/line3.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+             \caption{Ensemble de données 3 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/plane3.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+             \caption{Ensemble de données 3}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/duality3.png}
-             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
+             \caption{\emph{Duality gap} : ensemble de données 3}
            \end{center}
          \end{figure}
 
@@ -354,7 +353,7 @@ On utilise la procédure $m=0$ dans \emph{generatedata.m} avec $sep=0$. Voir le 
 \subsubsection{Pour $C=5, n=150, d=200$}
 
      \begin{table}[H]
-       \caption{Matrice de confusion}
+       \caption{Matrice de confusion pour l'ensemble de données 4}
        \begin{tabular}{|l|c|r|}
          \hline
          \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
@@ -369,28 +368,28 @@ On utilise la procédure $m=0$ dans \emph{generatedata.m} avec $sep=0$. Voir le 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton4.png}
-             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+             \caption{Ensemble de données 4 (échelle semi-log)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/line4.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+             \caption{Ensemble de données 4 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/plane4.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+             \caption{Ensemble de données 4}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/duality4.png}
-             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
+             \caption{\emph{Duality gap} : ensemble de données 4}
            \end{center}
          \end{figure}
 
@@ -401,7 +400,7 @@ On utilise la procédure $m=1$ dans \emph{generatedata.m} avec les paramètres p
 \subsubsection{Pour $C=5, n=150, d=200$}
 
      \begin{table}[H]
-       \caption{Matrice de confusion}
+       \caption{Matrice de confusion pour l'ensemble de données 5}
        \begin{tabular}{|l|c|r|}
          \hline
          \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
@@ -416,28 +415,28 @@ On utilise la procédure $m=1$ dans \emph{generatedata.m} avec les paramètres p
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton5.png}
-             \caption{Convergence vers le minimum de la fonction objectif par la méthode de Newton (échelle semi-log)}
+             \caption{Ensemble de données 5 (échelle semi-log)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/line5.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième). Les lignes rouges et bleus en pointillés sont les droites f(x) = 10 et f(x) = -10}
+             \caption{Ensemble de données 5 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/plane5.png}
-             \caption{Tracé de la frontière de classification entre les points (bleus pour la première classe, rouges pour la deuxième)}
+             \caption{Ensemble de données 5}
            \end{center}
          \end{figure}
 
          \begin{figure}
            \begin{center}
              \includegraphics[scale=0.5]{images/duality5.png}
-             \caption{\emph{Duality gap} : tracé de $\|\omega^n\| - \|a^n\|$ en fonction du nombre d'itérations $n$ de la méthode de Newton}
+             \caption{\emph{Duality gap} : ensemble de données 5}
            \end{center}
          \end{figure}
 
