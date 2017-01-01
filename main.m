@@ -46,16 +46,17 @@ else
        % Minimize 1/2||w||^2 + C 1^Tz
        % s.t. z >= 0
        % forall i, y_i(w^Tx_i) >= 1 -  z_i
-       % <=> [-y_i*x_i -1]*[w^T z_i]^T <= -1
+       % <=> [-y_i*x_i^T -1]*[w z_i]^T <= -1
        % <=> A*x <= b
-
-       % TODO CHECKING
-
-       A = -[y.*x ones(1, d)];
+       A = [];
+       for i=1:n
+           A = [A; -y(1, i).*x(1:(end-1), i)' -1];
+       end
+       A = A';
+       b = -ones(d, 1);
        % xinit belongs to the initial polygon
        xinit = A\b;
-       b = -ones(1, d);
-       xans = accpm(A, b, xinit);
+       xans = accpm(C, A, b, xinit);
        w = xans(1:(end-1), :);
        z = xans(end, :);
        % Null vectors
