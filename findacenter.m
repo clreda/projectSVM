@@ -41,7 +41,7 @@ for k=1:MAXITERS
             s = BETA*s;
         end 
         while 1
-            [nextval, nextg, nexth] = computeobj(a+s*v, K, y, C, t);
+            [nextval, nextg, nexth] = computeobj(A,b,x+s*v);
             if nextval <= (val + ALPHA*s*lambda)
                 break;
             end;
