@@ -15,5 +15,5 @@ m = size(w,1);
 %H = A'*D^2*A;
 
 f = w'*w/2 + C*ones(1,nsample)*z;
-g = [w ; C*ones(nsample, 1)];
-h = [eye(m) zeros(m,nsample); zeros(nsample+m)];
+g = [w ; C*ones(nsample,1)];
+h = [eye(m) zeros(m,nsample); zeros(nsample,nsample+m)];
