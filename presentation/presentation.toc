@@ -6,3 +6,4 @@
 \beamer@sectionintoc {2}{R\IeC {\'e}sultats}{12}{0}{2}
 \beamer@subsectionintoc {2}{1}{D\IeC {\'e}tails de l'impl\IeC {\'e}mentation}{12}{0}{2}
 \beamer@subsectionintoc {2}{2}{Trac\IeC {\'e} de la fronti\IeC {\`e}re de classification}{16}{0}{2}
+\beamer@sectionintoc {3}{Extensions}{21}{0}{3}

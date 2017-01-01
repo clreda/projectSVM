@@ -438,5 +438,120 @@ On utilise la procédure $m=1$ dans \emph{generatedata.m} avec les paramètres p
            \end{center}
          \end{figure}
 
+\section{Comparaison avec \emph{la descente de coordonnées}}
+
+\subsection{Résultats des ensembles de données précédents avec cette méthode}
+
+$d$ est la dimension des points et $n$ le nombre d'échantillons dans la génération. On utilise $\frac{2}{3}$ des points (choisis au hasard uniformément) de l'ensemble de départ pour l'ensemble d'entraînement, et les points restants pour l'ensemble de validation. On considère les mêmes ensembles que précédemment (l'ensemble 1 est celui utilisé dans les trois premiers tests de la section précédente).\\
+
+     \begin{table}[H]
+       \caption{Comparaison entre les générations de points}
+       \begin{tabular}{|l|c|c|c|c|r|}
+         \hline
+         \textsc{Données} & \textsc{C} & \textsc{d} & \textsc{n} & \textsc{Temps (s)} & \textsc{Echec (\%)}\\
+         \hline
+         1 & 1 & 40 & 10 & 0,021 & 0\\
+         \hline
+         1 & 5 & 40 & 10 & 0,015 & 0\\
+         \hline
+         1 & 10 & 40 & 10 & 0,012 & 0\\
+         \hline
+         3 & 1 & 200 & 150 & 0,322 & 0\\
+         \hline
+         5 & 1 & 200 & 150 & 0,392 & 54\\
+         \hline
+       \end{tabular}
+     \end{table}
+
+On constate que l'algorithme est beaucoup plus rapide que le précédent, mais donne de mauvais résultats dans le cas où les points sont générés à l'aide de deux fonctions gaussiennes. %DIRE POURQUOI
+
+\subsection{Ensemble de données 1 ($C = 1$)}
+
+     \begin{table}[H]
+       \caption{Matrice de confusion pour l'ensemble de données 1}
+       \begin{tabular}{|l|c|r|}
+         \hline
+         \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
+         \hline
+         \textsc{Classe 1} & 2 & 0\\
+         \hline
+         \textsc{Classe 2} & 0 & 1\\
+         \hline
+       \end{tabular}
+     \end{table}
+
+         \begin{figure}
+           \begin{center}
+             \includegraphics[scale=0.5]{images/line11.png}
+             \caption{Ensemble de données 1 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \includegraphics[scale=0.5]{images/duality11.png}
+             \caption{\emph{Duality gap} : ensemble de données 1}
+           \end{center}
+         \end{figure}
+
+\subsection{Ensemble de données 3}
+
+     \begin{table}[H]
+       \caption{Matrice de confusion pour l'ensemble de données 3}
+       \begin{tabular}{|l|c|r|}
+         \hline
+         \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
+         \hline
+         \textsc{Classe 1} & 26 & 0\\
+         \hline
+         \textsc{Classe 2} & 0 & 24\\
+         \hline
+       \end{tabular}
+     \end{table}
+
+         \begin{figure}
+           \begin{center}
+             \includegraphics[scale=0.5]{images/line33.png}
+             \caption{Ensemble de données 3 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \includegraphics[scale=0.5]{images/duality33.png}
+             \caption{\emph{Duality gap} : ensemble de données 3}
+           \end{center}
+         \end{figure}
+
+\subsection{Ensemble de données 5}
+
+     \begin{table}[H]
+       \caption{Matrice de confusion pour l'ensemble de données 5}
+       \begin{tabular}{|l|c|r|}
+         \hline
+         \textsc{Réalité/Prédiction} & \textsc{Classe 1} & \textsc{Classe 2}\\
+         \hline
+         \textsc{Classe 1} & 21 & 20\\
+         \hline
+         \textsc{Classe 2} & 7 & 2\\
+         \hline
+       \end{tabular}
+     \end{table}
+
+         \begin{figure}
+           \begin{center}
+             \includegraphics[scale=0.5]{images/line55.png}
+             \caption{Ensemble de données 5 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
+           \end{center}
+         \end{figure}
+
+         \begin{figure}
+           \begin{center}
+             \includegraphics[scale=0.5]{images/duality55.png}
+             \caption{\emph{Duality gap} : ensemble de données 5}
+           \end{center}
+         \end{figure}
+
+% COMMENTER
 
 \end{document}

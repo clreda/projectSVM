@@ -2,6 +2,7 @@ function err = crossvalidation(C, x, y)
 % CROSSVALIDATION Computes mean-square prediction error for samples x and
 % constant C with "leave-one-out" technique, using log-barrier function method.
 % error = crossvalidation(C, x, y) for samples x associated with labels y.
+% Avec Coord Descent
 load barrier.m;
 
 err = [];
@@ -15,7 +16,7 @@ for j=1:n
     testl = y(:, j);
 
     % Training : ai = C/2 always satisfies the condition 0 <= a <= C
-    [_, wl] = barrier(train, trainl, C, C/2*ones(n-1, 1));
+    [_, wl] = coorddescent(train, trainl, C, C/2*ones(n-1, 1));
     % Primal solution
     w = wl(:, end);
     
