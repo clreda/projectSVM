@@ -20,7 +20,7 @@ MAXITERS=1000;
 %minimum = svmobj(a, K, y, C, t);
 
 for k=1:MAXITERS
-        [val, g, H] = computeobj(A,b,x);
+        [val, g, H] = logobj(A,b,x);
         
         % To plot the convergence
         %cv = [cv val];
@@ -41,7 +41,7 @@ for k=1:MAXITERS
             s = BETA*s;
         end 
         while 1
-            [nextval, nextg, nexth] = computeobj(A,b,x+s*v);
+            [nextval, nextg, nexth] = logobj(A,b,x+s*v);
             if nextval <= (val + ALPHA*s*lambda)
                 break;
             end;
