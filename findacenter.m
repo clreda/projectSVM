@@ -1,26 +1,22 @@
 function x = findacenter(A, b)
 % FINDACENTER Implements Newton's method for optimization -log(b_i - a_i x).
-% samples of labels y, kernel matrix K, constant C, initialization
-% of Lagrange multiplier ainit (parameters for backtracking line
-% search : ALPHA=0.01, BETA=0.5, tolerance 1e-10 (stops iteration
-% if lambda^2/2 < 1e-10), maximum number of
-% iterations 1000).
-load svmobj.m;
+% x = findacenter(A, b)
 
 % Parameters for backtracking line direction search
-ALPHA=0.01;
-BETA=0.5;
+ALPHA = 0.01;
+BETA = 0.5;
 % Tolerance threshold
-NTTOL=1e-10;
+NTTOL = 1e-10;
 % Maximum number of iterations
-MAXITERS=1000;
+MAXITERS = 1000;
 
 % To plot the convergence
 %cv = [];
 %minimum = svmobj(a, K, y, C, t);
 
 for k=1:MAXITERS
-        [val, g, H] = computeobj(A,b,x);
+    % Compute value, (sub)gradient and hessian
+        [val, g, H] = computeobj(A, b, x);
         
         % To plot the convergence
         %cv = [cv val];
@@ -35,21 +31,17 @@ for k=1:MAXITERS
         lambda = g'*(-v);
         
         % Backtracking line search
-        s = 1;
-        % First get strictly feasible point
-        while (min(a+s*v) < 0) || (max(a+s*v) > C)
-            s = BETA*s;
-        end 
+        t = 1;
         while 1
-            [nextval, nextg, nexth] = computeobj(a+s*v, K, y, C, t);
-            if nextval <= (val + ALPHA*s*lambda)
+            [nextval, nextg, nexth] = computeobj(A, b, x + t*v);
+            if nextval <= (val + ALPHA*t*lambda)
                 break;
             end;
-            s = BETA*s;
+            t = BETA*t;
         end
         
-        % Update a
-        a = a+s*v;
+        % Update x
+        x = x + t*v;
         
         % Stopping criterium
         if (abs(lambda/2) < NTTOL)

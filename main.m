@@ -1,11 +1,16 @@
-function [a, w, alist, wlist, confusion, failurerate] = main(C, x, y)
+function [a, w, alist, wlist, confusion, failurerate] = main(C, x, y, algo)
 % MAIN Trains/tests SVM on data
-% [a, w, alist, wlist, confusion, failurerate] = main(C, x, y) Returns dual and primal solutions
-% for data x, y
+% [a, w, alist, wlist, confusion, failurerate] = main(C, x, y,
+% algo) Returns dual and primal solutions for data x, y.
+% algo = 0 : uses Newton's method
+% algo = 1 : uses Coordinate Descent
+% algo = 2 : uses ACCPM
 load barrier.m;
+load coorddescent.m;
+load accpm.m;
 load drawnewton.m;
 
-n = size(x, 2);
+[d, n] = size(x);
 
 % Training 2/3 of the whole data
 sizet = ceil(2/3*size(x, 2));
@@ -17,21 +22,47 @@ test = x(:, setxor(1:n, t));
 testl = y(:, setxor(1:n, t));
 
 % Training on training set
-% a = [C/2; C/2; C/2; ...; C/2] strictly satisfies
-% condition 0 < a < C
-ainit = C/2*ones(sizet, 1);
-"Dual solution";
-tic
-% a is of size size(t, 2) x 1
-[alist, wlist, cv] = barrier(train, trainl, C, ainit);
-toc
-% Plots Newton's method convergence
-drawnewton(size(cv, 2), cv);
-a = alist(:, end);
-"Primal solution";
-% w of size 1 x (d+1)
-w = wlist(:, end);
+if (algo < 2)
+       % a = [C/2; C/2; C/2; ...; C/2] strictly satisfies
+       % condition 0 < a < C
+       ainit = C/2*ones(sizet, 1);
+       if (algo == 0)
+          tic
+          [alist, wlist, cv] = barrier(train, trainl, C, ainit, 0);
+          toc
+          % Plots Newton's method convergence
+          drawnewton(size(cv, 2), cv);
+       else 
+          tic
+          % a is of size size(t, 2) x 1
+          [alist, wlist] = coorddescent(C, train, trainl, ainit);
+          toc
+       end
+       % a is of size size(t, 2) x 1
+       a = alist(:, end);
+       % w of size 1 x (d+1)
+       w = wlist(:, end);
+else
+       % Minimize 1/2||w||^2 + C 1^Tz
+       % s.t. z >= 0
+       % forall i, y_i(w^Tx_i) >= 1 -  z_i
+       % <=> [-y_i*x_i -1]*[w^T z_i]^T <= -1
+       % <=> A*x <= b
 
+       % TODO CHECKING
+
+       A = -[y.*x ones(1, d)];
+       % xinit belongs to the initial polygon
+       xinit = A\b;
+       b = -ones(1, d);
+       xans = accpm(A, b, xinit);
+       w = xans(1:(end-1), :);
+       z = xans(end, :);
+       % Null vectors
+       a = [];
+       alist = [];
+       wlist = [];
+end
 % Testing on testing set
 "Computing out-of-sample performance";
 confusion = zeros(2, 2);
@@ -46,5 +77,5 @@ confusion(1, 2) = abs(sum(ptsin1(ptsin1 < 0)));
 confusion(2, 1) = sum(ptsin2(ptsin2 > 0));
 onfrontier = sum(frontier);
 
-failurerate = (confusion(1, 2) + confusion(1, 2))/(n - sizet);
+failurerate = (confusion(1, 2) + confusion(2, 1))/(n - sizet);
            

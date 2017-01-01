@@ -18,7 +18,13 @@
 * Procédures :
 
 - Pour obtenir a (la solution optimale du dual), w (la solution optimale du primal), et la liste des a et w en fonction du nombre d'itérations de la méthode de Newton avec x (les points), y (les étiquettes) :
-           [a, w, alist, wlist, confusion, failurerate] = main(C, x, y)
+           [a, w, alist, wlist, confusion, failurerate] = main(C, x, y, 0) 
+
+- Utiliser l'algorithme ACCPM pour résoudre le problème primal du SVM :
+           [a, w, alist, wlist, confusion, failurerate] = main(C, x, y, 2) 
+
+- Utiliser la descente de coordonnées pour résoudre le problème dual du SVM :
+           [a, w, alist, wlist, confusion, failurerate] = main(C, x, y, 1) 
 
 - Pour dessiner le plan/droite séparateur/trice :
            drawline(w, x, y) (dessine aussi les droites f(x) = 10 et f(x) = -10)
@@ -38,13 +44,16 @@
 - accpm.m implémente l'algorithme ACCPM
 - barrier.m implémente la méthode de la barrière logarithmique
 - choiceC.m permet de déterminer une bonne valeur du paramètre C par validation croisée
+- computeobj.m retourne la valeur, le gradient et la hessienne en x pour la fonction objectif de ACCPM
 - coorddescent.m implémente la Coordinate Descent Method.
 - crossvalidation.m implémente la méthode de leave-one-out
 - drawline.m permet de tracer la frontière de classification entre les points (avec les deux premières  coordonnées)
 - drawnewton.m permet de tracer la convergence de la méthode de Newton
 - drawplane.m permet de tracer la frontière de classification entre les points (avec les trois premières  coordonnées)
 - dualitygap.m trace ||w^n-a^n|| en fonction du nombre d'itérations n de l'algorithme de Newton
+- findacenter.m trouve le centre analytique pour le polytope dans l'algorithme ACCPM
 - generatedata.m génère des points de deux classes 
-- main.m entraîne et teste le SVM sur un échantillon donné : calcul de la matrice de confusion 2x2
+- main.m entraîne et teste le SVM sur un échantillon donné : calcul de la matrice de confusion 2x2 avec la méthode de Newton/avec ACCPM/avec la descente de coordonnées
 - newton.m implémente la méthode de Newton
-- svmobj.m renvoie la valeur, le gradient et la hessienne de la fonction objectif avec la fonction log-barrière
+- newtoncoord.m implémente la méthode de Newton en minimizant sur une seule coordonnée
+- svmobj.m renvoie la valeur, le gradient et la hessienne de la fonction objectif du SVM avec la fonction log-barrière

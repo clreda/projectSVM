@@ -1,17 +1,11 @@
 function a = newtoncoord(K, y, C, ainit, i)
-% NEWTON Implements Newton's method for optimization coordinate by coordinate.
-% a = newton(K, y, C, ainit, i) Returns Lagrange multiplier a for
+% NEWTONCOORD Implements Newton's method for minimization along one
+% coordinate.
+% a = newtoncoord(K, y, C, ainit, i) Returns Lagrange multiplier a for
 % samples of labels y, kernel matrix K, constant C, initialization
 % of Lagrange multiplier ainit respect to ith coordinate
-% (parameters for backtracking line
-% search : ALPHA=0.01, BETA=0.5, tolerance 1e-10 (stops iteration
-% if lambda^2/2 < 1e-10), maximum number of
-% iterations 1000).
 load svmobj.m;
 
-% Parameters for backtracking line direction search
-ALPHA=0.01;
-BETA=0.5;
 % Tolerance threshold
 NTTOL=1e-10;
 % Maximum number of iterations
@@ -21,10 +15,14 @@ a = ainit;
 
 % To plot the convergence
 cv = [];
-minimum = svmobj(a, K, y, C, t);
+minimum = svmobj(a, K, y, C, 1);
 
 for k=1:MAXITERS
-        [val, g, H] = svmobj(a, K, y, C, t);
+        [val, g, H] = svmobj(a, K, y, C, 1);
+        % df/d(a_i)
+        g = g(i, 1);
+        % d^2f/d^2(a_i)
+        H = H(i, i);
         
         % To plot the convergence
         cv = [cv val];
@@ -38,22 +36,8 @@ for k=1:MAXITERS
         % lambda here is actually lambda^2
         lambda = g'*(-v);
         
-        % Backtracking line search
-        s = 1;
-        % First get strictly feasible point
-        while (min(a+s*v) < 0) || (max(a+s*v) > C)
-            s = BETA*s;
-        end 
-        while 1
-            [nextval, nextg, nexth] = svmobj(a+s*v, K, y, C, t);
-            if nextval <= (val + ALPHA*s*lambda)
-                break;
-            end;
-            s = BETA*s;
-        end
-        
-        % Update a
-        a = a+s*v;
+        % Update a ONLY on the ith coordinate 
+        a(i, 1) = a(i, 1) + v;
         
         % Stopping criterium
         if (abs(lambda/2) < NTTOL)
@@ -67,3 +51,4 @@ if (k == MAXITERS)
 end
 
 cv = cv .- minimum;
+%semilogy(1:k, cv)
