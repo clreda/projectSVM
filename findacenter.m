@@ -15,8 +15,8 @@ MAXITERS = 1000;
 %minimum = svmobj(a, K, y, C, t);
 
 for k=1:MAXITERS
-    % Compute value, (sub)gradient and hessian
-        [val, g, H] = computeobj(A, b, x);
+        % Compute value, (sub)gradient and hessian
+        [val, g, H] = logobj(A,b,x);
         
         % To plot the convergence
         %cv = [cv val];
@@ -33,7 +33,7 @@ for k=1:MAXITERS
         % Backtracking line search
         t = 1;
         while 1
-            [nextval, nextg, nexth] = computeobj(A, b, x + t*v);
+            [nextval, nextg, nexth] = logobj(A,b,x+t*v);
             if nextval <= (val + ALPHA*t*lambda)
                 break;
             end;
