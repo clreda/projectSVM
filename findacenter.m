@@ -1,7 +1,7 @@
 function x = findacenter(A, b)
 % FINDACENTER Implements Newton's method for optimization -log(b_i - a_i x).
 % x = findacenter(A, b)
-load logobj
+load logobj.m;
 
 % Parameters for backtracking line direction search
 ALPHA = 0.01;
@@ -17,7 +17,7 @@ MAXITERS = 1000;
 
 for k=1:MAXITERS
         % Compute value, (sub)gradient and hessian
-        [val, g, H] = logobj(A,b,x);
+        [val, g, H] = logobj(A, b, x);
         
         % To plot the convergence
         %cv = [cv val];

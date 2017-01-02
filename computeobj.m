@@ -6,6 +6,8 @@ function [f, g, H] = computeobj(w, z, C);
 % z = [nsample x 1]
 % C = error tolerance
 
+%TODO COMPUTEOBJ
+
 nsample = size(z,1);
 m = size(w,1);
 

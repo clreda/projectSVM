@@ -44,6 +44,7 @@
 - accpm.m implémente l'algorithme ACCPM
 - barrier.m implémente la méthode de la barrière logarithmique
 - choiceC.m permet de déterminer une bonne valeur du paramètre C par validation croisée
+- computeirr.m permet de calculer la mesure de pertinence d'une contrainte dans un polytope donné (et de voir si elle est effectivement pertinente)
 - computeobj.m retourne la valeur, le gradient et la hessienne en x pour la fonction objectif de ACCPM
 - coorddescent.m implémente la Coordinate Descent Method.
 - crossvalidation.m implémente la méthode de leave-one-out

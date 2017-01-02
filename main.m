@@ -45,19 +45,22 @@ else
        % Minimize 1/2||w||^2 + C 1^Tz
        % s.t. z >= 0
        % forall i, y_i(w^Tx_i) >= 1 -  z_i
-       % <=> [-y_i*x_i^T -1]*[w z_i]^T <= -1
-       % <=> A*x <= b
-       A = [(y*x')' -ones(d, 1)];
-       for i=1:n
-           A = [A; -y(1, i).*x(1:(end-1), i)' -1];
+       % <=> 
+       % Minimize 1/2||w||^2 + C 1^Tz - \sum_i log(z_i(y_i*w^T*x_i)/(1-z_i) - 1)
+       % with logarithmic barrier function
+       % forall i, y_i(w^Tx_i) >= 1 -  z_i
+       % [-y_i*x_i 0 0 0 ... 0 -1 0 ... 0] [w z]^T <= -1
+       %                        | ith position
+       A = [];
+       for i=1:sizet
+           A = [A; -trainl(1, i).*train(1:(end-1), i)' zeros(1, i-1) -1 zeros(1, n-i)];
        end
-       A = A';
-       b = -ones(d, 1);
+       b = -ones(sizet, 1);
        % xinit belongs to the initial polytop
        xinit = A\b;
-       xans = accpm(C, A, b, xinit);
-       w = xans(1:(end-1), :);
-       z = xans(end, :);
+       xans = accpm(A, b, xinit);
+       w = xans(1:d, :);
+       z = xans((d+1):end, :);
        % Null vectors
        a = [];
        alist = [];
