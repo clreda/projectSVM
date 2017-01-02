@@ -1,6 +1,7 @@
 function x = findacenter(A, b)
 % FINDACENTER Implements Newton's method for optimization -log(b_i - a_i x).
 % x = findacenter(A, b)
+load logobj
 
 % Parameters for backtracking line direction search
 ALPHA = 0.01;

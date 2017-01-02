@@ -8,8 +8,12 @@ function x = accpm(C, A, b, xinit)
 load findacenter.m;
 load computeobj.m;
 
-%m is the number of inequalities
+% m is the number of inequalities in polytop
 m = 1;
+% Initialization of w, z
+w = ;
+z = ;
+% Tolerance threshold
 NTTOL = 1e-10;
 [u, g, H] = computeobj(w, z, C);
 l = u - m*sqrt(g'*(H\g));

@@ -34,7 +34,6 @@ if (algo < 2)
           drawnewton(size(cv, 2), cv);
        else 
           tic
-          % a is of size size(t, 2) x 1
           [alist, wlist] = coorddescent(C, train, trainl, ainit);
           toc
        end
@@ -48,13 +47,13 @@ else
        % forall i, y_i(w^Tx_i) >= 1 -  z_i
        % <=> [-y_i*x_i^T -1]*[w z_i]^T <= -1
        % <=> A*x <= b
-       A = [];
+       A = [(y*x')' -ones(d, 1)];
        for i=1:n
            A = [A; -y(1, i).*x(1:(end-1), i)' -1];
        end
        A = A';
        b = -ones(d, 1);
-       % xinit belongs to the initial polygon
+       % xinit belongs to the initial polytop
        xinit = A\b;
        xans = accpm(C, A, b, xinit);
        w = xans(1:(end-1), :);
