@@ -8,7 +8,7 @@ function [f, g, H] = computeobj(w, z, C);
 
 %TODO COMPUTEOBJ
 
-nsample = size(z,1);
+nsamples = size(z,1);
 m = size(w,1);
 
 %d = A*x - b; D = diag(1./d);
@@ -16,6 +16,6 @@ m = size(w,1);
 %g = - A'*D*ones(m,1);
 %H = A'*D^2*A;
 
-f = w'*w/2 + C*ones(1,nsample)*z;
-g = [w ; C*ones(nsample,1)];
-h = [eye(m) zeros(m,nsample); zeros(nsample,nsample+m)];
+f = w'*w/2 + C*ones(1,nsamples)*z;
+g = [w ; C*ones(nsamples,1)];
+H = [eye(m) zeros(m,nsamples); zeros(nsamples,nsamples+m)];

@@ -1,53 +1,41 @@
-function x = findacenter(A, b,xinit)
+function [x vecx] = findacenter(A, b,xinit)
 % FINDACENTER Implements Newton's method for optimization -log(b_i - a_i x).
 % x = findacenter(A, b)
-load logobj.m;
 
 % Parameters for backtracking line direction search
-ALPHA = 0.01;
-BETA = 0.5;
+ALPHA = .1; BETA = .7;
 % Tolerance threshold
 NTTOL = 1e-10;
 % Maximum number of iterations
-MAXITERS = 1000;
+MAXITERS = 2000;
 
-% To plot the convergence
-%cv = [];
-%minimum = svmobj(a, K, y, C, t);
-x=xinit;
-for k=1:MAXITERS
-        % Compute value, (sub)gradient and hessian
-        [val, g, H] = logobj(A, b, x);
+x = xinit;
+vecx = []
+for k=1:MAXITERS % Inner loop
+        [val,g,H] = logobj(A,b,x);
+        vecx = [vecx val];
+        v = -H\g; % Newton step
+        lambda = -g'*v; % Newton decrement
+        % Perform backtracking line search along search direction
+        s = 1;
+        while (min([b - A*(x+s*v)]) < 0)
+        s = BETA*s;
+        end % first get feasible point ... then search minimum
         
-        % To plot the convergence
-        %cv = [cv val];
-        %if (minimum > val)
-        %     minimum = val;
-        %end
-        
-        % Newton step and decrement
-        v = -H\g; 
-
-        % lambda here is actually lambda^2
-        lambda = g'*(-v);
-        
-        % Backtracking line search
-        t = 1;
-        while 1
-            [nextval, nextg, nexth] = logobj(A,b,x+t*v);
-            if nextval <= (val + ALPHA*t*lambda)
-                break;
-            end;
-            t = BETA*t;
+        val2 = logobj(A,b,x+s*v);
+        while val2 > val + ALPHA*s*lambda
+        s = BETA*s;
+        val2 = logobj(A,b,x+s*v);
         end
         
-        % Update x
-        x = x + t*v;
-        
-        % Stopping criterium
-        if (abs(lambda/2) < NTTOL)
+        if isnan(val2)
             break;
-        end 
+        end;
         
+        x = x+s*v;
+    % stopping criteria
+    if (abs(lambda/2) < NTTOL) % decrement smaller than NTTOL?
+       break;
+    end
 end
 
