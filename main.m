@@ -51,13 +51,14 @@ else
        % forall i, y_i(w^Tx_i) >= 1 -  z_i
        % [-y_i*x_i 0 0 0 ... 0 -1 0 ... 0] [w z]^T <= -1
        %                        | ith position
-       A = [];
-       for i=1:sizet
-           A = [A; -trainl(1, i).*train(1:(end-1), i)' zeros(1, i-1) -1 zeros(1, n-i)];
-       end
+       A = [diag(trainl)*train' -eye(sizet)];
        b = -ones(sizet, 1);
+       
        % xinit belongs to the initial polytop
-       xinit = A\b;
+       xinit = [ones(d, 1); 500*ones(sizet, 1)];
+       factor = -max(A*xinit);
+       xinit = xinit / (factor/2);
+       
        xans = accpm(A, b, xinit);
        w = xans(1:d, :);
        z = xans((d+1):end, :);
