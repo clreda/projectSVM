@@ -7,5 +7,7 @@ function [isirrel, irr] = computeirr(A, b, x, H, i)
 % Number of inequalities
 m = size(A, 1);
 
+% Compute measure
 irr = (b(i, 1) - A(i, :)'*x)/sqrt(A(i, :)'*inv(H)*A(i, :));
+% Is the constraint irrelevant?
 isirrel = (irr >= m);

@@ -62,7 +62,7 @@ for k=1:1000
             end
         end
     else
-        i = 0;
+        i = 1;
         while (and(m > 3*n, i < m+1))
             if computeirr(A, b, x, H, i)
                 A = A(setxor(1:m, i), :);

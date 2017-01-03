@@ -1,7 +1,8 @@
 function [a, w, alist, wlist, confusion, failurerate] = main(C, x, y, algo)
 % MAIN Trains/tests SVM on data
 % [a, w, alist, wlist, confusion, failurerate] = main(C, x, y,
-% algo) Returns dual and primal solutions for data x, y.
+% algo) 
+% Returns dual and primal solutions for data x, y.
 % algo = 0 : uses Newton's method
 % algo = 1 : uses Coordinate Descent
 % algo = 2 : uses ACCPM
