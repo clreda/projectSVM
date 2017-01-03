@@ -1,4 +1,4 @@
-function x = findacenter(A, b)
+function x = findacenter(A, b,xinit)
 % FINDACENTER Implements Newton's method for optimization -log(b_i - a_i x).
 % x = findacenter(A, b)
 load logobj.m;
@@ -14,7 +14,7 @@ MAXITERS = 1000;
 % To plot the convergence
 %cv = [];
 %minimum = svmobj(a, K, y, C, t);
-
+x=xinit;
 for k=1:MAXITERS
         % Compute value, (sub)gradient and hessian
         [val, g, H] = logobj(A, b, x);
