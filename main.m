@@ -59,7 +59,7 @@ else
        factor = -max(A*xinit);
        xinit = xinit / (factor/2);
        
-       xans = accpm(A, b, xinit);
+       xans = accpm(C, A, b, xinit);
        w = xans(1:d, :);
        z = xans((d+1):end, :);
        % Null vectors
