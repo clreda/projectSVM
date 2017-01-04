@@ -21,13 +21,13 @@ Les \emph{Support Vector Machine solvers} (SVM) sont une catégorie d'algorithme
 
            
            Etant donnés $(x_i)_{i \leq m}$ des points dans $\mathbb{R}^n$, et $(y_i)_{i \leq m}$ les étiquettes des points tels que l'étiquette de $x_i$ soit $y_i \in \{-1, 1\}$, on cherche la droite qui sépare "le mieux possible" les points dans différentes classes, autrement dit, la frontière de Voronoi entre les deux classes.
-           \begin{center}
+
            \begin{figure}[H]
            \centering
            \caption{Exemple de frontière pour deux classes : celle des points bleus et celle des points rouges}
            \includegraphics[scale=0.3]{images/voronoi.png}
            \end{figure}
-           \end{center} 
+
 
 \noindent La frontière que l'on recherche est une fonction linéaire, donc de la forme (avec deux paramètres $\omega$ et $b$) :\\
 
@@ -221,28 +221,28 @@ On génère les points selon la procédure $m = 2$ dans \emph{generatedata.m}. L
        \end{tabular}
      \end{table}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton1.png}
              \caption{Ensemble de données 1 (échelle semi-log)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/line1.png}
              \caption{Ensemble de données 1 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/plane1.png}
              \caption{Ensemble de données 1}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/duality1.png}
              \caption{\emph{Duality gap} : ensemble de données 1}
@@ -268,28 +268,28 @@ On génère les points selon la procédure $m = 0$ dans \emph{generatedata.m} av
        \end{tabular}
      \end{table}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton2.png}
              \caption{Ensemble de données 2 (échelle semi-log)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/line2.png}
              \caption{Ensemble de données 2 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/plane2.png}
              \caption{Ensemble de données 2}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/duality2.png}
              \caption{\emph{Duality gap} : ensemble de données 2}
@@ -315,28 +315,28 @@ On utilise la procédure $m = 0$ dans \emph{generatedata.m} avec $sep=100$. Voir
        \end{tabular}
      \end{table}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton3.png}
              \caption{Ensemble de données 3 (échelle semi-log)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/line3.png}
              \caption{Ensemble de données 3 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/plane3.png}
              \caption{Ensemble de données 3}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/duality3.png}
              \caption{\emph{Duality gap} : ensemble de données 3}
@@ -363,28 +363,28 @@ On utilise la procédure $m=0$ dans \emph{generatedata.m} avec $sep=0$. Voir le 
        \end{tabular}
      \end{table}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton4.png}
              \caption{Ensemble de données 4 (échelle semi-log)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/line4.png}
              \caption{Ensemble de données 4 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/plane4.png}
              \caption{Ensemble de données 4}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/duality4.png}
              \caption{\emph{Duality gap} : ensemble de données 4}
@@ -410,28 +410,28 @@ On utilise la procédure $m=1$ dans \emph{generatedata.m} avec les paramètres p
        \end{tabular}
      \end{table}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/cvnewton5.png}
              \caption{Ensemble de données 5 (échelle semi-log)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/line5.png}
              \caption{Ensemble de données 5 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/plane5.png}
              \caption{Ensemble de données 5}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/duality5.png}
              \caption{\emph{Duality gap} : ensemble de données 5}
@@ -458,12 +458,20 @@ $d$ est la dimension des points et $n$ le nombre d'échantillons dans la génér
          \hline
          3 & 1 & 200 & 150 & 0,322 & 0\\
          \hline
+         3 & 1 & 2000 & 150 & 0,396 & 0\\
+         \hline
+         3 & 1 & 20000 & 150 & 1,501 & 0\\
+         \hline
+         3 & 1 & 200 & 1500 & 99,407 & 0\\
+         \hline
          5 & 1 & 200 & 150 & 0,392 & 54\\
          \hline
        \end{tabular}
      \end{table}
 
-On constate que l'algorithme est beaucoup plus rapide que le précédent, mais donne de mauvais résultats dans le cas où les points sont générés à l'aide de deux fonctions gaussiennes.
+On constate que l'algorithme est beaucoup plus rapide que le précédent, mais donne de mauvais résultats dans le cas où les points sont générés à l'aide de deux fonctions gaussiennes.\\
+
+On constate qu'il y a encore la dépendance en la taille de l'échantillon, mais l'algorithme \emph{Coordinate Descent} tourne toujours plus rapidement que le précédent (voir les tests 4, 5, 6 et 7).
 
 \subsection{Ensemble de données 1 ($C = 1$)}
 
@@ -480,14 +488,14 @@ On constate que l'algorithme est beaucoup plus rapide que le précédent, mais d
        \end{tabular}
      \end{table}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/line11.png}
              \caption{Ensemble de données 1 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/duality11.png}
              \caption{\emph{Duality gap} : ensemble de données 1}
@@ -509,14 +517,14 @@ On constate que l'algorithme est beaucoup plus rapide que le précédent, mais d
        \end{tabular}
      \end{table}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/line33.png}
              \caption{Ensemble de données 3 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/duality33.png}
              \caption{\emph{Duality gap} : ensemble de données 3}
@@ -573,7 +581,7 @@ On choisit alors : $A = [ diag(y) \times x^T Id_n ]$ et $b = -$\textbf{1} (voir 
 
 Sur certaines données, on obtient de bons résultats (ici avec un ensemble de données de taille $8$ et de dimension $2$) :\\
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/accpmtestfig.jpg}
              \caption{Tracé de la frontière de classification en utilisant l'algorithme ACCPM}

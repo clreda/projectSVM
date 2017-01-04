@@ -54,6 +54,7 @@
 - dualitygap.m trace ||w^n-a^n|| en fonction du nombre d'itérations n de l'algorithme de Newton
 - findacenter.m trouve le centre analytique pour le polytope dans l'algorithme ACCPM
 - generatedata.m génère des points de deux classes 
+- logobj.m retourne la valeur, le gradient et la hessienne en x pour la fonction du polytope dans ACCPM
 - main.m entraîne et teste le SVM sur un échantillon donné : calcul de la matrice de confusion 2x2 avec la méthode de Newton/avec ACCPM/avec la descente de coordonnées
 - newton.m implémente la méthode de Newton
 - newtoncoord.m implémente la méthode de Newton en minimizant sur une seule coordonnée

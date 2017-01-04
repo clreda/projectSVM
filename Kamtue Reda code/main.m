@@ -46,14 +46,14 @@ else
        A = [diag(trainl)*train' -eye(sizet)];
        b = -ones(sizet, 1);
        
-       % xinit belongs to the initial polytop
+       % this xinit strictly belongs to the initial polytop
        xinit = [ones(d, 1); 500*ones(sizet, 1)];
        factor = -max(A*xinit);
        xinit = xinit / (factor/2);
        
        xans = accpm(C, A, b, xinit);
-       w = xans(1:d, :);
-       z = xans((d+1):end, :);
+       w = xans(1:d, 1);
+       z = xans((d+1):end, 1);
        % Null vectors
        a = [];
        alist = [];
