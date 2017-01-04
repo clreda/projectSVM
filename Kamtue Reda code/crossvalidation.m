@@ -3,7 +3,7 @@ function err = crossvalidation(C, x, y)
 % constant C with "leave-one-out" technique, using log-barrier function method.
 % error = crossvalidation(C, x, y) for samples x associated with labels y.
 % Avec Coord Descent
-load barrier.m;
+%load barrier.m;
 
 err = [];
 [d, n] = size(x);

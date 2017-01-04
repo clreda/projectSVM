@@ -3,7 +3,7 @@ function C = choiceC(x, y)
 % validation depending on samples.
 % C = choiceC(x, y) Picks out the best value for C for
 % samples (x, y) in range 1 to 10.
-load crossvalidation.m;
+%load crossvalidation.m;
 
 % Bounds for C
 c_max=3;

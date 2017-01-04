@@ -2,7 +2,7 @@ function [alist, wlist, cv] = barrier(x, y, C, ainit)
 % BARRIER Implements the barrier function method.
 % a = BARRIER(x, y, C, ainit) x samples, y labels, C constant,
 % ainit initialization of Lagrange multiplier a of dim 1 x m.
-load newton.m;
+%load newton.m;
 
 % Default values for parameters
 tolerance=1e-10;

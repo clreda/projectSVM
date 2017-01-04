@@ -4,7 +4,7 @@ function a = newtoncoord(K, y, C, ainit, i)
 % a = newtoncoord(K, y, C, ainit, i) Returns Lagrange multiplier a for
 % samples of labels y, kernel matrix K, constant C, initialization
 % of Lagrange multiplier ainit respect to ith coordinate
-load svmobj.m;
+%load svmobj.m;
 
 % Tolerance threshold
 NTTOL=1e-10;

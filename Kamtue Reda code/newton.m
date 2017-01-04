@@ -6,7 +6,7 @@ function [a, cv] = newton(K, y, C, ainit, t)
 % search : ALPHA=0.01, BETA=0.5, tolerance 1e-10 (stops iteration
 % if lambda^2/2 < 1e-10), maximum number of
 % iterations 1000).
-load svmobj.m;
+%load svmobj.m;
 
 % Parameters for backtracking line direction search
 ALPHA=0.01;

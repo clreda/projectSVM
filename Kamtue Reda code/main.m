@@ -6,10 +6,10 @@ function [a, w, alist, wlist, confusion, failurerate] = main(C, x, y, algo)
 % algo = 0 : uses Newton's method
 % algo = 1 : uses Coordinate Descent
 % algo = 2 : uses ACCPM
-load barrier.m;
-load coorddescent.m;
-load accpm.m;
-load drawnewton.m;
+%load barrier.m;
+%load coorddescent.m;
+%load accpm.m;
+%load drawnewton.m;
 
 [d, n] = size(x);
 
@@ -43,7 +43,7 @@ if (algo < 2)
        % w of size 1 x (d+1)
        w = wlist(:, end);
 else
-       A = [diag(trainl)*train' -eye(sizet)];
+       A = [-diag(trainl)*train' -eye(sizet)];
        b = -ones(sizet, 1);
        
        % this xinit strictly belongs to the initial polyhedron

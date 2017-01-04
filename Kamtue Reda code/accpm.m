@@ -2,9 +2,9 @@ function x = accpm(C, A, b, xinit)
 % ACCPM Finds dual solution by analytic center cutting-plane method
 % Inequality: Ax <= b
 % a = accpm(A, b, xinit)
-load findacenter.m;
-load logobj.m;
-load computeirr.m;
+%load findacenter.m;
+%load logobj.m;
+%load computeirr.m;
 
 % Dropping constraints strategies:
 % drop = 0 : drop all constraints having n_i >= m
