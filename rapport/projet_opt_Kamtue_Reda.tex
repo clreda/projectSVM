@@ -38,9 +38,14 @@ Les \emph{Support Vector Machine solvers} (SVM) sont une catégorie d'algorithme
 telle que :\\
  
          \begin{center}
-         $\forall i, y_i = -1 \Rightarrow f(x_i) \leq -1$\\
-         $\forall i, y_i = 1 \Rightarrow f(x_i) \geq 1$\\
-         $\Leftrightarrow \forall i, y_i \times f(x_i) \geq 1$ (1)
+           \begin{equation}
+         \forall i, f(x_i) = 
+         \begin{cases}
+         <0 &\mbox {si y=-1} \\
+         >0 &\mbox {si y=1}
+         \end{cases}
+         \Leftrightarrow \forall i, y_i \times f(x_i) > 0 
+         \end{equation}
          \end{center}
 
 Pour simplifier le problème, on peut prendre $ \omega' = $ \begin{bmatrix}$ \omega$\\ $b$\end{bmatrix} et $x' =$\begin{bmatrix}$x$\\ 1\end{bmatrix} (que l'on notera par souci de simplicité $\omega$ et $x$).\\
