@@ -50,9 +50,9 @@ telle que :\\
 
 Pour simplifier le problème, on peut prendre $ \omega' = $ \begin{bmatrix}$ \omega$\\ $b$\end{bmatrix} et $x' =$\begin{bmatrix}$x$\\ 1\end{bmatrix} (que l'on notera par souci de simplicité $\omega$ et $x$).\\
 
-L'hyperplan auquel $\omega$ est normal sépare l'espace en deux parties qui représentent deux classes. Pour obtenir un résultat robuste, on souhaite que la marge (\emph{i.e.} la somme des distances entre l'hyperplan et les points les plus proches) soit la plus grande possible. En effet, plus la marge est petite, plus la probabilité d'erreur de prédiction de la classe d'un point proche de ces droites sera importante.\\
+L'hyperplan $w^Tx + b$ sépare l'espace en deux parties qui représentent deux classes. Pour obtenir un résultat robuste, on souhaite que la marge (\emph{i.e.} la somme des distances entre l'hyperplan et les points les plus proches) soit la plus grande possible. En effet, plus la marge est petite, plus la probabilité d'erreur de prédiction de la classe d'un point proche de ces droites sera importante.\\
 
-La marge $\gamma$ se calcule de la façon suivante : soient $u, v$ deux points (parmi les plus proches à l'hyperplan) tels que $f(v) = 1$ et $f(u) = -1$. Alors :
+La marge $\gamma$ se calcule de la façon suivante : soient $u, v$ deux points (parmi les plus proches à l'hyperplan) tels que $f(v) = 1$ et $f(u) = -1$ (on pourrais normaliser car $c(w^Tx+b)$ définit la même l'hyperplan que $w^Tx+b$). Alors :
 
       \begin{center}
       $\|f(v) - f(u)\| = \|\omega \times (v-u)\| = \|\omega\| \times \|(v-u)\| = \|\omega\| \times \|\gamma\| = \|1 - (-1)\| = 2$
