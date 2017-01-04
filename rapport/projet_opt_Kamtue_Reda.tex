@@ -463,7 +463,7 @@ $d$ est la dimension des points et $n$ le nombre d'échantillons dans la génér
        \end{tabular}
      \end{table}
 
-On constate que l'algorithme est beaucoup plus rapide que le précédent, mais donne de mauvais résultats dans le cas où les points sont générés à l'aide de deux fonctions gaussiennes. %DIRE POURQUOI
+On constate que l'algorithme est beaucoup plus rapide que le précédent, mais donne de mauvais résultats dans le cas où les points sont générés à l'aide de deux fonctions gaussiennes.
 
 \subsection{Ensemble de données 1 ($C = 1$)}
 
@@ -538,20 +538,65 @@ On constate que l'algorithme est beaucoup plus rapide que le précédent, mais d
        \end{tabular}
      \end{table}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/line55.png}
              \caption{Ensemble de données 5 (Les lignes rouge et bleue en pointillés sont les droites f(x) = 10 et f(x) = -10)}
            \end{center}
          \end{figure}
 
-         \begin{figure}
+         \begin{figure}[H]
            \begin{center}
              \includegraphics[scale=0.5]{images/duality55.png}
              \caption{\emph{Duality gap} : ensemble de données 5}
            \end{center}
          \end{figure}
 
-% COMMENTER
+\section{Implémentation de l'algorithme ACCPM}
+
+Nous avons implémenté l'algorithme ACCPM (ou \emph{Analytic center cutting-plane method}), qui recherche le centre analytique du polytope $P = \{x | Ax \leq b\}$ correspondant au problème primal (voir fichier \emph{accpm.m}).\\
+
+Déterminons les valeurs de $A$ et $b$. En reprenant le problème primal, on a :\\
+
+\begin{center}
+$\forall i, y_i(\omega^Tx_i) \geq 1 - z_i$\\
+$\Leftrightarrow$ \begin{bmatrix} -$y_1x_1$ & -1 & 0 & 0 & ... 0 & 0\\
+                                  -$y_2x_2$ & 0 & -1 & 0 & ... 0 & 0\\
+                                   ... & ... & ... & ... & ... & ...\\
+                                   -$y_nx_n$ & 0 & 0 & 0 & ... 0 & -1\end{bmatrix} \begin{bmatrix} $\omega^T$\\ $z$ \end{bmatrix} $\leq -$\textbf{1}\\
+(par calcul)
+\end{center}
+
+On choisit alors : $A = [ diag(y) \times x^T Id_n ]$ et $b = -$\textbf{1} (voir \emph{main.m}).
+
+\subsection{Résultats}
+
+Sur certaines données, on obtient de bons résultats (ici avec un ensemble de données de taille $8$ et de dimension $2$) :\\
+
+         \begin{figure}
+           \begin{center}
+             \includegraphics[scale=0.5]{images/accpmtestfig.jpg}
+             \caption{Tracé de la frontière de classification en utilisant l'algorithme ACCPM}
+           \end{center}
+         \end{figure}
+
+Mais souvent, on a un problème de précision (sur le calcul de la hessienne), qui est peut-être dû au choix initial de $x$ strictement dans le polytope (donc tel que $Ax < b$). La convergence est donc souvent lente.\\
+
+\subsection{\emph{Constraint dropping}}
+
+De plus, il semblerait que le \emph{constraint dropping} implémenté fonctionne mal. Soit la mesure de pertinence suivante pour la contrainte $i$ : $a_i^Tx \leq b_i$, où $a_i$ est la $i$ème ligne de A, et si on note $H^*$ la hessienne de la fonction objectif :\\
+
+\begin{center}
+(1) $\eta_i = \frac{b_i - a_i^Tx}{\sqrt{a_i^T \times H^*^{-1} \times a_i}}$\\
+(voir \emph{computeirr.m})
+\end{center}
+
+Nous avons implémenté les stratégies suivantes :\\
+
+\begin{itemize}
+\item Pas de \emph{dropping} (paramètre $drop = 2$);
+\item Supprimer les contraintes $i$, qui, si la mesure de pertinence (1) est notée $\eta_i$ pour la contrainte $i$, sont telles que $\eta_i \geq m$, où $m$ est le nombre de contraintes dans le polytope;
+\item Supprimer les contraintes dans l'ordre de non-pertinence, de sorte à n'en garder que $3n$, où $n$ est la taille de l'ensemble de données.
+\end{itemize}
 
 \end{document}

@@ -43,15 +43,6 @@ if (algo < 2)
        % w of size 1 x (d+1)
        w = wlist(:, end);
 else
-       % Minimize 1/2||w||^2 + C 1^Tz
-       % s.t. z >= 0
-       % forall i, y_i(w^Tx_i) >= 1 -  z_i
-       % <=> 
-       % Minimize 1/2||w||^2 + C 1^Tz - \sum_i log(z_i(y_i*w^T*x_i)/(1-z_i) - 1)
-       % with logarithmic barrier function
-       % forall i, y_i(w^Tx_i) >= 1 -  z_i
-       % [-y_i*x_i 0 0 0 ... 0 -1 0 ... 0] [w z]^T <= -1
-       %                        | ith position
        A = [diag(trainl)*train' -eye(sizet)];
        b = -ones(sizet, 1);
        
