@@ -46,9 +46,9 @@
 \item Recherche d'une frontière linéaire $f : x \rightarrow \omega^Tx$ vérifiant (condition 1) :
 
          \begin{center}
-         $\forall i, y_i = -1 \Rightarrow f(x_i) \leq -1$\\
-         $\forall i, y_i = 1 \Rightarrow f(x_i) \geq 1$\\
-         $\Leftrightarrow \forall i, y_i f(x_i) \geq 1$
+         $\forall i, y_i = -1 \Rightarrow f(x_i) < 0$\\
+         $\forall i, y_i = 1 \Rightarrow f(x_i) > 0$\\
+         $\Leftrightarrow \forall i, y_i f(x_i) > 0$
          \end{center}
 \end{itemize}
 
@@ -65,14 +65,14 @@ $\gamma$ est la distance entre les droites $f(x) = 1$ et $f(x) = -1$.
 
       \begin{center}
         $max_{w}$ $\gamma = \frac{2}{\|w\|}$\\
-        avec $\forall i, y_i f(x_i) \geq 1$\\
+        avec $\forall i, y_i f(x_i) > 0$\\
 
        \bigskip
         $\Leftrightarrow min_{w}$ $\|w\|$ \\
-        avec $\forall i, y_i f(x_i) \geq 1$\\
+        avec $\forall i, y_i f(x_i) > 0$\\
        \bigskip
         $\Leftrightarrow min_{w}$ $\frac{1}{2} \|w\|^2$\\
-        avec $\forall i, y_i f(x_i) \geq 1$\\
+        avec $\forall i, y_i f(x_i) > 0$\\
       \end{center}
 
 \end{block}
@@ -135,7 +135,7 @@ Après calcul du lagrangien, minimisation en $\omega$ et $z$ ($\lambda$ multipli
 \begin{block}{Problème dual}
              \begin{center}
              $max_{\lambda \in \mathbb{R}^{+m}} -\frac{1}{2}\|\sum_i\lambda_iy_ix_i\|^2_2 + $\textbf{1}$^T\lambda$\\ 
-             avec $\forall i, 0 \leq \lambda_i \leq C$ si $z_i > 0$\\
+             avec $\forall i, 0 \leq \lambda_i \leq C$ si $z_i > 0$ (KKT)\\
              \end{center}
 \end{block}
 
