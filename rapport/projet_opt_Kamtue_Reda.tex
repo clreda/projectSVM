@@ -38,9 +38,14 @@ Les \emph{Support Vector Machine solvers} (SVM) sont une catégorie d'algorithme
 telle que :\\
  
          \begin{center}
-         $\forall i, y_i = -1 \Rightarrow f(x_i) \leq -1$\\
-         $\forall i, y_i = 1 \Rightarrow f(x_i) \geq 1$\\
-         $\Leftrightarrow \forall i, y_i \times f(x_i) \geq 1$ (1)
+           \begin{equation}
+         \forall i, f(x_i) = 
+         \begin{cases}
+         <0 &\mbox {si y=-1} \\
+         >0 &\mbox {si y=1}
+         \end{cases}
+         \Leftrightarrow \forall i, y_i \times f(x_i) > 0 
+         \end{equation}
          \end{center}
 
 Pour simplifier le problème, on peut prendre $ \omega' = $ \begin{bmatrix}$ \omega$\\ $b$\end{bmatrix} et $x' =$\begin{bmatrix}$x$\\ 1\end{bmatrix} (que l'on notera par souci de simplicité $\omega$ et $x$).\\
@@ -83,12 +88,16 @@ Les fonctions que l'on a introduites sont toutes convexes. Si la dimension des p
 Calculons le lagrangien du problème (P). Soit $\lambda$ le multiplicateur de Lagrange de dimension $1 \times m$:
 
               \begin{center}
-              $\forall w, \lambda \in \mathbb{R}^{2m}, L(\omega, \lambda, z) = $\\
-              $= \frac{1}{2} \|w\|^2 + C \times \sum_i z_i - \sum_i \lambda_i \times z_i$
-              $+ \sum_i \lambda_i \times (1 - y_i \omega^{T} x_i)$\\
-              $= \frac{1}{2} \|w\|^2 + C$\textbf{1}$^{T}z - C\lambda^{T}z + $\textbf{1}$^{T}\lambda - \sum_i \lambda_i \times y_i \omega^{T} x_i$\\
-              $= \frac{1}{2} (\|w - \sum_i \lambda_iy_ix_i\|^2_2 - \|\sum_i \lambda_iy_ix_i\|^2_2)$
-              $+ (C$\textbf{1}$ - \lambda)^{T}z + $\textbf{1}$^{T}\lambda$\\
+              \begin{equation}
+              \begin{split}
+              \forall w, \lambda \in \mathbb{R}^{2m}, L(\omega, \lambda, z) 
+              = \frac{1}{2} \|w\|^2 + C \times \sum_i z_i - \sum_i \lambda_i \times z_i
+              + \sum_i \lambda_i \times (1 - y_i \omega^{T} x_i)\\
+              &= \frac{1}{2} \|w\|^2 + C\textbf{1}^{T}z - C\lambda^{T}z + \textbf{1}^{T}\lambda - \sum_i \lambda_i \times y_i \omega^{T} x_i\\
+              &= \frac{1}{2} (\|w - \sum_i \lambda_iy_ix_i\|^2_2 - \|\sum_i \lambda_iy_ix_i\|^2_2)
+              + (C\textbf{1} - \lambda)^{T}z + \textbf{1}^{T}\lambda
+              \begin{split}
+              \end{equation}
               \end{center}
 
 Minimisons L par rapport à $\omega$. Comme le lagrangien est convexe en $\omega$, il faut annuler le gradient :\\
