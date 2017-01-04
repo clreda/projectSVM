@@ -46,7 +46,7 @@ else
        A = [diag(trainl)*train' -eye(sizet)];
        b = -ones(sizet, 1);
        
-       % this xinit strictly belongs to the initial polytop
+       % this xinit strictly belongs to the initial polyhedron
        xinit = [ones(d, 1); 500*ones(sizet, 1)];
        factor = -max(A*xinit);
        xinit = xinit / (factor/2);

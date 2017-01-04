@@ -1,8 +1,8 @@
 function [isirrel, irr] = computeirr(A, b, x, H, i)
 % COMPUTEIRR Computes irrelevance measure for constraint i
-% of polytop Ax <= b
+% of polyhedron Ax <= b
 % [isirrel, irr] = computeirr(A, b, x, H, i) H hessian, isirrel is 
-% a boolean set to true iff ith constraint of polytop is irrelevant
+% a boolean set to true iff ith constraint of polyhedron is irrelevant
 
 % Number of inequalities
 m = size(A, 1);

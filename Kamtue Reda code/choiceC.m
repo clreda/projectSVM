@@ -5,7 +5,7 @@ function C = choiceC(x, y)
 % samples (x, y) in range 1 to 10.
 load crossvalidation.m;
 
-% Bounds for c
+% Bounds for C
 c_max=3;
 c_min=1;
 

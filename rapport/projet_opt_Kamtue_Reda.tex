@@ -88,16 +88,14 @@ Les fonctions que l'on a introduites sont toutes convexes. Si la dimension des p
 Calculons le lagrangien du problème (P). Soit $\lambda$ le multiplicateur de Lagrange de dimension $1 \times m$:
 
               \begin{center}
-              \begin{equation}
-              \begin{split}
+              $
               \forall w, \lambda \in \mathbb{R}^{2m}, L(\omega, \lambda, z) 
               = \frac{1}{2} \|w\|^2 + C \times \sum_i z_i - \sum_i \lambda_i \times z_i
-              + \sum_i \lambda_i \times (1 - y_i \omega^{T} x_i)\\
-              &= \frac{1}{2} \|w\|^2 + C\textbf{1}^{T}z - C\lambda^{T}z + \textbf{1}^{T}\lambda - \sum_i \lambda_i \times y_i \omega^{T} x_i\\
-              &= \frac{1}{2} (\|w - \sum_i \lambda_iy_ix_i\|^2_2 - \|\sum_i \lambda_iy_ix_i\|^2_2)
+              + \sum_i \lambda_i \times (1 - y_i \omega^{T} x_i)$\\
+              $= \frac{1}{2} \|w\|^2 + C\textbf{1}^{T}z - C\lambda^{T}z + \textbf{1}^{T}\lambda - \sum_i \lambda_i \times y_i \omega^{T} x_i$\\
+              $= \frac{1}{2} (\|w - \sum_i \lambda_iy_ix_i\|^2_2 - \|\sum_i \lambda_iy_ix_i\|^2_2)
               + (C\textbf{1} - \lambda)^{T}z + \textbf{1}^{T}\lambda
-              \end{split}
-              \end{equation}
+              $
               \end{center}
 
 Minimisons L par rapport à $\omega$. Comme le lagrangien est convexe en $\omega$, il faut annuler le gradient :\\

@@ -1,3 +1,5 @@
+*.zip
+*.zip~
 *.m~
 *.tex~
 *.aux

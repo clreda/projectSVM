@@ -11,15 +11,8 @@ NTTOL = 1e-10;
 MAXITERS = 500;
 
 x = xinit;
-%cv = [];
-%minimum = logobj(A, b, x);
 for k=1:MAXITERS % Inner loop
         [val, g, H] = logobj(A, b, x);
-        % Plotting values of x
-        %cv = [cv val];
-        %if (minimum > val)
-        %     minimum = val;
-        %end
         v = -H\g; % Newton step
         lambda = -g'*v; % Newton decrement
         
@@ -44,4 +37,3 @@ for k=1:MAXITERS % Inner loop
         end
 end
 
-%semilogy(1:k, cv .- minimum);
