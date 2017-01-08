@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Description du projet}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Sujet}{2}{0}{1}
+\beamer@subsectionintoc {1}{2}{Le probl\IeC {\`e}me d'optimisation}{8}{0}{1}
+\beamer@subsectionintoc {1}{3}{Impl\IeC {\'e}mentation}{14}{0}{1}
+\beamer@sectionintoc {2}{R\IeC {\'e}sultats}{25}{0}{2}
+\beamer@subsectionintoc {2}{1}{D\IeC {\'e}tails de l'impl\IeC {\'e}mentation}{25}{0}{2}
+\beamer@subsectionintoc {2}{2}{Trac\IeC {\'e} de la fronti\IeC {\`e}re de classification}{29}{0}{2}
+\beamer@sectionintoc {3}{Extensions}{34}{0}{3}
+\beamer@sectionintoc {4}{D\IeC {\'e}monstration}{38}{0}{4}
