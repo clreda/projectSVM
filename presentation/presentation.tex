@@ -278,12 +278,22 @@ Utilisation de la \textbf{méthode de la barrière logarithmique} :
 % On voit que la convergence est très lente quand la taille est grande
 % Par contre, il y a indépendance de la dimension des échantillons 
 
-         \begin{figure}
-         \centering
-         \caption{Comparaison des temps de calcul selon $n$ et $d$\\
-                 Ensemble | C | $d$ | $n$ | Nb d'itérations | temps}
-         \includegraphics[scale=0.6]{images/tabl2.png}
-         \end{figure}
+         %\begin{figure}
+         %\centering
+         %\caption{Comparaison des temps de calcul selon $n$ et $d$\\
+         %        Ensemble | C | $d$ | $n$ | Nb d'itérations | temps}
+         %\includegraphics[scale=0.6]{images/tabl2.png}
+         %\end{figure}
+         \begin{center}
+                \begin{tabular}{ | l | l | l | p{5cm} |}
+                \hline
+                Ensemble & C & d & n & Nb d'itération & temps du calculation pour newton \\ \hline
+                1 & 5 & 40000 & 10 & 11 & 0.315 \\ \hline
+                1 & 5 & 40 & 100 & 12 & 0.715 \\ \hline
+                1 & 5 & 40 & 1000 & very large & >1000 \\ \hline
+                
+                \end{tabular}
+         \end{center}
 
 \end{frame}
 
