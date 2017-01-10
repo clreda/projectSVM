@@ -5,10 +5,10 @@
 \usepackage[normalem]{ulem}
 \usetheme{Antibes}
 
-\title{Projet Optimisation :\\Support Vector Machine}
+\title{Optimization Project:\\Support Vector Machine}
 \author{K. Kamtue \& Cl. Réda}
 \institute{\textsc{ENS Cachan}}
-\date{\today}
+\date{January 12th, 2017}
 
 \setbeamerfont{page number in head/foot}{size=\large}
 \setbeamertemplate{footline}[frame number]
@@ -18,38 +18,32 @@
 \tableofcontents
 \setlength{\parindent}{1cm}
 
-\section{Description du projet}
+\section{Project description}
 
-\subsection{Sujet}
+\subsection{Project}
 
 \begin{frame}
 \tableofcontents[currentsubsection]
 \end{frame}
 
 \begin{frame}
-\frametitle{Sujet}
-\framesubtitle{\emph{Support Machine Vector}}
+\frametitle{Project}
+\framesubtitle{\textbf{Support Machine Vector}}
 
-\begin{alertblock}{Objectif}
+\begin{alertblock}{Objective}
 \begin{center}
-Faire de l'apprentissage supervisé
+\textbf{Classify} data
 \end{center}
 \end{alertblock}
 
 \pause
 
 \begin{itemize}
-\item Appliqué à la \textbf{classification binaire} ($y_i \in \{1, -1\}$);
+\item Applied to \textbf{binary classification} ($y_i \in \{1, -1\}$);
 
 \pause
 
-\item Recherche d'une \textbf{frontière linéaire} $f : x \rightarrow \omega^Tx$ vérifiant :
-
-        % \begin{center}
-        % $\forall i, y_i = -1 \Rightarrow f(x_i) < 0$\\
-        % $\forall i, y_i = 1 \Rightarrow f(x_i) > 0$\\
-        % $\Leftrightarrow \forall i, y_i \times f(x_i) > 0$ (1)
-        % \end{center}
+\item Looking for a \textbf{hyperplane} $f : x \rightarrow \omega^Tx$ such as:
          
           \begin{center}
            \begin{equation}
@@ -66,74 +60,74 @@ Faire de l'apprentissage supervisé
 \end{frame}
 
 \begin{frame}
-\frametitle{Sujet}
-\framesubtitle{\emph{Support Machine Vector}}
+\frametitle{Project}
+\framesubtitle{\textbf{Support Machine Vector}}
 
          \begin{figure}
          \centering
-         \caption{Exemple avec deux classes (rouge et bleue)}
+         \caption{Example with two classes (\textbf{red} and \textbf{blue})}
          \includegraphics[scale=0.4]{images/voronoi.png}
          \end{figure}
 
 \end{frame}
 
-\subsection{Le problème d'optimisation}
+\subsection{Optimization problem}
 
 \begin{frame}
-\frametitle{Le problème d'optimisation}
-\framesubtitle{Recherche du problème d'optimisation}
+\frametitle{Optimization problem}
+\framesubtitle{Looking for the optimization problem}
 
-\begin{block}{Le problème d'optimisation (naïvement)}
-$\gamma$ : distance entre les droites $f(x) = 1$ et $f(x) = -1$ (\textbf{marge}).
+\begin{block}{Naive optimization problem}
+$\gamma$: distance between the lines $f(x) = 1$ and $f(x) = -1$ (\textbf{margin}).
 
 \pause
 
       \begin{center}
         $max_{w}$ $\gamma = \frac{2}{\|w\|}$\\
-        avec $\forall i, y_i \times f(x_i) > 0$\\
+        subject to $\forall i, y_i \times f(x_i) > 0$\\
 
 \pause
 
        \bigskip
         $\Leftrightarrow min_{w}$ $\frac{1}{2} \|w\|^2$\\
-        avec $\forall i, y_i \times f(x_i) > 0$\\
+        subject to $\forall i, y_i \times f(x_i) > 0$\\
       \end{center}
 
 \end{block}
 
-\textbf{Attention :} si l'ensemble n'est pas \underline{ linéairement séparable} !
+\textbf{Beware:} if the data set is not linearly \underline{separable}!
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Le problème d'optimisation}
-\framesubtitle{Recherche du problème d'optimisation}
+\frametitle{Optimization}
+\framesubtitle{Looking for the optimization problem}
 
          \begin{figure}
          \centering
-         \caption{Exemple avec deux classes (rouge et bleue)}
+         \caption{Example with two classes (red and blue)}
          \includegraphics[scale=0.4]{images/voronoi2.png}
          \end{figure}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Le problème d'optimisation}
-\framesubtitle{Adaptation au cas non linéarement séparable}
+\frametitle{Optimization problem}
+\framesubtitle{Adapting the problem to \textbf{non-separable sets}}
 
-Soit $z_i = max(0, 1-y_i \times f(x_i))$ (perte de \textbf{Hinge}).
+Let $z_i$ be $max(0, 1-y_i \times f(x_i))$ (\textbf{Hinge loss}).
 
 \pause
 
 \bigskip
 
-\begin{block}{En rendant le problème toujours faisable et convexe}
+\begin{block}{Having the problem \textbf{convex} and always \textbf{feasible}}
 
-Pénaliser les erreurs de classification avec les $(z_i)_i$ et $C$ :
+Penalty for \textbf{classification errors} with \textbf{slack variables} $(z_i)_i$ and $C$ :
 
            \begin{center}
            $min_{w, z}$ $\frac{1}{2} \|w\|^2 + C \sum_{i \leq m}z_i$\\
-           avec $\forall i, z_i \geq 0$\\
+           subject to $\forall i, z_i \geq 0$\\
            $\forall i, y_i \times (\omega^{T} x_i) \geq 1 - z_i$\\
            \end{center}
 
@@ -141,45 +135,43 @@ Pénaliser les erreurs de classification avec les $(z_i)_i$ et $C$ :
 
 \end{frame}
 
-\subsection{Implémentation}
+\subsection{Implementation}
 
 \begin{frame}
 \tableofcontents[currentsubsection]
 \end{frame}
 
 \begin{frame}
-\frametitle{Implémentation}
-\framesubtitle{Résolution du problème d'optimisation}
+\frametitle{Implementation}
+\framesubtitle{Solving the optimization problem}
 
 \begin{itemize}
-\item Utilisation de la \textbf{méthode de Newton} pour trouver $\omega$ :
+\item Using \textbf{Newton's method} to find $\omega$ :
 
 \bigskip
 
-\begin{block}{Rappel : Mise à jour du vecteur $x$ cherché avec la \textbf{méthode de Newton}}
+\begin{block}{\underline{Reminder}: Update of $\omega$ with \textbf{Newton's method}}
           \begin{center}
-          $x_{n+1} \leftarrow x_{n} + s \times \nabla^2 obj(x_n)^{-1}\nabla obj(x_n)$
+          $\omega_{n+1} \leftarrow \omega_{n} + s \times \nabla^2 obj(\omega_n)^{-1}\nabla obj(\omega_n)$
           \end{center}
 
-  (ici, en cherchant $s$, taille du pas, par \textbf{backtracking line search})
+  (finding \textbf{step size} value $s$ by \textbf{backtracking line search})
 \end{block}
 
 \pause
 
-\item Utiliser la \textbf{méthode de la barrière logarithmique}.
-% pour pouvoir utiliser la méthode de Newton sur un problème non contraint
+\item Make the problem independant of \textbf{dimension};
 
 \pause
 
-\item Rendre le problème indépendant de la \textbf{dimension};
-%(\textbf{dépendant du nombre d'échantillons} !) en résolvant le \emph{problème dual}; pour une meilleure complexité temporelle
+\item Using \textbf{logarithmic barrier method}.
 
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Implémentation}
+\frametitle{Implementation}
 \framesubtitle{Indépendance en la dimension des points : \textbf{problème dual}}
 
 Après calcul du lagrangien et minimisation en $\omega$ : 
@@ -278,21 +270,14 @@ Utilisation de la \textbf{méthode de la barrière logarithmique} :
 % On voit que la convergence est très lente quand la taille est grande
 % Par contre, il y a indépendance de la dimension des échantillons 
 
-         %\begin{figure}
-         %\centering
-         %\caption{Comparaison des temps de calcul selon $n$ et $d$\\
-         %        Ensemble | C | $d$ | $n$ | Nb d'itérations | temps}
-         %\includegraphics[scale=0.6]{images/tabl2.png}
-         %\end{figure}
          \begin{center}
-                \begin{tabular}{ | l | l | l | p{5cm} |}
+                \begin{tabular}{| l | c | c | c | c | r |}
                 \hline
-                Ensemble & C & d & n & Nb d'itération & temps du calculation pour newton \\ \hline
+                Ensemble & C & d & n & Nb d'itération & temps \\ \hline
                 1 & 5 & 40000 & 10 & 11 & 0.315 \\ \hline
                 1 & 5 & 40 & 100 & 12 & 0.715 \\ \hline
-                1 & 5 & 40 & 1000 & very large & >1000 \\ \hline
-                
-                \end{tabular}
+                1 & 5 & 40 & 1000 & very large & > 1.000 \\ \hline
+                \end{tabular}
          \end{center}
 
 \end{frame}
@@ -301,7 +286,7 @@ Utilisation de la \textbf{méthode de la barrière logarithmique} :
 \frametitle{Détails de l'implémentation}
 \framesubtitle{Accélération de la convergence quand $C$ augmente}
 
-% POURQUOI ?!
+% POURQUOI ?! REFAIRE LA TABLE
 
          \begin{figure}
          \centering
