@@ -273,7 +273,7 @@ Utilisation de la \textbf{méthode de la barrière logarithmique} :
          \begin{center}
                 \begin{tabular}{| l | c | c | c | c | r |}
                 \hline
-                Ensemble & C & d & n & Nb d'itération & temps \\ \hline
+                Test Set & C & d & n &# iteration & time \\ \hline
                 1 & 5 & 40000 & 10 & 11 & 0.315 \\ \hline
                 1 & 5 & 40 & 100 & 12 & 0.715 \\ \hline
                 1 & 5 & 40 & 1000 & very large & > 1.000 \\ \hline
@@ -288,11 +288,22 @@ Utilisation de la \textbf{méthode de la barrière logarithmique} :
 
 % POURQUOI ?! REFAIRE LA TABLE
 
-         \begin{figure}
-         \centering
-         \caption{Evolution du temps de calcul en fonction de C}
-         \includegraphics[scale=0.4]{images/tabl1.png}
-         \end{figure}
+         %\begin{figure}
+         %\centering
+         %\caption{Evolution du temps de calcul en fonction de C}
+         %\includegraphics[scale=0.4]{images/tabl1.png}
+         %\end{figure}
+         
+         \begin{center}
+                  \begin{tabular}{| l | c | c | c | r |}
+                  \hline
+                    Testset & C & D & n & # iterations & time \\ \hline
+                    1 & 1  & 40 & 10 & 11 & 25.414\\ \hline
+                    1 & 5  & 40 & 10 & 11 & 0.177\\ \hline
+                    1 & 10 & 40 & 10 & 11 & 0.168\\ \hline
+                  \end{tabular}
+         \end{center}
+         
 
 \end{frame}
 
