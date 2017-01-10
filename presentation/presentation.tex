@@ -45,10 +45,21 @@ Faire de l'apprentissage supervisé
 
 \item Recherche d'une \textbf{frontière linéaire} $f : x \rightarrow \omega^Tx$ vérifiant :
 
-         \begin{center}
-         $\forall i, y_i = -1 \Rightarrow f(x_i) < 0$\\
-         $\forall i, y_i = 1 \Rightarrow f(x_i) > 0$\\
-         $\Leftrightarrow \forall i, y_i \times f(x_i) > 0$ (1)
+        % \begin{center}
+        % $\forall i, y_i = -1 \Rightarrow f(x_i) < 0$\\
+        % $\forall i, y_i = 1 \Rightarrow f(x_i) > 0$\\
+        % $\Leftrightarrow \forall i, y_i \times f(x_i) > 0$ (1)
+        % \end{center}
+         
+          \begin{center}
+           \begin{equation}
+         \forall i, f(x_i) = 
+         \begin{cases}
+         <0 &\mbox {si y=-1} \\
+         >0 &\mbox {si y=1}
+         \end{cases}
+         \Leftrightarrow \forall i, y_i \times f(x_i) > 0 
+         \end{equation}
          \end{center}
 \end{itemize}
 
