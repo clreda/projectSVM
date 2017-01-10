@@ -78,7 +78,7 @@
 \framesubtitle{Looking for the optimization problem}
 
 \begin{block}{Naive optimization problem}
-$\gamma$: distance between the lines $f(x) = 1$ and $f(x) = -1$ (\textbf{margin}).
+$\gamma$: distance between the lines $f(x) = 1$ and $f(x) = -1$.
 
 \pause
 
@@ -123,11 +123,11 @@ Let $z_i$ be $max(0, 1-y_i \times f(x_i))$ (\textbf{Hinge loss}).
 
 \begin{block}{Having the problem \textbf{convex} and always \textbf{feasible}}
 
-Penalty for \textbf{classification errors} with \textbf{slack variables} $(z_i)_i$ and $C$ :
+Penalty for \textbf{classification errors} with $(z_i)_i$ and $C$ :
 
            \begin{center}
            $min_{w, z}$ $\frac{1}{2} \|w\|^2 + C \sum_{i \leq m}z_i$\\
-           subject to $\forall i, z_i \geq 0$\\
+           subject to\\ $\forall i, z_i \geq 0$\\
            $\forall i, y_i \times (\omega^{T} x_i) \geq 1 - z_i$\\
            \end{center}
 
@@ -146,7 +146,7 @@ Penalty for \textbf{classification errors} with \textbf{slack variables} $(z_i)_
 \framesubtitle{Solving the optimization problem}
 
 \begin{itemize}
-\item Using \textbf{Newton's method} to find $\omega$ :
+\item Use \textbf{Newton's method} to find $\omega$ :
 
 \bigskip
 
@@ -158,13 +158,15 @@ Penalty for \textbf{classification errors} with \textbf{slack variables} $(z_i)_
   (finding \textbf{step size} value $s$ by \textbf{backtracking line search})
 \end{block}
 
+\bigskip
 \pause
 
-\item Make the problem independant of \textbf{dimension};
+\item Make the problem independant from \textbf{dimension};
 
+\bigskip
 \pause
 
-\item Using \textbf{logarithmic barrier method}.
+\item Use \textbf{logarithmic barrier method}.
 
 \end{itemize}
 
@@ -172,24 +174,25 @@ Penalty for \textbf{classification errors} with \textbf{slack variables} $(z_i)_
 
 \begin{frame}
 \frametitle{Implementation}
-\framesubtitle{Indépendance en la dimension des points : \textbf{problème dual}}
+\framesubtitle{Independance from dimension: \textbf{dual problem}}
 
-Après calcul du lagrangien et minimisation en $\omega$ : 
-%($\lambda$ multiplicateur de Lagrange) :
+After Lagrangian calculus and minimization in $\omega$: 
 
+\bigskip
 \pause
 
-\begin{block}{\textbf{Problème dual}}
+\begin{block}{\textbf{Dual problem}}
              \begin{center}
              $max_{\lambda \in \mathbb{R}^{+m}} -\frac{1}{2}\|\sum_i\lambda_iy_ix_i\|^2_2 + $\textbf{1}$^T\lambda$\\ 
-             avec $\forall i, 0 \leq \lambda_i \leq C$\\
-             (par les conditions de KKT)
+             subject to $\forall i, 0 \leq \lambda_i \leq C$\\
+          
+             (\textbf{KKT conditions})
              \end{center}
 \end{block}
 
 \pause
 
-\begin{alertblock}{Obtenir la solution du primal à partir de celle du dual}
+\begin{alertblock}{Get \textbf{primal solution} from \textbf{dual solution}}
              \begin{center}
                $\omega^{*} = \sum_i \lambda^{*}_i y_i x_i$
              \end{center}
@@ -198,34 +201,34 @@ Après calcul du lagrangien et minimisation en $\omega$ :
 \end{frame}
 
 \begin{frame}
-\frametitle{Implémentation}
-\framesubtitle{Rendre le problème indépendant de la dimension}
+\frametitle{Implementation}
+\framesubtitle{Make the problem independant from dimension}
 
-Utilisation de l'\emph{astuce du noyau} :
+Use the \textbf{kernel trick} :
 
 \bigskip
 
-\begin{block}{Problème dual}
-Soit $K = X^TX$ (noyau linéaire). Alors :
+\begin{block}{\textbf{Dual problem}}
+Let $K$ be $X^TX$ (\textbf{linear kernel}):
 
 \bigskip
                  \begin{center}
                  $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda$\\
-                 avec $\forall i, 0 \leq \lambda_i \leq C$ 
+                 subject to $\forall i, 0 \leq \lambda_i \leq C$ 
                  \end{center}
 \end{block}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Implémentation}
-\framesubtitle{Supprimer les contraintes d'inégalité}
+\frametitle{Implementation}
+\framesubtitle{Delete inequality constraints}
 
-Utilisation de la \textbf{méthode de la barrière logarithmique} :
+Use the \textbf{logarithmic barrier method} :
 
 \pause
 
-\begin{block}{Fonction barrière pour éliminer les contraintes d'inégalité}
+\begin{block}{Barrier function}
           \begin{center}
           $\Phi(\lambda) = \sum_i (- log(C - \lambda_i) - log(\lambda_i))$\\
           $= - \sum_i log((C - \lambda_i)\lambda_i)$ 
@@ -234,7 +237,7 @@ Utilisation de la \textbf{méthode de la barrière logarithmique} :
 
 \pause
 
-\begin{alertblock}{Problème d'optimisation final}
+\begin{alertblock}{Final optimization problem}
           \begin{center}
           $max$ $-\frac{1}{2}\lambda^Tdiag(y)Kdiag(y)\lambda+$\textbf{1}$^T\lambda + \Phi(\lambda)$\\ 
           \end{center}
@@ -242,19 +245,18 @@ Utilisation de la \textbf{méthode de la barrière logarithmique} :
 
 \end{frame}
 
-\section{Résultats}
+\section{Results}
 
-\subsection{Détails de l'implémentation}
+\subsection{Testing the implementation}
 
 \begin{frame}
 \tableofcontents[currentsubsection]
 \end{frame}
 
 \begin{frame}
-\frametitle{Détails de l'implémentation}
-\framesubtitle{Tracé de la convergence de la méthode de Newton}
+\frametitle{Testing the implementation}
+\framesubtitle{\textbf{Newton's method} convergence}
 
-% CV linéaire au début, puis quadratique, comme vu en cours
 
          \begin{figure}
          \centering
@@ -264,57 +266,53 @@ Utilisation de la \textbf{méthode de la barrière logarithmique} :
 \end{frame}
 
 \begin{frame}
-\frametitle{Détails de l'implémentation}
-\framesubtitle{Dépendance en la taille de l'échantillon}
-
-% On voit que la convergence est très lente quand la taille est grande
-% Par contre, il y a indépendance de la dimension des échantillons 
+\frametitle{Testing the implementation}
+\framesubtitle{Dependance on the sample size}
 
          \begin{center}
+                \begin{table}
+                \caption{Time complexity dependance}
                 \begin{tabular}{| l | c | c | c | c | r |}
                 \hline
-                Test Set & C & d & n &# iteration & time \\ \hline
+                Set & C & d & n & Iteration number & Time \\ \hline
                 1 & 5 & 40000 & 10 & 11 & 0.315 \\ \hline
                 1 & 5 & 40 & 100 & 12 & 0.715 \\ \hline
-                1 & 5 & 40 & 1000 & very large & > 1.000 \\ \hline
+                1 & 5 & 40 & 1000 & large & > 1,000 \\ \hline
                 \end{tabular}
+                \end{table}
          \end{center}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Détails de l'implémentation}
-\framesubtitle{Accélération de la convergence quand $C$ augmente}
+\frametitle{Testing the implementation}
+\framesubtitle{Speeding of convergence when $C$ increases}
 
-% POURQUOI ?! REFAIRE LA TABLE
+Performed on the same sample set:\\
 
-         %\begin{figure}
-         %\centering
-         %\caption{Evolution du temps de calcul en fonction de C}
-         %\includegraphics[scale=0.4]{images/tabl1.png}
-         %\end{figure}
-         
          \begin{center}
-                  \begin{tabular}{| l | c | c | c | r |}
-                  \hline
-                    Testset & C & D & n & # iterations & time \\ \hline
-                    1 & 1  & 40 & 10 & 11 & 25.414\\ \hline
-                    1 & 5  & 40 & 10 & 11 & 0.177\\ \hline
-                    1 & 10 & 40 & 10 & 11 & 0.168\\ \hline
-                  \end{tabular}
+                \begin{table}
+                \caption{Computation time in function of C}
+                \begin{tabular}{| l | c | c | c | c | c | r |}
+                \hline
+                Test Set & C & d & n & \#iterations & Time & Fail (\%)\\ \hline
+                1 & 1 & 40 & 10 & 11 & 25.414 & 0\\ \hline
+                1 & 5 & 40 & 10 & 11 & 0.177 & 0\\ \hline
+                1 & 10 & 40 & 10 & 11 & 0.168 & 0\\ \hline
+                \end{tabular}
+                \end{table}
          \end{center}
-         
 
 \end{frame}
 
-\subsection{Tracé de la frontière de classification}
+\subsection{Plotting the classification frontier}
 
 \begin{frame}
 \tableofcontents[currentsubsection]
 \end{frame}
 
 \begin{frame}
-\frametitle{Tracé de la frontière de classification}
+\frametitle{Plotting the \textbf{classification frontier}}
 \framesubtitle{Pour $C = 5, n = 150, d = 200$}
 
 Points centrés réduits avec des fonctions gaussiennes (2D) :
@@ -373,30 +371,26 @@ Génération avec des fonctions gaussiennes (3D) :
 
 \begin{frame}
 \frametitle{Extensions}
-\framesubtitle{Ajouts au projet}
+\framesubtitle{Adding to the project}
 
 \begin{itemize}
-\item \textbf{Validation croisée} (choix de la meilleure valeur de C);
+\item \textbf{Cross validation} (choice of the best value for C);
 
-% Prend beaucoup de temps, technique de leave-one-out
-
+\bigskip
 \pause
 
-\item Implémentation de \textbf{Coordinate Descent};
+\item Implementation of \textbf{Coordinate Descent};
 
-% Plus rapide que l'algorithme original POURQUOI ?!
-
+\bigskip
 \pause
 
-\item Implémentation de \textbf{ACCPM};
+\item Implementation of \textbf{ACCPM};
 
-% Des erreurs de précision et un problème au niveau de l'implémentation
-% du constraint dropping
 \end{itemize}
 
 \end{frame}
 
-\section{Démonstration}
+\section{Demo}
 
 \begin{frame}
 \tableofcontents[currentsection]
@@ -409,15 +403,10 @@ Génération avec des fonctions gaussiennes (3D) :
 \bigskip
 
 \begin{center}
-\textbf{Démontration du SVM}
+\textbf{Demo of the SVM}
 \end{center}
 
 \end{frame}
-
-% Générer selon les trois méthodes et tracer la frontière de classification
-
-% Préparer les sets de test à l'avance
-
 \end{frame}
 
 
