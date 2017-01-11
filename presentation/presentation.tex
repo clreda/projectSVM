@@ -286,19 +286,20 @@ Use the \textbf{logarithmic barrier method} :
 
 \begin{frame}
 \frametitle{Testing the implementation}
-\framesubtitle{Speeding of convergence when $C$ increases}
+\framesubtitle{Speeding of convergence and Performance when $C$ increases}
 
 Performed on the same sample set:\\
 
          \begin{center}
                 \begin{table}
-                \caption{Computation time in function of C}
+                \caption{Computation time & Performance in function of C}
                 \begin{tabular}{| l | c | c | c | c | c | r |}
                 \hline
-                Test Set & C & d & n & \#iterations & Time & Fail (\%)\\ \hline
-                1 & 1 & 40 & 10 & 11 & 25.414 & 0\\ \hline
-                1 & 5 & 40 & 10 & 11 & 0.177 & 0\\ \hline
-                1 & 10 & 40 & 10 & 11 & 0.168 & 0\\ \hline
+                C & \#iterations & Time & Training Error & Validation Error (\%)\\ \hline
+                0.5 & 
+                1 & 12 & 25.414 & 0 & \\ \hline
+                5 & 12 & 0.561313 & 2 & 2 & \\ \hline
+                10 & 12 & 0.168 & 0 & \\ \hline
                 \end{tabular}
                 \end{table}
          \end{center}
