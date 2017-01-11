@@ -1,6 +1,8 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage[T1]{fontenc}
 \usepackage[normalem]{ulem}
 \usetheme{Antibes}
@@ -43,7 +45,7 @@
 
 \pause
 
-\item Looking for a \textbf{hyperplane} $f : x \rightarrow \omega^Tx$ such as:
+\item Looking for a \textbf{hyperplane} $f : x \rightarrow \omega^Tx$ $(+ b)$ such as:
          
           \begin{center}
            \begin{equation}
@@ -83,13 +85,13 @@ $\gamma$: distance between the lines $f(x) = 1$ and $f(x) = -1$.
 \pause
 
       \begin{center}
-        $max_{w}$ $\gamma = \frac{2}{\|w\|}$\\
+        $max_{\omega}$ $\gamma = \frac{2}{\|\omega\|}$\\
         subject to $\forall i, y_i \times f(x_i) > 0$\\
 
 \pause
 
        \bigskip
-        $\Leftrightarrow min_{w}$ $\frac{1}{2} \|w\|^2$\\
+        $\Leftrightarrow min_{\omega}$ $\frac{1}{2} \|\omega\|^2$\\
         subject to $\forall i, y_i \times f(x_i) > 0$\\
       \end{center}
 
@@ -126,7 +128,7 @@ Let $z_i$ be $max(0, 1-y_i \times f(x_i))$ (\textbf{Hinge loss}).
 Penalty for \textbf{classification errors} with $(z_i)_i$ and $C$ :
 
            \begin{center}
-           $min_{w, z}$ $\frac{1}{2} \|w\|^2 + C \sum_{i \leq m}z_i$\\
+           $min_{\omega, z}$ $\frac{1}{2} \|\omega\|^2 + C \sum_{i \leq m}z_i$\\
            subject to\\ $\forall i, z_i \geq 0$\\
            $\forall i, y_i \times (\omega^{T} x_i) \geq 1 - z_i$\\
            \end{center}
@@ -146,13 +148,13 @@ Penalty for \textbf{classification errors} with $(z_i)_i$ and $C$ :
 \framesubtitle{Solving the optimization problem}
 
 \begin{itemize}
-\item Use \textbf{Newton's method} to find $\omega$ :
+\item Use \textbf{Newton's method}:
 
 \bigskip
 
-\begin{block}{\underline{Reminder}: Update of $\omega$ with \textbf{Newton's method}}
+\begin{block}{\underline{Reminder}: Update of $x$ with \textbf{Newton's method}}
           \begin{center}
-          $\omega_{n+1} \leftarrow \omega_{n} + s \times \nabla^2 obj(\omega_n)^{-1}\nabla obj(\omega_n)$
+          $x_{n+1} \leftarrow x_{n} + s \times \nabla^2 obj(x_n)^{-1}\nabla obj(x_n)$
           \end{center}
 
   (finding \textbf{step size} value $s$ by \textbf{backtracking line search})
@@ -176,7 +178,7 @@ Penalty for \textbf{classification errors} with $(z_i)_i$ and $C$ :
 \frametitle{Implementation}
 \framesubtitle{Independance from dimension: \textbf{dual problem}}
 
-After Lagrangian calculus and minimization in $\omega$: 
+After Lagrangian calculation and minimization in $\omega$: 
 
 \bigskip
 \pause
@@ -269,40 +271,38 @@ Use the \textbf{logarithmic barrier method} :
 \frametitle{Testing the implementation}
 \framesubtitle{Dependance on the sample size}
 
-         \begin{center}
                 \begin{table}
+                \centering
                 \caption{Time complexity dependance}
                 \begin{tabular}{| l | c | c | c | c | r |}
                 \hline
-                Set & C & d & n & Iteration number & Time \\ \hline
+                Set & C & d & n & Iteration number & Time (s) \\ \hline
                 1 & 5 & 40000 & 10 & 11 & 0.315 \\ \hline
                 1 & 5 & 40 & 100 & 12 & 0.715 \\ \hline
                 1 & 5 & 40 & 1000 & large & > 1,000 \\ \hline
                 \end{tabular}
                 \end{table}
-         \end{center}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Testing the implementation}
-\framesubtitle{Speeding of convergence and Performance when $C$ increases}
+\framesubtitle{Speeding of convergence when $C$ increases}
 
 Performed on the same sample set:\\
 
-         \begin{center}
                 \begin{table}
-                \caption{Computation time & Performance in function of C}
-                \begin{tabular}{| l | c | c | c | c | c | r |}
+                \centering
+                \caption{Computation time \& Performance in function of C}
+                \begin{tabular}{| l | c | c | c | r |}
                 \hline
-                C  & Time & Training Error & Val Error & Test Error(\%)\\ \hline
-                0.5 & 122.712 & 1 & 4 & 3 
-                1  & 83.176 & 1 & 4 & 3\\ \hline
-                5  & 0.627719 & 1 & 4 & 3  \\ \hline
-                10 & 0.637 & 1 & 4 & 3\\ \hline
+               C  & Time (s) & Training Error & Val Error & Test Error\\ \hline
+               0.5 & 122.712 & 1 & 4 & 3\\ \hline
+               1  & 83.176 & 1 & 4 & 3\\ \hline
+               5  & 0.627719 & 1 & 4 & 3  \\ \hline
+               10 & 0.637 & 1 & 4 & 3\\ \hline
                 \end{tabular}
                 \end{table}
-         \end{center}
 
 \end{frame}
 
@@ -314,9 +314,9 @@ Performed on the same sample set:\\
 
 \begin{frame}
 \frametitle{Plotting the \textbf{classification frontier}}
-\framesubtitle{Pour $C = 5, n = 150, d = 200$}
+\framesubtitle{For $C = 5, n = 150, d = 200$}
 
-Points centrés réduits avec des fonctions gaussiennes (2D) :
+Normalized points with Gaussian distribution (2D):
 
          \begin{figure}
          \centering
@@ -326,10 +326,10 @@ Points centrés réduits avec des fonctions gaussiennes (2D) :
 \end{frame}
 
 \begin{frame}
-\frametitle{Tracé de la frontière de classification}
-\framesubtitle{Pour $C = 5, n = 150, d = 200$}
+\frametitle{Plotting the \textbf{classification frontier}}
+\framesubtitle{For $C = 5, n = 150, d = 200$}
 
-Points centrés réduits avec des fonctions gaussiennes (3D) :
+Normalized points with Gaussian distribution (2D):
 
          \begin{figure}
          \centering
@@ -339,48 +339,120 @@ Points centrés réduits avec des fonctions gaussiennes (3D) :
 \end{frame}
 
 \begin{frame}
-\frametitle{Tracé de la frontière de classification}
-\framesubtitle{Pour $C = 5, n = 150, d = 200$}
+\frametitle{Plotting the \textbf{classification frontier}}
+\framesubtitle{Pour $C = 5, n = 100, d = 2$}
 
-Génération avec des fonctions gaussiennes (2D) :
+Generation with Gaussian distribution (2D) (set A) :
 
          \begin{figure}
          \centering
-         \includegraphics[scale=0.4]{images/line5.png}
+         \includegraphics[scale=0.4]{images/image1.png}
          \end{figure}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Tracé de la frontière de classification}
-\framesubtitle{Pour $C = 5, n = 150, d = 200$}
+\frametitle{Plotting the \textbf{classification frontier}}
+\framesubtitle{Pour $C = 5, n = 100, d = 2$}
 
-Génération avec des fonctions gaussiennes (3D) :
+Generation with Gaussian distribution (2D) (set B) :
 
          \begin{figure}
          \centering
-         \includegraphics[scale=0.4]{images/plane5.png}
+         \includegraphics[scale=0.4]{images/image2.png}
          \end{figure}
 
 \end{frame}
 
 \section{Extensions}
 
+\subsection{Cross Validation}
+
 \begin{frame}
-\tableofcontents[currentsection]
+\tableofcontents[currentsubsection]
 \end{frame}
 
 \begin{frame}
 \frametitle{Extensions}
-\framesubtitle{Adding to the project}
+\framesubtitle{Cross Validation}
 
 \begin{itemize}
 \item \textbf{Cross validation} (choice of the best value for C);
+\end{itemize}
 
 \bigskip
 \pause
 
+\begin{block}{Leave-one-out technique}
+\textbf{Having a sample size of size $n$}, for each value of C to test:\\
+\begin{enumerate}
+\item for $i \in [1, n]$
+\item \textbf{Leave out sample} $i$
+\item Train the SVM on other samples 
+\item Test the SVM on sample $i$
+\item Get the \textbf{Mean-Squared Error} for the $n$ loops
+\item If it is the minimum MSE computed so far
+\item Then update the best value of C
+\end{enumerate}
+\end{block}
+
+\end{frame}
+
+\subsection{Coordinate Descent}
+
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}
+\frametitle{Extensions}
+\framesubtitle{Coordinate Descent}
+
+\begin{itemize}
+
 \item Implementation of \textbf{Coordinate Descent};
+
+\bigskip
+\pause
+
+\end{itemize}
+
+\begin{block}{\underline{Reminder:} Coordinate Descent}
+for $i, j \in [1, d]$, and iteration $k$\\
+\begin{center}
+$a_i^{k+1} = argmin_{a_i} f(a_1, a_2, ..., a_i, ..., a_d)$\\
+$a_j^{k+1} = a_j^{k}$ for $j \neq i$
+\end{center}
+\end{block}
+
+\end{frame}
+
+\subsection{ACCPM}
+
+\begin{frame}
+\tableofcontents[currentsubsection]
+\end{frame}
+
+\begin{frame}
+\frametitle{Extensions}
+\framesubtitle{ACCPM}
+
+\begin{itemize}
+
+\item Implementation of \textbf{Analytic Center Cutting-Plane Method};
+
+\bigskip
+\pause
+
+\begin{block}{\underline{Reminder:} ACCPM}
+\begin{enumerate}
+\item Compute the \textbf{analytic center of constraint polyhedron} 
+\item Compute the objective value and the gradient 
+\item While objective value is evolving greatly enough
+\item Add an inequality to constraint polyhedron 
+\item \underline{Optional:} \textbf{Constraint Dropping}
+\end{enumerate}
+\end{block}
 
 \end{itemize}
 
@@ -388,17 +460,11 @@ Génération avec des fonctions gaussiennes (3D) :
 
 \begin{frame}
 \frametitle{Extensions}
-\framesubtitle{ACCPM results}
-
-\begin{itemize}
-
-\item Implementation of \textbf{ACCPM};
-
-\end{itemize}
+\framesubtitle{ACCPM}
 
 \begin{figure}
 \caption{For data of size 8, and dimension 2}
-\includegraphics[scale=0.35]{images/accpmtestfig.jpg}
+\includegraphics[scale=0.4]{images/accpmtestfig.jpg}
 \end{figure}
 
 \end{frame}
@@ -419,7 +485,6 @@ Génération avec des fonctions gaussiennes (3D) :
 \textbf{Demo of the SVM}
 \end{center}
 
-\end{frame}
 \end{frame}
 
 

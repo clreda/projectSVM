@@ -55,21 +55,32 @@
 \headcommand {\sectionentry {3}{Extensions}{34}{Extensions}{0}}
 \headcommand {\beamer@sectionpages {25}{33}}
 \headcommand {\beamer@subsectionpages {29}{33}}
-\headcommand {\slideentry {3}{0}{6}{34/34}{}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{34}{Cross Validation}}\headcommand {\beamer@subsectionpages {34}{33}}
+\headcommand {\slideentry {3}{1}{1}{34/34}{Cross Validation}{0}}
 \headcommand {\beamer@framepages {34}{34}}
-\headcommand {\slideentry {3}{0}{7}{35/36}{}{0}}
+\headcommand {\slideentry {3}{1}{2}{35/36}{Cross Validation}{0}}
 \headcommand {\beamer@framepages {35}{36}}
-\headcommand {\slideentry {3}{0}{8}{37/37}{}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{37}{Coordinate Descent}}\headcommand {\beamer@subsectionpages {34}{36}}
+\headcommand {\slideentry {3}{2}{1}{37/37}{Coordinate Descent}{0}}
 \headcommand {\beamer@framepages {37}{37}}
-\headcommand {\sectionentry {4}{Demo}{38}{Demo}{0}}
-\headcommand {\beamer@sectionpages {34}{37}}
-\headcommand {\beamer@subsectionpages {34}{37}}
-\headcommand {\slideentry {4}{0}{9}{38/38}{}{0}}
-\headcommand {\beamer@framepages {38}{38}}
-\headcommand {\slideentry {4}{0}{10}{39/39}{}{0}}
-\headcommand {\beamer@framepages {39}{39}}
-\headcommand {\beamer@partpages {1}{39}}
-\headcommand {\beamer@subsectionpages {38}{39}}
-\headcommand {\beamer@sectionpages {38}{39}}
-\headcommand {\beamer@documentpages {39}}
-\headcommand {\def \inserttotalframenumber {26}}
+\headcommand {\slideentry {3}{2}{2}{38/39}{Coordinate Descent}{0}}
+\headcommand {\beamer@framepages {38}{39}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{40}{ACCPM}}\headcommand {\beamer@subsectionpages {37}{39}}
+\headcommand {\slideentry {3}{3}{1}{40/40}{ACCPM}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\slideentry {3}{3}{2}{41/42}{ACCPM}{0}}
+\headcommand {\beamer@framepages {41}{42}}
+\headcommand {\slideentry {3}{3}{3}{43/43}{ACCPM}{0}}
+\headcommand {\beamer@framepages {43}{43}}
+\headcommand {\sectionentry {4}{Demo}{44}{Demo}{0}}
+\headcommand {\beamer@sectionpages {34}{43}}
+\headcommand {\beamer@subsectionpages {40}{43}}
+\headcommand {\slideentry {4}{0}{4}{44/44}{}{0}}
+\headcommand {\beamer@framepages {44}{44}}
+\headcommand {\slideentry {4}{0}{5}{45/45}{}{0}}
+\headcommand {\beamer@framepages {45}{45}}
+\headcommand {\beamer@partpages {1}{45}}
+\headcommand {\beamer@subsectionpages {44}{45}}
+\headcommand {\beamer@sectionpages {44}{45}}
+\headcommand {\beamer@documentpages {45}}
+\headcommand {\def \inserttotalframenumber {30}}
