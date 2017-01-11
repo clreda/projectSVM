@@ -65,22 +65,24 @@
 \headcommand {\beamer@framepages {37}{37}}
 \headcommand {\slideentry {3}{2}{2}{38/39}{Coordinate Descent}{0}}
 \headcommand {\beamer@framepages {38}{39}}
-\headcommand {\beamer@subsectionentry {0}{3}{3}{40}{ACCPM}}\headcommand {\beamer@subsectionpages {37}{39}}
-\headcommand {\slideentry {3}{3}{1}{40/40}{ACCPM}{0}}
+\headcommand {\slideentry {3}{2}{3}{40/40}{Coordinate Descent}{0}}
 \headcommand {\beamer@framepages {40}{40}}
-\headcommand {\slideentry {3}{3}{2}{41/42}{ACCPM}{0}}
-\headcommand {\beamer@framepages {41}{42}}
-\headcommand {\slideentry {3}{3}{3}{43/43}{ACCPM}{0}}
-\headcommand {\beamer@framepages {43}{43}}
-\headcommand {\sectionentry {4}{Demo}{44}{Demo}{0}}
-\headcommand {\beamer@sectionpages {34}{43}}
-\headcommand {\beamer@subsectionpages {40}{43}}
-\headcommand {\slideentry {4}{0}{4}{44/44}{}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{41}{ACCPM}}\headcommand {\beamer@subsectionpages {37}{40}}
+\headcommand {\slideentry {3}{3}{1}{41/41}{ACCPM}{0}}
+\headcommand {\beamer@framepages {41}{41}}
+\headcommand {\slideentry {3}{3}{2}{42/43}{ACCPM}{0}}
+\headcommand {\beamer@framepages {42}{43}}
+\headcommand {\slideentry {3}{3}{3}{44/44}{ACCPM}{0}}
 \headcommand {\beamer@framepages {44}{44}}
-\headcommand {\slideentry {4}{0}{5}{45/45}{}{0}}
+\headcommand {\sectionentry {4}{Demo}{45}{Demo}{0}}
+\headcommand {\beamer@sectionpages {34}{44}}
+\headcommand {\beamer@subsectionpages {41}{44}}
+\headcommand {\slideentry {4}{0}{4}{45/45}{}{0}}
 \headcommand {\beamer@framepages {45}{45}}
-\headcommand {\beamer@partpages {1}{45}}
-\headcommand {\beamer@subsectionpages {44}{45}}
-\headcommand {\beamer@sectionpages {44}{45}}
-\headcommand {\beamer@documentpages {45}}
-\headcommand {\def \inserttotalframenumber {30}}
+\headcommand {\slideentry {4}{0}{5}{46/46}{}{0}}
+\headcommand {\beamer@framepages {46}{46}}
+\headcommand {\beamer@partpages {1}{46}}
+\headcommand {\beamer@subsectionpages {45}{46}}
+\headcommand {\beamer@sectionpages {45}{46}}
+\headcommand {\beamer@documentpages {46}}
+\headcommand {\def \inserttotalframenumber {31}}
